@@ -8,6 +8,7 @@ namespace Spacats.Input
     {
         public Vector2 Movement;
         public Vector2 LookDelta;
+        public float ZoomDelta;
         public ButtonPhaseEnum AttackPhase;
         public bool IsAttacking =>AttackPhase== ButtonPhaseEnum.OnDown || AttackPhase== ButtonPhaseEnum.OnHoldTriggered;
 
@@ -16,6 +17,7 @@ namespace Spacats.Input
             AttackPhase = ButtonPhaseEnum.OnUp;
             Movement = Vector2.zero;
             LookDelta = Vector2.zero;
+            ZoomDelta = 0;
         }
         
     }

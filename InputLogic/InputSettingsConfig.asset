@@ -15,3 +15,4 @@ MonoBehaviour:
   _sensitivityData:
     CharacterLookSensitivityX_PC: 1
     CharacterLookSensitivityY_PC: 1
+    CharacterZoomSensitivity_PC: 1

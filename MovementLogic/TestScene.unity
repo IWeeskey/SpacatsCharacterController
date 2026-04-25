@@ -744,6 +744,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701120473}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &722898539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722898540}
+  m_Layer: 0
+  m_Name: CharacterCameraParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &722898540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722898539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &743638072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,7 +2266,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1685632524}
         m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
-        m_MethodName: OnLook
+        m_MethodName: OnLookDelta
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2247,6 +2278,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c60e0974-d140-4597-a40e-9862193067e9
     m_ActionName: 'gameplay/look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnZoomDelta
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 50437769-7129-44dd-8fa3-ea0950ed3b3a
+    m_ActionName: 'PlayerControls/Zoom[/Mouse/scroll]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -2775,3 +2822,4 @@ SceneRoots:
   - {fileID: 1467409631}
   - {fileID: 1384486730}
   - {fileID: 1099430525}
+  - {fileID: 722898540}

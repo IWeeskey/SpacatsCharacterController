@@ -25,13 +25,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
+                    "name": "LookDelta",
                     "type": "Value",
                     "id": "c60e0974-d140-4597-a40e-9862193067e9",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Zoom",
+                    "type": "PassThrough",
+                    "id": "50437769-7129-44dd-8fa3-ea0950ed3b3a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -119,7 +128,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "LookDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -130,7 +139,18 @@
                     "interactions": "",
                     "processors": "ScaleVector2(x=2,y=2)",
                     "groups": "",
-                    "action": "Look",
+                    "action": "LookDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "305e385e-0643-43c8-a6a5-def6c50eb814",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

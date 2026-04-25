@@ -11,7 +11,7 @@ namespace Spacats.Input
         
         public float CharacterLookSensitivityX_PC;
         public float CharacterLookSensitivityY_PC;
-
+        public float CharacterZoomSensitivity_PC;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float CharacterLookSensitivityX()
@@ -27,6 +27,15 @@ namespace Spacats.Input
         {
 #if UNITY_STANDALONE
             return CharacterLookSensitivityY_PC;
+#endif
+            return 1f;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float CharacterZoomSensitivity()
+        {
+#if UNITY_STANDALONE
+            return CharacterZoomSensitivity_PC;
 #endif
             return 1f;
         }

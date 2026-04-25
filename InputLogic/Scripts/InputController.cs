@@ -106,6 +106,13 @@ namespace Spacats.Input
             
             _characterInput.LookDelta = value;
         }
+        
+        public void OnZoomDelta(InputAction.CallbackContext context)
+        {
+            Vector2 value = context.ReadValue<Vector2>();
+            value.y *= _sensitivityData.CharacterLookSensitivityY();
+            _characterInput.ZoomDelta = value.y;
+        }
 
         #endregion
     }
