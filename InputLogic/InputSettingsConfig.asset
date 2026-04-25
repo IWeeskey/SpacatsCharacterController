@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: InputSettingsConfig
   m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.Input.InputSettingsConfig
   _sensitivityData:
-    CharacterLookSensitivityX_PC: 0
-    CharacterLookSensitivityY_PC: 0
+    CharacterLookSensitivityX_PC: 1
+    CharacterLookSensitivityY_PC: 1
