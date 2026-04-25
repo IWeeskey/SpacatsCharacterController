@@ -2,7 +2,8 @@
     "name": "spacats_charactercontroller_package",
     "rootNamespace": "",
     "references": [
-        "GUID:9fd19a828c82d3548a3f0dd8a771a57e"
+        "GUID:9fd19a828c82d3548a3f0dd8a771a57e",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
