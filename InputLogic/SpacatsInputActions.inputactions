@@ -3,20 +3,20 @@
     "name": "SpacatsInputActions",
     "maps": [
         {
-            "name": "gameplay",
+            "name": "PlayerControls",
             "id": "265c38f5-dd18-4d34-b198-aec58e1627ff",
             "actions": [
                 {
-                    "name": "fire",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "1077f913-a9f9-41b1-acb3-b9ee0adbc744",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap,SlowTap",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "move",
+                    "name": "CharacterMovement",
                     "type": "Value",
                     "id": "50fd2809-3aa3-4a90-988e-1facf6773553",
                     "expectedControlType": "Vector2",
@@ -25,7 +25,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "look",
+                    "name": "Look",
                     "type": "Value",
                     "id": "c60e0974-d140-4597-a40e-9862193067e9",
                     "expectedControlType": "Vector2",
@@ -42,7 +42,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "fire",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -53,18 +53,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "CharacterMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Dpad",
+                    "name": "WASD",
                     "id": "cefc16fc-557a-44b0-939f-2ad792876b07",
                     "path": "Dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "CharacterMovement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -75,7 +75,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "CharacterMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -86,7 +86,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "CharacterMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -97,7 +97,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "CharacterMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -108,7 +108,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "CharacterMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -119,7 +119,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "look",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -130,7 +130,7 @@
                     "interactions": "",
                     "processors": "ScaleVector2(x=2,y=2)",
                     "groups": "",
-                    "action": "look",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

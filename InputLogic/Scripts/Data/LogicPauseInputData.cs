@@ -4,8 +4,10 @@ using UnityEngine;
 namespace Spacats.Input
 {
     [Serializable]
-    public class LogicPauseInput
+    public class LogicPauseInputData
     {
-        
+        public void Reset()
+        {
+        }
     }
 }

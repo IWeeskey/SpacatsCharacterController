@@ -55,21 +55,35 @@ namespace Spacats.Input
         private void DrawSettings()
         {
             DrawFields();
+            DrawButtons();
         }
         
         private void DrawFields()
         {
             InputController targetScript = (InputController)target;
 
-            GUILayout.TextArea("Last Input Actions: " + targetScript.LastInputActions);
+            //GUILayout.TextArea("Last Input Actions: " + targetScript.LastInputActions);
             // GUILayout.TextArea("Active Tweens: " + targetScript.ActiveTweensCount);
             // GUILayout.TextArea("Tweens pool: " + targetScript.TweensListCount);
             //
+            
+            SerializedProperty config = serializedObject.FindProperty("_config");
+            EditorGUILayout.PropertyField(config);
+            
             SerializedProperty characterInput = serializedObject.FindProperty("_characterInput");
             EditorGUILayout.PropertyField(characterInput);
             
             SerializedProperty logicPauseInput = serializedObject.FindProperty("_logicPauseInput");
             EditorGUILayout.PropertyField(logicPauseInput);
+        }
+
+        private void DrawButtons()
+        {
+            InputController targetScript = (InputController)target;
+            if (GUILayout.Button("Refresh Settings"))
+            {
+                targetScript.RefreshSettings();
+            }
         }
     }
 }

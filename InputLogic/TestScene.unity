@@ -128,8 +128,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1685632525}
-  - component: {fileID: 1685632524}
   - component: {fileID: 1685632526}
+  - component: {fileID: 1685632524}
   m_Layer: 0
   m_Name: '[0 SpaCats] InputController'
   m_TagString: Untagged
@@ -157,6 +157,9 @@ MonoBehaviour:
   PersistsAtScenes: []
   _characterInput:
     Movement: {x: 0, y: 0}
+    Look: {x: 0, y: 0}
+    AttackPhase: 2
+  _config: {fileID: 11400000, guid: e794f4c5547259f488e010ad91b5800f, type: 2}
 --- !u!4 &1685632525
 Transform:
   m_ObjectHideFlags: 0
@@ -198,7 +201,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1077f913-a9f9-41b1-acb3-b9ee0adbc744
     m_ActionName: 'gameplay/fire[/Mouse/leftButton]'
   - m_PersistentCalls:
@@ -214,16 +229,28 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
     m_ActionId: 50fd2809-3aa3-4a90-988e-1facf6773553
     m_ActionName: 'gameplay/move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c60e0974-d140-4597-a40e-9862193067e9
     m_ActionName: 'gameplay/look[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: gameplay
+  m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &1774753642
