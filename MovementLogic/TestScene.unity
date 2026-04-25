@@ -753,6 +753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 722898540}
+  - component: {fileID: 722898541}
   m_Layer: 0
   m_Name: CharacterCameraParent
   m_TagString: Untagged
@@ -769,12 +770,37 @@ Transform:
   m_GameObject: {fileID: 722898539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.19, z: -4.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2109381373}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722898541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722898539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571465fd9e20b9143a0dcefd3f56e212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterCamera
+  _followTarget: {fileID: 1099430526}
+  _lookTransform: {fileID: 2109381373}
+  _followCharacterSettings:
+    DefaultZoom: 5
+    MinMaxZoom: {x: 0.1, y: 20}
+    PositionFollowSpeed: 10
+    ZoomSpeed: 1
+    LookYDevider: 0.25
+    LookZDevider: -1
+  _cRData:
+    CurrentZoomValue: 0
+    TargetZoomValue: 0
 --- !u!1 &743638072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,6 +1035,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1099430525}
   - component: {fileID: 1099430524}
+  - component: {fileID: 1099430526}
   m_Layer: 0
   m_Name: CharacterParent
   m_TagString: Untagged
@@ -1060,6 +1087,20 @@ Transform:
   - {fileID: 1465926509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1099430526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099430523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf102605f5b18f4a90ad3098b330d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacats_charactercontroller_package::CameraFollowTarget
+  Scale: 1
+  FixedFollowOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &1107693512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,12 +1974,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467409628}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.049702056, y: 0.94817895, z: -0.25204286, w: -0.18697822}
-  m_LocalPosition: {x: 8, y: 12.1, z: 19.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2109381373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580347846
 GameObject:
@@ -2188,6 +2229,7 @@ MonoBehaviour:
   _characterInput:
     Movement: {x: 0, y: 0}
     LookDelta: {x: 0, y: 0}
+    ZoomDelta: 0
     AttackPhase: 2
   _config: {fileID: 11400000, guid: e794f4c5547259f488e010ad91b5800f, type: 2}
 --- !u!4 &1685632525
@@ -2813,13 +2855,44 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090751643}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2109381372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109381373}
+  m_Layer: 0
+  m_Name: LookTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2109381373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109381372}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1467409631}
+  m_Father: {fileID: 722898540}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1774753644}
   - {fileID: 1672501456}
-  - {fileID: 1467409631}
   - {fileID: 1384486730}
   - {fileID: 1099430525}
   - {fileID: 722898540}

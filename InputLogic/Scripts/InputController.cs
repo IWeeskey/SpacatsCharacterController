@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 namespace Spacats.Input
 {
+    [ExecuteInEditMode]
+    [DefaultExecutionOrder(-10)]
     public class InputController : Controller
     {
         private static InputController _instance;
@@ -17,10 +19,10 @@ namespace Spacats.Input
         // public string LastInputActions => _lastInputActions;
         
         
-        [SerializeField] private CharacterInputData _characterInput = new CharacterInputData();
+        [SerializeField] private CharacterInputData _characterInput;
         public CharacterInputData CharacterInput => _characterInput;
         
-        [SerializeField] private LogicPauseInputData _logicPauseInput = new LogicPauseInputData();
+        [SerializeField] private LogicPauseInputData _logicPauseInput;
         public LogicPauseInputData LogicPauseInput => _logicPauseInput;
         private InputSensitivityData _sensitivityData;
         [SerializeField] private InputSettingsConfig _config;
@@ -110,7 +112,7 @@ namespace Spacats.Input
         public void OnZoomDelta(InputAction.CallbackContext context)
         {
             Vector2 value = context.ReadValue<Vector2>();
-            value.y *= _sensitivityData.CharacterLookSensitivityY();
+            value.y *= _sensitivityData.CharacterZoomSensitivity();
             _characterInput.ZoomDelta = value.y;
         }
 
