@@ -775,6 +775,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2109381373}
+  - {fileID: 1459151357}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &722898541
@@ -791,13 +792,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterCamera
   _followTarget: {fileID: 1099430526}
   _lookTransform: {fileID: 2109381373}
+  _lookAtTransform: {fileID: 1459151357}
   _followCharacterSettings:
     DefaultZoom: 5
     MinMaxZoom: {x: 0.1, y: 20}
     MinMaxRot: {x: -50, y: 70}
+    PositionFixedXOffset: 0
     PositionFollowSpeed: 10
     RotationFollowSpeed: 10
-    ZoomSpeed: 1
+    ZoomSpeed: 10
     LookYModifier: 0.25
     LookZModifier: -1
     RotationYModifier: -0.1
@@ -1862,6 +1865,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385142965}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1459151356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459151357}
+  m_Layer: 0
+  m_Name: LookAtParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459151357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459151356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722898540}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1465926508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2931,7 +2965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2109381373}
   m_Layer: 0
-  m_Name: LookTransform
+  m_Name: LookParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,6 +10,7 @@ namespace Spacats.CharacterCamera
         
         [SerializeField] private CameraFollowTarget _followTarget;
         [SerializeField] private Transform _lookTransform;
+        [SerializeField] private Transform _lookAtTransform;
         [SerializeField] private FollowCharacterSettings  _followCharacterSettings;
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
@@ -45,22 +46,22 @@ namespace Spacats.CharacterCamera
 
         private void DoFollowCharacter()
         {
-            Vector3 targetPosition = DoFollowCharacter_position();
+            DoFollowCharacter_position();
             DoFollowCharacter_zoom();
             DoFollowCharacter_rotation();
             
-            _lookTransform.LookAt(targetPosition);
+            _lookTransform.LookAt(_lookAtTransform);
         }
 
-        private Vector3 DoFollowCharacter_position()
+        private void DoFollowCharacter_position()
         {
-            if (_followTarget==null) return transform.forward;
+            if (_followTarget==null) return;
+            if (_lookAtTransform==null) return;
             
             Vector3 targetPosition = _followTarget.GetFollowPosition();
             Vector3 selfPosition = transform.position;
-            
+            _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
             transform.position = Vector3.Lerp(selfPosition, targetPosition, Time.deltaTime*_followCharacterSettings.PositionFollowSpeed);
-            return targetPosition;
         }
 
         private void DoFollowCharacter_zoom()
@@ -87,8 +88,10 @@ namespace Spacats.CharacterCamera
         private void DoFollowCharacterInstant()
         {
             if (_followTarget==null) return;
+            if (_lookAtTransform==null) return;
             Vector3 targetPosition = _followTarget.GetFollowPosition();
             transform.position = targetPosition;
+            _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
             
             if (_lookTransform==null) return;
             Vector3 lookOffset = Vector3.zero;
@@ -99,7 +102,7 @@ namespace Spacats.CharacterCamera
             gameObject.transform.localEulerAngles = _cRData.TargetEulers;
             
             
-            _lookTransform.LookAt(targetPosition);
+            _lookTransform.LookAt(_lookAtTransform);
         }
     }
 }

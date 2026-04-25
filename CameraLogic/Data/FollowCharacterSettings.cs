@@ -10,6 +10,8 @@ namespace Spacats.CharacterCamera
         public Vector2 MinMaxZoom = new Vector2(0.1f, 20f);
         public Vector2 MinMaxRot = new Vector2(-20, 80f);
         
+        public Vector3 FixedLookAtOffset = Vector3.zero;
+        
         public float PositionFollowSpeed = 1f;
         public float RotationFollowSpeed = 1f;
         public float ZoomSpeed = 1f;
