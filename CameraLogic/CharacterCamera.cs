@@ -1,5 +1,6 @@
 using System;
 using Spacats.Input;
+using Spacats.Utils;
 using UnityEngine;
 
 namespace Spacats.CharacterCamera
@@ -11,10 +12,11 @@ namespace Spacats.CharacterCamera
         [SerializeField] private CameraFollowTarget _followTarget;
         [SerializeField] private Transform _lookTransform;
         [SerializeField] private Transform _lookAtTransform;
+        [SerializeField] private Transform _moveDirectionTransform;
         [SerializeField] private FollowCharacterSettings  _followCharacterSettings;
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
-
+        public Vector3 GetMoveDirection => _cRData.MoveDirection;
         
         private void Awake()
         {
@@ -42,10 +44,18 @@ namespace Spacats.CharacterCamera
             _cRData.TargetEulers.y += _characterInput.LookDelta.x*_followCharacterSettings.RotationXModifier;//horizontal
             _cRData.TargetEulers.x += _characterInput.LookDelta.y*_followCharacterSettings.RotationYModifier;//vertical
             _cRData.TargetEulers.x = Mathf.Clamp(_cRData.TargetEulers.x, _followCharacterSettings.MinMaxRot.x, _followCharacterSettings.MinMaxRot.y);
+
+            _moveDirectionTransform.localPosition = new Vector3(_characterInput.Movement.x, 0, _characterInput.Movement.y);
+            Vector3 dirPosition = _moveDirectionTransform.position;
+            Vector3 selfPosition = gameObject.transform.position;
+            dirPosition.y = selfPosition.y;
+            _cRData.MoveDirection = - selfPosition + dirPosition;
         }
 
         private void DoFollowCharacter()
         {
+            if (PauseController.IsPaused) return;
+            
             DoFollowCharacter_position();
             DoFollowCharacter_zoom();
             DoFollowCharacter_rotation();

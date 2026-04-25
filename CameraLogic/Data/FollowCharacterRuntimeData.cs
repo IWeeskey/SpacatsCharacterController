@@ -12,6 +12,8 @@ namespace Spacats.CharacterCamera
         public Quaternion CurrentRotation;
         public Vector3 TargetEulers;
         
+        public Vector3 MoveDirection;
+        
         public void Reset(FollowCharacterSettings settings)
         {
             CurrentZoomValue = settings.DefaultZoom;
