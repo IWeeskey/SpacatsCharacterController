@@ -1,0 +1,29 @@
+{
+  "name": "com.spacats.charactercontroller",
+  "version": "0.5.4",
+  "displayName": "Spacats CharacterController",
+  "description": "Spacats CharacterController is a Unity package made for animating humanoid like characters",
+  "unity": "6000.3",
+  "dependencies": {
+ },
+ "keywords": [
+    "Spacats"
+  ],
+  "author": {
+    "name": "Ivan Weeskey (Ivan Kurdakov S.)",
+    "email": "ivan.kurdakov.develop@gmail.com",
+    "url": ""
+  },
+  "samples": [
+    {
+	"displayName": "Spacats CharacterController Examples",
+	"description": "Examples",
+	"path": "Examples~/Spacats CharacterController Examples"
+	}
+  ],
+  "dependencies": {
+	"com.unity.burst": "1.8.26",
+    "com.unity.mathematics": "1.3.3",
+    "com.unity.collections": "2.6.2"
+  }
+}
