@@ -794,13 +794,19 @@ MonoBehaviour:
   _followCharacterSettings:
     DefaultZoom: 5
     MinMaxZoom: {x: 0.1, y: 20}
+    MinMaxRot: {x: -50, y: 70}
     PositionFollowSpeed: 10
+    RotationFollowSpeed: 10
     ZoomSpeed: 1
-    LookYDevider: 0.25
-    LookZDevider: -1
+    LookYModifier: 0.25
+    LookZModifier: -1
+    RotationYModifier: -0.1
+    RotationXModifier: 0.1
   _cRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0
+    CurrentRotation: {x: 0, y: 0, z: 0, w: 0}
+    TargetEulers: {x: 0, y: 0, z: 0}
 --- !u!1 &743638072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2347,64 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1 &1717121728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1717121730}
+  - component: {fileID: 1717121729}
+  m_Layer: 0
+  m_Name: '[0 SpaCats] ScreenShotCapture'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1717121729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717121728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1da1bb74e5fcd34a9f05b3034b569cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacatsutils::Spacats.Utils.ScreenShotCapture
+  UniqueTag: 
+  ExecuteInEditor: 1
+  ShowLogs: 0
+  ShowCLogs: 0
+  ExecuteOrder: 0
+  PersistsAtScenes: []
+  PerformLogic: 1
+  SavePath: C:/
+  NamePrefix: TestScreenShot
+  CaptureKey: 99
+  EditorPauseKey: 112
+  GamePauseKey: 111
+  SuperSize: 1
+  EditorCaptureScreen: 0
+--- !u!4 &1717121730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717121728}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1774753644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1731407970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2486,6 +2550,7 @@ MonoBehaviour:
   ShowLogs: 0
   ShowSLogs: 0
   _controllers:
+  - {fileID: 1717121729}
   - {fileID: 1685632524}
 --- !u!4 &1774753644
 Transform:
@@ -2501,6 +2566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1685632525}
+  - {fileID: 1717121730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793220285

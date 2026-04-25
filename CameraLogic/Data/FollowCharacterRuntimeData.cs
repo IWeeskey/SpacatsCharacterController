@@ -8,11 +8,17 @@ namespace Spacats.CharacterCamera
     {
         public float CurrentZoomValue;
         public float TargetZoomValue;
+
+        public Quaternion CurrentRotation;
+        public Vector3 TargetEulers;
+        
         public void Reset(FollowCharacterSettings settings)
         {
             CurrentZoomValue = settings.DefaultZoom;
 
             TargetZoomValue = CurrentZoomValue;
+            
+            TargetEulers = Vector3.zero;
         }
     }
 }
