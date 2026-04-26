@@ -6,7 +6,7 @@ namespace Spacats.CharacterController
     {
         public Transform _lookAtTarget;
         
-        void Update()
+        void LateUpdate()
         {
             if (_lookAtTarget==null) return;
             gameObject.transform.LookAt(_lookAtTarget);

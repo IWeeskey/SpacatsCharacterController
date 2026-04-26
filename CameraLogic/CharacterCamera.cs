@@ -7,22 +7,30 @@ namespace Spacats.CharacterCamera
 {
     public class CharacterCamera : MonoBehaviour
     {
+        public int ApplicationFrameRate = 30;
+        
         private CharacterInputData _characterInput;
         
         [SerializeField] private CameraFollowTarget _followTarget;
         [SerializeField] private Transform _lookTransform;
         [SerializeField] private Transform _lookAtTransform;
         [SerializeField] private Transform _moveDirectionTransform;
+        [SerializeField] private Transform _moveRotationTransform;
         [SerializeField] private FollowCharacterSettings  _followCharacterSettings;
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
         public Vector3 GetMoveDirection => _cRData.MoveDirection;
+
+        public Action OnInputProcessed;
+        public Action OnBeforeFollow;
         
+        private Vector3 _followVelocityRef = new Vector3(0,0,0);
         private void Awake()
         {
             GetInput();
             _cRData.Reset(_followCharacterSettings);
             DoFollowCharacterInstant();
+            Application.targetFrameRate = ApplicationFrameRate;
         }
 
         private void GetInput()
@@ -33,6 +41,11 @@ namespace Spacats.CharacterCamera
         void Update()
         {
             ApplyInput();
+        }
+
+        void LateUpdate()
+        {
+            OnBeforeFollow?.Invoke();
             DoFollowCharacter();
         }
 
@@ -50,6 +63,8 @@ namespace Spacats.CharacterCamera
             Vector3 selfPosition = gameObject.transform.position;
             dirPosition.y = selfPosition.y;
             _cRData.MoveDirection = - selfPosition + dirPosition;
+            
+            OnInputProcessed?.Invoke();
         }
 
         private void DoFollowCharacter()
@@ -69,9 +84,10 @@ namespace Spacats.CharacterCamera
             if (_lookAtTransform==null) return;
             
             Vector3 targetPosition = _followTarget.GetFollowPosition();
-            Vector3 selfPosition = transform.position;
+            //Vector3 selfPosition = transform.position;
             _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
-            transform.position = Vector3.Lerp(selfPosition, targetPosition, Time.deltaTime*_followCharacterSettings.PositionFollowSpeed);
+            //transform.position = Vector3.Lerp(selfPosition, targetPosition, Time.deltaTime*_followCharacterSettings.PositionFollowSpeed);
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocityRef, 1f/_followCharacterSettings.PositionFollowSpeed);
         }
 
         private void DoFollowCharacter_zoom()
