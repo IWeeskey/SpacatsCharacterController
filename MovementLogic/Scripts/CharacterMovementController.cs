@@ -82,7 +82,13 @@ namespace Spacats.CharacterController
         private void ProcessOnGround()
         {
             _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * _settings.MoveSpeed;
-            _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-1f;
+            _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-0.5f;
+
+            // if (_runtimeData.HorizontalSpeed < 0.1f)
+            // {
+            //     _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-1f;
+            //     //_runtimeData.RuntimeVelocity = Vector3.zero;
+            // }
             
             _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
             

@@ -1596,7 +1596,7 @@ MonoBehaviour:
     WaterLayers:
       serializedVersion: 2
       m_Bits: 16
-    OnGroundThreshold: 0.5
+    OnGroundThreshold: 0.4
     Gravity: -9.8
     MoveSpeed: 10
     Rigidbody: {fileID: 1099430524}
