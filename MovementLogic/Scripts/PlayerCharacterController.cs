@@ -49,7 +49,6 @@ namespace Spacats.CharacterController
 
         void FixedUpdate()
         {
-            if (PauseController.IsPaused) return;
             _movementController.TryMove(_pRData.MoveDirection);
             //_rotationController.TryRotate(_pRData.MoveDirection);
         }

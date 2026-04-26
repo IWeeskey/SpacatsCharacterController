@@ -6,62 +6,93 @@ namespace Spacats.CharacterController
 {
     public class CharacterMovementController : MonoBehaviour
     {
-        [SerializeField] private LayerMask _groundLayers;
-        [SerializeField] private float _distanceToGround;
+        [SerializeField] private MovementRuntimeData _runtimeData;
+        [SerializeField] private MovementSettings _settings;
         
-        [SerializeField] private float _onGroundThreshold = 0.5f;
-        [SerializeField] private float _gravity = -9.8f;
-        [SerializeField] private float _moveSpeed = 1f;
-        //[SerializeField] private float _changeDirectionSpeed = 1f;
-        [SerializeField] private Rigidbody _rigidbody;
-        private Vector3 _unpausedVelocity;
-        private bool _wasPaused = false;
-        
-        private RaycastHit _rHit = new RaycastHit();
-        private Ray _ray = new Ray();
-
-        [SerializeField] private Vector3 _runtimeVelocity;
          
         public void TryMove(Vector3 moveDirection)
         {
+            _runtimeData.RigidBodyVelocity = _settings.Rigidbody.linearVelocity;
+            _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
             if (PauseController.IsPaused)
             {
-                _rigidbody.linearVelocity = Vector3.zero;
-                _wasPaused = true;
+                //_settings.Rigidbody.for
+                _settings.Rigidbody.linearVelocity = Vector3.zero;
+                _settings.Rigidbody.angularVelocity = Vector3.zero;
+                //_settings.Rigidbody.isKinematic = true;
+                _runtimeData.WasPaused = true;
                 return;
             }
 
-            DetectGround();
-
-            if (_wasPaused)
+            _runtimeData.MoveDirection = moveDirection;
+            
+            if (_runtimeData.WasPaused)
             {
-                _wasPaused = false;
-                _rigidbody.linearVelocity = _unpausedVelocity;
+                //_settings.Rigidbody.isKinematic = false;
+                _runtimeData.WasPaused = false;
+                _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
             }
-            //if (moveDirection.magnitude<0.1f) return;
-            
-            //Vector3 startVelocity = _rigidbody.linearVelocity;
-            _runtimeVelocity = moveDirection * _moveSpeed;
-            _runtimeVelocity.y = _rigidbody.linearVelocity.y;
-            if (_distanceToGround>_onGroundThreshold)  _runtimeVelocity.y = _gravity;
-            
-            _rigidbody.linearVelocity = _runtimeVelocity;
-            _unpausedVelocity = _rigidbody.linearVelocity;
+
+            GetDistanceToGround();
+            CalculateState();
+
+
+            RefreshCurrentSpeed();
+            switch (_runtimeData.State)
+            {
+                case SpaceStates.InAir: ProcessInAir(); break;
+                case SpaceStates.OnGround: ProcessOnGround(); break;
+                case SpaceStates.InWater: break;
+            }
         }
 
-        private void DetectGround()
+        private void RefreshCurrentSpeed()
         {
-            _ray.origin = _rigidbody.position;
-            _ray.direction = Vector3.down;
+            Vector3 horizontalVelocity = _settings.Rigidbody.linearVelocity;
+            horizontalVelocity.y = 0f;
+            _runtimeData.HorizontalSpeed = horizontalVelocity.magnitude;
+        }
+
+        private void GetDistanceToGround()
+        {
+            _runtimeData.Ray.origin = _settings.Rigidbody.position;
+            _runtimeData.Ray.direction = Vector3.down;
             
-            Physics.Raycast(_ray, out _rHit, Mathf.Infinity, _groundLayers);
+            Physics.Raycast(_runtimeData.Ray, out _runtimeData.RHit, Mathf.Infinity, _settings.GroundLayers);
             // if (_rHit.collider == null)
             // {
             //     _distanceToGround = 999f;
             //     return;
             // }
 
-            _distanceToGround = _rHit.distance;
+            _runtimeData.DistanceToGround = _runtimeData.RHit.distance;
+        }
+
+        private void CalculateState()
+        {
+            if (_runtimeData.DistanceToGround < _settings.OnGroundThreshold)
+            {
+                _runtimeData.State = SpaceStates.OnGround;
+                return;
+            }
+            
+            _runtimeData.State = SpaceStates.InAir;
+        }
+
+        private void ProcessOnGround()
+        {
+            _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * _settings.MoveSpeed;
+            _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-1f;
+            
+            _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
+            
+           
+        }
+        
+        private void ProcessInAir()
+        {
+            _runtimeData.RuntimeVelocity.y = _settings.Gravity;
+            _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
         }
     }
 }

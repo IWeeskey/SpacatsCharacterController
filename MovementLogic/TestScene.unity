@@ -1519,7 +1519,7 @@ Rigidbody:
   m_GameObject: {fileID: 1099430523}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 10
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1532,10 +1532,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!4 &1099430525
 Transform:
@@ -1580,8 +1580,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca2ff52dc07fe948a84da761e26575a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterMovementController
-  _moveSpeed: 10
-  _rigidbody: {fileID: 1099430524}
+  _runtimeData:
+    State: 0
+    DistanceToGround: 0
+    RuntimeVelocity: {x: 0, y: 0, z: 0}
+    HorizontalSpeed: 0
+    RigidBodyVelocity: {x: 0, y: 0, z: 0}
+    RigidBodySpeed: 0
+    MoveDirection: {x: 0, y: 0, z: 0}
+    WasPaused: 0
+  _settings:
+    GroundLayers:
+      serializedVersion: 2
+      m_Bits: 1
+    WaterLayers:
+      serializedVersion: 2
+      m_Bits: 16
+    OnGroundThreshold: 0.5
+    Gravity: -9.8
+    MoveSpeed: 10
+    Rigidbody: {fileID: 1099430524}
 --- !u!114 &1099430528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,7 +1631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterRotationController
   _rotationSpeed: 10
-  _rigidbody: {fileID: 1099430524}
+  _rotateParent: {fileID: 1465926509}
 --- !u!1 &1107693512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3727,7 +3745,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961501032}
-  m_Material: {fileID: 13400000, guid: 96497d3166e848040bef5b0522d711db, type: 2}
+  m_Material: {fileID: 13400000, guid: 63ade3ea768e5e14ab18d20a5b1eda7a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
