@@ -6,6 +6,8 @@ namespace Spacats.CharacterController
     public class CharacterRotationController : MonoBehaviour
     {
         public bool DontLookBack = false;
+        public int FramesToFixAngle = 2;
+        [SerializeField] private int _framesToFixAngleLeft = 0;
         [SerializeField] private bool _movingBack = false;
         [SerializeField] private float _angle;
         [SerializeField] private float _fixedAngle;
@@ -13,16 +15,21 @@ namespace Spacats.CharacterController
 
         [SerializeField] private Vector3 _moveDirection;
         [SerializeField] private Vector3 _moveDirectionF;
-        [SerializeField] private Vector2 _angleMinMax = new Vector2(-90, 90);
+        [SerializeField] private Vector2 _angleMinMax = new Vector2(-91, 92);
+        [SerializeField] private float _angleBorderGap = 2f;
         
         [SerializeField] public Transform _rotateParent;
-        //[SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] public float _prevAngle;
+
+
+        public bool AtRightBorder;
+        public bool AtLeftBorder;
         public bool TryRotate(Vector3 moveDirection, Vector3 forwardVector)
         {
             if (PauseController.IsPaused) return _movingBack;
             if (moveDirection.magnitude<0.1f) return _movingBack;
             _movingBack = false;
-            if (DontLookBack)
+            if (DontLookBack && _framesToFixAngleLeft<=0)
             {
                 _moveDirection = moveDirection;
                 _angle = Vector3.SignedAngle(forwardVector, moveDirection, Vector3.up);
@@ -30,18 +37,36 @@ namespace Spacats.CharacterController
                 {
                     //ok
                 }
-
-                else
+                //out of _angleMinMax
+                else 
                 {
                     moveDirection = forwardVector;
                     _movingBack = true;
                 }
+
+                bool curLeft = IsAngleAtLeftBorder(_angle);
+                bool curRight = IsAngleAtRightBorder(_angle);
                 
-                //_moveDirectionF = ClampVectorAngleRange(forwardVector, moveDirection, -90, 90);
-                //moveDirection = _moveDirectionF;
-                //_fixedAngle =  Vector3.SignedAngle(forwardVector, moveDirection, Vector3.up);
+                if (curLeft || curRight)
+                {
+                    bool prevLeft = IsAngleAtLeftBorder(_prevAngle);
+                    bool prevRight = IsAngleAtRightBorder(_prevAngle);
+
+                    if (curLeft && prevRight) _framesToFixAngleLeft = FramesToFixAngle;
+                    if (curRight && prevLeft) _framesToFixAngleLeft = FramesToFixAngle;
+                }
+
+                _prevAngle =  _angle;
             }
             
+            
+
+            if (_framesToFixAngleLeft > 0)
+            {
+                moveDirection = forwardVector;
+                _framesToFixAngleLeft--;
+            }
+
             Quaternion startQuat = _rotateParent.rotation;
             _rotateParent.LookAt(moveDirection*10f + _rotateParent.position);
             Quaternion targetQuat = _rotateParent.rotation;
@@ -49,20 +74,25 @@ namespace Spacats.CharacterController
             _rotateParent.rotation = Quaternion.Lerp(startQuat, targetQuat, _rotationSpeed*Time.deltaTime);
             return _movingBack;
         }
-        
-        public Vector3 ClampVectorAngleRange(Vector3 v1, Vector3 v3, float minAngle, float maxAngle)
+
+        private bool IsAngleAtLeftBorder(float angle)
         {
-            float currentAngle = Vector3.SignedAngle(v1, v3, Vector3.up);
-    
-            // Ограничиваем угол
-            float clampedAngle = Mathf.Clamp(currentAngle, minAngle, maxAngle);
-    
-            // Если угол не изменился, возвращаем исходный вектор
-            if (Mathf.Approximately(currentAngle, clampedAngle))
-                return v3;
-    
-            // Создаём повёрнутый вектор
-            return Quaternion.Euler(0, clampedAngle, 0) * v1;
+            if (angle >= _angleMinMax.x - _angleBorderGap && angle <= _angleMinMax.x+_angleBorderGap)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        private bool IsAngleAtRightBorder(float angle)
+        {
+            if (angle <= _angleMinMax.y + _angleBorderGap && angle >= _angleMinMax.y-_angleBorderGap)
+            {
+                return true;
+            }
+
+            return false;
         }
 
 
