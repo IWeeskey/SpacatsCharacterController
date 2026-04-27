@@ -81,6 +81,26 @@ namespace Spacats.Input
         public void OnMove(InputAction.CallbackContext context)
         {
             _characterInput.Movement = context.ReadValue<Vector2>();
+            _characterInput.Movement.Normalize();
+            MoveDirections closestDirection = MoveDirections.Idle;
+            float closestDistance = float.MaxValue;
+            for (int i = 0; i < MoveDirectionsHelper.DirectionVectors.Length; i++)
+            {
+                float dist = (_characterInput.Movement - MoveDirectionsHelper.DirectionVectors[i]).magnitude;
+                if (dist < closestDistance)
+                {
+                    closestDistance = dist;
+                    closestDirection = (MoveDirections)i;
+                }
+            }
+
+            _characterInput.MoveDirection = closestDirection;
+            _characterInput.MoveDirectionsLockBack = closestDirection;
+            if (_characterInput.MoveDirection == MoveDirections.BackwardLeft)
+                _characterInput.MoveDirectionsLockBack = MoveDirections.ForwardRight;
+            if (_characterInput.MoveDirection == MoveDirections.BackwardRight)
+                _characterInput.MoveDirectionsLockBack = MoveDirections.ForwardLeft;
+
         }
         
         public void OnAttack(InputAction.CallbackContext context)

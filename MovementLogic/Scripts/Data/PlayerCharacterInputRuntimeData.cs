@@ -7,6 +7,7 @@ namespace Spacats.CharacterController
     public class PlayerCharacterInputRuntimeData
     {
         public Vector3 MoveDirection;
+        public Vector3 MoveDirectionInverted;
         public Vector3 ForwardVector;
         public Vector3 TargetEulers;
         public bool MovingBack;

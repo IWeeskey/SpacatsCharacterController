@@ -1,3 +1,4 @@
+using Spacats.Input;
 using Spacats.Utils;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Spacats.CharacterController
     public class CharacterRotationController : MonoBehaviour
     {
         public bool DontLookBack = false;
-        public int FramesToFixAngle = 2;
+        public int FramesToFixAngle = 2;//NEED TO BE CHANGED TO TIME INSTEAD OF FRAMES
         [SerializeField] private int _framesToFixAngleLeft = 0;
         [SerializeField] private bool _movingBack = false;
         [SerializeField] private float _angle;
@@ -22,7 +23,7 @@ namespace Spacats.CharacterController
         [SerializeField] public bool _prevAtRight = false;
         [SerializeField] public bool _prevAtLeft = false;
         
-        public bool TryRotate(Vector3 moveDirection, Vector3 forwardVector)
+        public bool TryRotate(Vector3 moveDirection, Vector3 moveDirectionInverted, Vector3 forwardVector, MoveDirections direction, MoveDirections directionInverted)
         {
             if (PauseController.IsPaused) return _movingBack;
             if (moveDirection.magnitude<0.1f) return _movingBack;
@@ -30,7 +31,13 @@ namespace Spacats.CharacterController
             if (DontLookBack && _framesToFixAngleLeft<=0)
             {
                 _moveDirection = moveDirection;
-                _angle = Vector3.SignedAngle(forwardVector, moveDirection, Vector3.up);
+
+                if (directionInverted != direction)
+                {
+                    _moveDirection = moveDirectionInverted;
+                }
+
+                _angle = Vector3.SignedAngle(forwardVector, _moveDirection, Vector3.up);
                 if (_angle >= _angleMinMax.x && _angle <= _angleMinMax.y)
                 {
                     //ok
@@ -38,18 +45,17 @@ namespace Spacats.CharacterController
                 //out of _angleMinMax
                 else 
                 {
-                    moveDirection = forwardVector;
+                    _moveDirection = forwardVector;
                     _movingBack = true;
                 }
+                
+              
 
                 bool curLeft = IsAngleAtLeftBorder(_angle);
                 bool curRight = IsAngleAtRightBorder(_angle);
                 
                 if (curLeft || curRight)
                 {
-                    // bool prevLeft = IsAngleAtLeftBorder(_prevAngle);
-                    // bool prevRight = IsAngleAtRightBorder(_prevAngle);
-
                     if (curLeft && _prevAtRight) _framesToFixAngleLeft = FramesToFixAngle;
                     if (curRight && _prevAtLeft) _framesToFixAngleLeft = FramesToFixAngle;
                 }
@@ -62,12 +68,12 @@ namespace Spacats.CharacterController
 
             if (_framesToFixAngleLeft > 0)
             {
-                moveDirection = forwardVector;
+                _moveDirection = forwardVector;
                 _framesToFixAngleLeft--;
             }
 
             Quaternion startQuat = _rotateParent.rotation;
-            _rotateParent.LookAt(moveDirection*10f + _rotateParent.position);
+            _rotateParent.LookAt(_moveDirection*10f + _rotateParent.position);
             Quaternion targetQuat = _rotateParent.rotation;
             
             _rotateParent.rotation = Quaternion.Lerp(startQuat, targetQuat, _rotationSpeed*Time.deltaTime);
@@ -94,6 +100,7 @@ namespace Spacats.CharacterController
             return false;
         }
 
+       
 
     }
 }

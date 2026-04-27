@@ -20,7 +20,9 @@ namespace Spacats.CharacterCamera
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
         public Vector3 GetMoveDirection => _cRData.MoveDirection;
+        public Vector3 GetMoveDirectionInverted => _cRData.MoveDirectionLockBack;
         public Vector3 GetForwardVector => transform.forward;
+       
         
         public Action OnInputProcessed;
         public Action OnBeforeFollow;
@@ -64,7 +66,15 @@ namespace Spacats.CharacterCamera
             Vector3 selfPosition = gameObject.transform.position;
             dirPosition.y = selfPosition.y;
             _cRData.MoveDirection = - selfPosition + dirPosition;
-            
+            _cRData.MoveDirectionLockBack = _cRData.MoveDirection;
+            if (_characterInput.MoveDirection == MoveDirections.BackwardLeft || _characterInput.MoveDirection == MoveDirections.BackwardRight)
+            {
+                _moveDirectionTransform.localPosition = new Vector3(_characterInput.Movement.x*-1f, 0, _characterInput.Movement.y*-1f);
+                dirPosition = _moveDirectionTransform.position;
+                dirPosition.y = selfPosition.y;
+                _cRData.MoveDirectionLockBack = - selfPosition + dirPosition;
+            }
+
             OnInputProcessed?.Invoke();
         }
 

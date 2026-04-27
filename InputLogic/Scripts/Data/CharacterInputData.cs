@@ -6,6 +6,8 @@ namespace Spacats.Input
     [Serializable]
     public class CharacterInputData
     {
+        public MoveDirections MoveDirection;
+        public MoveDirections MoveDirectionsLockBack;
         public Vector2 Movement;
         public Vector2 LookDelta;
         public float ZoomDelta;
