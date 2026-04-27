@@ -20,7 +20,8 @@ namespace Spacats.CharacterCamera
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
         public Vector3 GetMoveDirection => _cRData.MoveDirection;
-
+        public Vector3 GetForwardVector => transform.forward;
+        
         public Action OnInputProcessed;
         public Action OnBeforeFollow;
         

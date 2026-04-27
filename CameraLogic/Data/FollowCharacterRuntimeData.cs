@@ -8,6 +8,7 @@ namespace Spacats.CharacterCamera
     {
         public float CurrentZoomValue;
         public float TargetZoomValue;
+        
 
         public Quaternion CurrentRotation;
         public Vector3 TargetEulers;

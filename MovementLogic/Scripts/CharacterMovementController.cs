@@ -91,8 +91,6 @@ namespace Spacats.CharacterController
             // }
             
             _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
-            
-           
         }
         
         private void ProcessInAir()
