@@ -19,11 +19,9 @@ namespace Spacats.CharacterController
         [SerializeField] private float _angleBorderGap = 2f;
         
         [SerializeField] public Transform _rotateParent;
-        [SerializeField] public float _prevAngle;
-
-
-        public bool AtRightBorder;
-        public bool AtLeftBorder;
+        [SerializeField] public bool _prevAtRight = false;
+        [SerializeField] public bool _prevAtLeft = false;
+        
         public bool TryRotate(Vector3 moveDirection, Vector3 forwardVector)
         {
             if (PauseController.IsPaused) return _movingBack;
@@ -49,14 +47,15 @@ namespace Spacats.CharacterController
                 
                 if (curLeft || curRight)
                 {
-                    bool prevLeft = IsAngleAtLeftBorder(_prevAngle);
-                    bool prevRight = IsAngleAtRightBorder(_prevAngle);
+                    // bool prevLeft = IsAngleAtLeftBorder(_prevAngle);
+                    // bool prevRight = IsAngleAtRightBorder(_prevAngle);
 
-                    if (curLeft && prevRight) _framesToFixAngleLeft = FramesToFixAngle;
-                    if (curRight && prevLeft) _framesToFixAngleLeft = FramesToFixAngle;
+                    if (curLeft && _prevAtRight) _framesToFixAngleLeft = FramesToFixAngle;
+                    if (curRight && _prevAtLeft) _framesToFixAngleLeft = FramesToFixAngle;
                 }
 
-                _prevAngle =  _angle;
+                _prevAtRight = curRight;
+                _prevAtLeft = curLeft;
             }
             
             
@@ -77,7 +76,7 @@ namespace Spacats.CharacterController
 
         private bool IsAngleAtLeftBorder(float angle)
         {
-            if (angle >= _angleMinMax.x - _angleBorderGap && angle <= _angleMinMax.x+_angleBorderGap)
+            if (angle <= _angleMinMax.x + _angleBorderGap && angle >= -180)
             {
                 return true;
             }
@@ -87,7 +86,7 @@ namespace Spacats.CharacterController
         
         private bool IsAngleAtRightBorder(float angle)
         {
-            if (angle <= _angleMinMax.y + _angleBorderGap && angle >= _angleMinMax.y-_angleBorderGap)
+            if (angle >= _angleMinMax.y-_angleBorderGap && angle <= 180)
             {
                 return true;
             }
