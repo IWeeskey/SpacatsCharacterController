@@ -8,11 +8,6 @@ namespace Spacats.CharacterController
         [SerializeField] private CharacterMovementController _movementController;
         [SerializeField] private CharacterRotationController _rotationController;
         [SerializeField] private CharacterInputRuntimeData _inputData;
-        
-        // private void Awake()
-        // {
-        //     //_pRData.Reset();
-        // }
 
         public void SetInputData(CharacterInputRuntimeData  inputData)
         {
@@ -26,12 +21,6 @@ namespace Spacats.CharacterController
 
         void Update()
         {
-            // _inputData.MoveDirectionV = _characterCamera.GetMoveDirection;
-            // _inputData.MoveDirectionInvertedV = _characterCamera.GetMoveDirectionInverted;
-            // _inputData.ForwardVector = _characterCamera.GetForwardVector;
-            // _inputData.MoveDirection = _characterInput.MoveDirection;
-            // _inputData.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;
-
             _inputData.ForwardVector.y = 0f;
             _inputData.MovingBack = _rotationController.TryRotate(_inputData);
         }
