@@ -48,8 +48,6 @@ namespace Spacats.CharacterController
                     _moveDirection = iData.ForwardVector;
                     _movingBack = true;
                 }
-                
-              
 
                 bool curLeft = IsAngleAtLeftBorder(_angle);
                 bool curRight = IsAngleAtRightBorder(_angle);

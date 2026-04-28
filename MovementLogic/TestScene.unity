@@ -1515,6 +1515,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterCamera
   ApplicationFrameRate: 60
+  _playerSummary: {fileID: 1099430530}
+  _pauseFollowHandler: {fileID: 1254954924}
   _followTarget: {fileID: 1099430526}
   _pauseFollowTarget: {fileID: 1254954923}
   _lookTransform: {fileID: 2109381373}
@@ -1535,6 +1537,7 @@ MonoBehaviour:
   _cRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0
+    BeforePauseZoomValue: 0
     CurrentRotation: {x: 0, y: 0, z: 0, w: 0}
     TargetEulers: {x: 0, y: 0, z: 0}
     MoveDirection: {x: 0, y: 0, z: 0}
@@ -1549,8 +1552,6 @@ MonoBehaviour:
     TargetEulers: {x: 0, y: 0, z: 0}
     MoveDirection: {x: 0, y: 0, z: 0}
     MoveDirectionLockBack: {x: 0, y: 0, z: 0}
-  _pauseFollowHandler: {fileID: 1254954924}
-  _playerSummary: {fileID: 1099430530}
 --- !u!1 &724561811
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,9 +2179,13 @@ MonoBehaviour:
       m_Bits: 16
     OnGroundThreshold: 0.4
     Gravity: -9.8
-    MoveSpeed: 10
     SmoothSpeedChange: 6
     Rigidbody: {fileID: 1054793617}
+    ForwardSpeed: 1
+    BackwardSpeed: 1
+    SitSpeed: 1
+    SwimSpeed: 1
+    SprintMultiplier: 1
 --- !u!114 &1054793616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2350,7 +2355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099430523}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.6451911, z: 0, w: 0.76402134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.81, y: 0.192, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2358,7 +2363,7 @@ Transform:
   - {fileID: 701120474}
   - {fileID: 1465926509}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 80.36, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1099430526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,9 +2408,13 @@ MonoBehaviour:
       m_Bits: 16
     OnGroundThreshold: 0.4
     Gravity: -9.8
-    MoveSpeed: 10
     SmoothSpeedChange: 6
     Rigidbody: {fileID: 1099430524}
+    ForwardSpeed: 10
+    BackwardSpeed: 10
+    SitSpeed: 10
+    SwimSpeed: 10
+    SprintMultiplier: 10
 --- !u!114 &1099430529
 MonoBehaviour:
   m_ObjectHideFlags: 0

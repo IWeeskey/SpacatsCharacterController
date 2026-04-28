@@ -16,13 +16,17 @@ namespace Spacats.CharacterController
 
         void FixedUpdate()
         {
-            _movementController.TryMove(_inputData.MoveDirectionV);
+            if (IsPlayer) _movementController.TryMove(_inputData.MoveDirectionV);
         }
 
         void Update()
         {
-            _inputData.ForwardVector.y = 0f;
-            _inputData.MovingBack = _rotationController.TryRotate(_inputData);
+            if (IsPlayer)
+            {
+                _inputData.ForwardVector.y = 0f;
+                _inputData.MovingBack = _rotationController.TryRotate(_inputData);
+            }
+            
         }
     }
 }
