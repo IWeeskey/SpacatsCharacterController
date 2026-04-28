@@ -119,6 +119,32 @@ namespace Spacats.Input
             }
         }
         
+        public void OnSit(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:_characterInput.Sitting = true; break;
+                case InputActionPhase.Canceled:_characterInput.Sitting = false; break;
+            }
+        }
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:_characterInput.Jumping = true; break;
+                case InputActionPhase.Canceled:_characterInput.Jumping = false; break;
+            }
+        }
+        
+        public void OnSprint(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:_characterInput.Sprinting = true; break;
+                case InputActionPhase.Canceled:_characterInput.Sprinting = false; break;
+            }
+        }
+        
         public void OnLookDelta(InputAction.CallbackContext context)
         {
             Vector2 value = context.ReadValue<Vector2>();

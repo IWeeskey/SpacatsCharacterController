@@ -1540,7 +1540,8 @@ MonoBehaviour:
     MoveDirection: {x: 0, y: 0, z: 0}
     MoveDirectionLockBack: {x: 0, y: 0, z: 0}
   _logicPauseSettings:
-    MoveSpeed: 1000
+    MoveSpeed: 10
+    SprintMultiplier: 4
   _logicPauseRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0
@@ -4130,6 +4131,9 @@ MonoBehaviour:
   _characterInput:
     MoveDirection: 0
     MoveDirectionsLockBack: 0
+    Sitting: 0
+    Jumping: 0
+    Sprinting: 0
     Movement: {x: 0, y: 0}
     LookDelta: {x: 0, y: 0}
     ZoomDelta: 0
@@ -4239,6 +4243,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 50437769-7129-44dd-8fa3-ea0950ed3b3a
     m_ActionName: 'PlayerControls/Zoom[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnSit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e39699ee-5624-4e8c-9531-87afb42f4bbb
+    m_ActionName: 'PlayerControls/Sit[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 23ef54c6-ce2a-423a-8e52-7613fd308197
+    m_ActionName: 'PlayerControls/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9235168d-1642-4164-9c01-ba607b7ba323
+    m_ActionName: 'PlayerControls/Sprint[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls

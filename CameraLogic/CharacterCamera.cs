@@ -88,8 +88,6 @@ namespace Spacats.CharacterCamera
             {
                 OnLogicPauseExit();
             }
-
-            //if (_currentInLogicPause) MoveLogicPause();
            
             _prevInLogicPause = PauseController.IsPaused;
             
@@ -132,9 +130,23 @@ namespace Spacats.CharacterCamera
                 case MoveDirections.BackwardLeft: direction = (forwardDir*-1f+rightDir*-1f)/2f;  break;
                 case MoveDirections.BackwardRight: direction =  (forwardDir*-1f+rightDir)/2f; break;
             }
+
+            if (_characterInput.Sitting)
+            {
+                direction += _lookTransform.up*-1f;
+                direction /= 2f;
+            }
+            else if (_characterInput.Jumping)
+            {  
+                direction += _lookTransform.up;
+                direction /= 2f;
+            }
+
             //targetPosition += direction*Time.deltaTime*_logicPauseSettings.MoveSpeed;
             //_pauseFollowTarget.transform.position = targetPosition;
-            _pauseFollowHandler.SetVelocity(direction*Time.deltaTime*_logicPauseSettings.MoveSpeed);
+            float speed = _logicPauseSettings.MoveSpeed;
+            if (_characterInput.Sprinting) speed *= _logicPauseSettings.SprintMultiplier;
+            _pauseFollowHandler.SetVelocity(direction*Time.fixedDeltaTime*speed);
         }
 
         private void ApplyInput()

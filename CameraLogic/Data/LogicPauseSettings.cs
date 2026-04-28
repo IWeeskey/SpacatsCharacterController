@@ -7,6 +7,7 @@ namespace Spacats.CharacterCamera
     public class LogicPauseSettings
     {
         public float MoveSpeed = 10f;
+        public float SprintMultiplier = 4f;
         // public float DefaultZoom = 5f;
         // public Vector2 MinMaxZoom = new Vector2(0.1f, 20f);
         // public Vector2 MinMaxRot = new Vector2(-20, 80f);
