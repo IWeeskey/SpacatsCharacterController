@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Spacats.CharacterCamera
 {
     [Serializable]
-    public class FollowCharacterRuntimeData
+    public class LogicPauseRuntimeData
     {
         public float CurrentZoomValue;
         public float TargetZoomValue;
-        //public float BeforePauseZoomValue;
+        
 
         public Quaternion CurrentRotation;
         public Vector3 TargetEulers;

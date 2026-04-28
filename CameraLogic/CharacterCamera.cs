@@ -13,13 +13,23 @@ namespace Spacats.CharacterCamera
         private CharacterInputData _characterInput;
         
         [SerializeField] private CameraFollowTarget _followTarget;
+        [SerializeField] private CameraFollowTarget _pauseFollowTarget;
+        
+        private CameraFollowTarget _currentFollowTarget;
         [SerializeField] private Transform _lookTransform;
         [SerializeField] private Transform _lookAtTransform;
         [SerializeField] private Transform _moveDirectionTransform;
-        [SerializeField] private Transform _moveRotationTransform;
+        //[SerializeField] private Transform _moveRotationTransform;
         [SerializeField] private FollowCharacterSettings  _followCharacterSettings;
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
+        
+        [SerializeField] private LogicPauseSettings _logicPauseSettings;
+        [SerializeField] private LogicPauseRuntimeData _logicPauseRData;
+        [SerializeField] private LogicPauseFollowTarget _pauseFollowHandler;
+        private bool _prevInLogicPause = false;
+        private bool _currentInLogicPause = false;
+        
         // public Vector3 GetMoveDirection => _cRData.MoveDirection;
         // public Vector3 GetMoveDirectionInverted => _cRData.MoveDirectionLockBack;
         // public Vector3 GetForwardVector => transform.forward;
@@ -37,8 +47,14 @@ namespace Spacats.CharacterCamera
             _playerInput.Reset();
             _playerSummary.IsPlayer = true;
             _playerSummary.SetInputData(_playerInput);
-            DoFollowCharacterInstant();
+          
             Application.targetFrameRate = ApplicationFrameRate;
+            _pauseFollowTarget.gameObject.transform.SetParent(null);
+            _prevInLogicPause = false;
+            _currentInLogicPause = false;
+            _currentFollowTarget =  _followTarget;
+            OnLogicPauseExit();
+            DoFollowCharacterInstant();
         }
 
         private void GetInput()
@@ -51,22 +67,87 @@ namespace Spacats.CharacterCamera
             ApplyInput();
         }
 
+        private void FixedUpdate()
+        {
+            if (_currentInLogicPause)
+            {
+                MoveLogicPause();
+            }
+        }
+
         void LateUpdate()
         {
+            _currentInLogicPause = PauseController.IsPaused;
             //OnBeforeFollow?.Invoke();
+            if (_currentInLogicPause && !_prevInLogicPause)
+            {
+                OnLogicPauseEnter();
+            }
+            
+            if (!_currentInLogicPause && _prevInLogicPause)
+            {
+                OnLogicPauseExit();
+            }
+
+            //if (_currentInLogicPause) MoveLogicPause();
+           
+            _prevInLogicPause = PauseController.IsPaused;
+            
             DoFollowCharacter();
+        }
+
+        private void OnLogicPauseEnter()
+        { 
+            _currentFollowTarget = _pauseFollowTarget;
+            _pauseFollowHandler.EnablePhysics();
+        }
+        
+        private void OnLogicPauseExit()
+        { 
+            _currentFollowTarget = _followTarget;
+            _pauseFollowHandler.DisablePhysics();
+            //_cRData.TargetZoomValue = _cRData.BeforePauseZoomValue;
+        }
+
+        private void MoveLogicPause()
+        {
+            //Vector3 targetPosition = _pauseFollowTarget.transform.position;
+            Vector3 direction = Vector3.zero;
+            // targetPosition += _cRData.MoveDirection*Time.deltaTime*_logicPauseSettings.MoveSpeed;
+            // _pauseFollowTarget.transform.position = targetPosition;
+            Vector3 forwardDir = _lookTransform.forward;
+            Vector3 rightDir = _lookTransform.right;
+            switch (_characterInput.MoveDirection)
+            {
+                case MoveDirections.Idle: direction =  Vector3.zero;break;
+                
+                case MoveDirections.Forward: direction =  forwardDir; break;
+                case MoveDirections.Backward: direction =  forwardDir*-1f;break;
+                case MoveDirections.Left: direction =  rightDir*-1f;break;
+                case MoveDirections.Right: direction =  rightDir;break;
+                
+                case MoveDirections.ForwardLeft: direction = (forwardDir+rightDir*-1f)/2f;  break;
+                case MoveDirections.ForwardRight: direction =  (forwardDir+rightDir)/2f; break;
+                
+                case MoveDirections.BackwardLeft: direction = (forwardDir*-1f+rightDir*-1f)/2f;  break;
+                case MoveDirections.BackwardRight: direction =  (forwardDir*-1f+rightDir)/2f; break;
+            }
+            //targetPosition += direction*Time.deltaTime*_logicPauseSettings.MoveSpeed;
+            //_pauseFollowTarget.transform.position = targetPosition;
+            _pauseFollowHandler.SetVelocity(direction*Time.deltaTime*_logicPauseSettings.MoveSpeed);
         }
 
         private void ApplyInput()
         {
-            _cRData.TargetZoomValue -= _characterInput.ZoomDelta;
+            if (!_currentInLogicPause) _cRData.TargetZoomValue -= _characterInput.ZoomDelta;
+            else _cRData.TargetZoomValue = _followCharacterSettings.MinMaxZoom.x;
             _cRData.TargetZoomValue = Mathf.Clamp(_cRData.TargetZoomValue, _followCharacterSettings.MinMaxZoom.x, _followCharacterSettings.MinMaxZoom.y);
 
             _cRData.TargetEulers.y += _characterInput.LookDelta.x*_followCharacterSettings.RotationXModifier;//horizontal
             _cRData.TargetEulers.x += _characterInput.LookDelta.y*_followCharacterSettings.RotationYModifier;//vertical
             _cRData.TargetEulers.x = Mathf.Clamp(_cRData.TargetEulers.x, _followCharacterSettings.MinMaxRot.x, _followCharacterSettings.MinMaxRot.y);
-
-            _moveDirectionTransform.localPosition = new Vector3(_characterInput.Movement.x, 0, _characterInput.Movement.y);
+            Vector3 inputDirection = MoveDirectionsHelper.DirectionVectors[(int)_characterInput.MoveDirection];
+            _moveDirectionTransform.localPosition = new Vector3(inputDirection.x, 0, inputDirection.y);
             Vector3 dirPosition = _moveDirectionTransform.position;
             Vector3 selfPosition = gameObject.transform.position;
             dirPosition.y = selfPosition.y;
@@ -74,7 +155,7 @@ namespace Spacats.CharacterCamera
             _cRData.MoveDirectionLockBack = _cRData.MoveDirection;
             if (_characterInput.MoveDirection == MoveDirections.BackwardLeft || _characterInput.MoveDirection == MoveDirections.BackwardRight)
             {
-                _moveDirectionTransform.localPosition = new Vector3(_characterInput.Movement.x*-1f, 0, _characterInput.Movement.y*-1f);
+                _moveDirectionTransform.localPosition = new Vector3(inputDirection.x*-1f, 0, inputDirection.y*-1f);
                 dirPosition = _moveDirectionTransform.position;
                 dirPosition.y = selfPosition.y;
                 _cRData.MoveDirectionLockBack = - selfPosition + dirPosition;
@@ -96,7 +177,7 @@ namespace Spacats.CharacterCamera
 
         private void DoFollowCharacter()
         {
-            if (PauseController.IsPaused) return;
+            //if (PauseController.IsPaused) return;
             
             DoFollowCharacter_position();
             DoFollowCharacter_zoom();
@@ -107,21 +188,25 @@ namespace Spacats.CharacterCamera
 
         private void DoFollowCharacter_position()
         {
-            if (_followTarget==null) return;
+            if (_currentFollowTarget==null) return;
             if (_lookAtTransform==null) return;
             
-            Vector3 targetPosition = _followTarget.GetFollowPosition();
+            Vector3 targetPosition = _currentFollowTarget.GetFollowPosition();
+           
             //Vector3 selfPosition = transform.position;
             _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
             //transform.position = Vector3.Lerp(selfPosition, targetPosition, Time.deltaTime*_followCharacterSettings.PositionFollowSpeed);
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocityRef, 1f/_followCharacterSettings.PositionFollowSpeed);
+            
+            if (!_currentInLogicPause) _pauseFollowTarget.transform.position = _lookTransform.position;
         }
 
         private void DoFollowCharacter_zoom()
         {
-            if (_followTarget==null) return;
+            if (_currentFollowTarget==null) return;
             if (_lookTransform==null) return;
             _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, _cRData.TargetZoomValue, Time.deltaTime*_followCharacterSettings.ZoomSpeed);
+            //if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
             
             Vector3 lookOffset = Vector3.zero;
             lookOffset.y = _cRData.CurrentZoomValue * _followCharacterSettings.LookYModifier;
