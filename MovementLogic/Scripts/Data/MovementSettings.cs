@@ -10,8 +10,16 @@ namespace Spacats.CharacterController
         public LayerMask WaterLayers;
         public float OnGroundThreshold = 0.5f;
         public float Gravity = -9.8f;
-        public float MoveSpeed = 1f;
+        
         public float SmoothSpeedChange = 1f;
         public Rigidbody Rigidbody;
+        
+        public float ForwardSpeed = 1f;
+        public float BackwardSpeed = 1f;
+        
+        public float SitSpeed = 1f;
+        public float SwimSpeed = 1f;
+        
+        public float SprintMultiplier = 1f;
     }
 }

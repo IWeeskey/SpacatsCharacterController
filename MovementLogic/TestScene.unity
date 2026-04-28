@@ -1540,8 +1540,8 @@ MonoBehaviour:
     MoveDirection: {x: 0, y: 0, z: 0}
     MoveDirectionLockBack: {x: 0, y: 0, z: 0}
   _logicPauseSettings:
-    MoveSpeed: 10
-    SprintMultiplier: 4
+    MoveSpeed: 1000
+    SprintMultiplier: 5
   _logicPauseRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0

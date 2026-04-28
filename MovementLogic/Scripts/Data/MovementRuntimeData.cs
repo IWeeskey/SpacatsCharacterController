@@ -13,6 +13,7 @@ namespace Spacats.CharacterController
         public Vector3 RigidBodyVelocity;
         public float RigidBodySpeed;
         public Vector3 MoveDirection;
+        
         public bool WasPaused = false;
         
         public RaycastHit RHit = new RaycastHit();

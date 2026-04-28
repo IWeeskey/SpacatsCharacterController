@@ -11,7 +11,8 @@ namespace Spacats.CharacterCamera
         public int ApplicationFrameRate = 30;
         
         private CharacterInputData _characterInput;
-        
+        [SerializeField] private CharacterSummaryController _playerSummary;
+        [SerializeField] private LogicPauseFollowTarget _pauseFollowHandler;
         [SerializeField] private CameraFollowTarget _followTarget;
         [SerializeField] private CameraFollowTarget _pauseFollowTarget;
         
@@ -26,20 +27,14 @@ namespace Spacats.CharacterCamera
         
         [SerializeField] private LogicPauseSettings _logicPauseSettings;
         [SerializeField] private LogicPauseRuntimeData _logicPauseRData;
-        [SerializeField] private LogicPauseFollowTarget _pauseFollowHandler;
+
         private bool _prevInLogicPause = false;
         private bool _currentInLogicPause = false;
-        
-        // public Vector3 GetMoveDirection => _cRData.MoveDirection;
-        // public Vector3 GetMoveDirectionInverted => _cRData.MoveDirectionLockBack;
-        // public Vector3 GetForwardVector => transform.forward;
-        //public Action OnInputProcessed;
-        //public Action OnBeforeFollow;
         
         private Vector3 _followVelocityRef = new Vector3(0,0,0);
         
         private CharacterInputRuntimeData _playerInput = new CharacterInputRuntimeData();
-        [SerializeField] private CharacterSummaryController _playerSummary;
+
         private void Awake()
         {
             GetInput();
@@ -78,7 +73,6 @@ namespace Spacats.CharacterCamera
         void LateUpdate()
         {
             _currentInLogicPause = PauseController.IsPaused;
-            //OnBeforeFollow?.Invoke();
             if (_currentInLogicPause && !_prevInLogicPause)
             {
                 OnLogicPauseEnter();
@@ -102,17 +96,14 @@ namespace Spacats.CharacterCamera
         
         private void OnLogicPauseExit()
         { 
+            _cRData.TargetZoomValue = _cRData.BeforePauseZoomValue;
             _currentFollowTarget = _followTarget;
             _pauseFollowHandler.DisablePhysics();
-            //_cRData.TargetZoomValue = _cRData.BeforePauseZoomValue;
         }
 
         private void MoveLogicPause()
         {
-            //Vector3 targetPosition = _pauseFollowTarget.transform.position;
             Vector3 direction = Vector3.zero;
-            // targetPosition += _cRData.MoveDirection*Time.deltaTime*_logicPauseSettings.MoveSpeed;
-            // _pauseFollowTarget.transform.position = targetPosition;
             Vector3 forwardDir = _lookTransform.forward;
             Vector3 rightDir = _lookTransform.right;
             switch (_characterInput.MoveDirection)
@@ -141,9 +132,6 @@ namespace Spacats.CharacterCamera
                 direction += _lookTransform.up;
                 direction /= 2f;
             }
-
-            //targetPosition += direction*Time.deltaTime*_logicPauseSettings.MoveSpeed;
-            //_pauseFollowTarget.transform.position = targetPosition;
             float speed = _logicPauseSettings.MoveSpeed;
             if (_characterInput.Sprinting) speed *= _logicPauseSettings.SprintMultiplier;
             _pauseFollowHandler.SetVelocity(direction*Time.fixedDeltaTime*speed);
@@ -218,7 +206,7 @@ namespace Spacats.CharacterCamera
             if (_currentFollowTarget==null) return;
             if (_lookTransform==null) return;
             _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, _cRData.TargetZoomValue, Time.deltaTime*_followCharacterSettings.ZoomSpeed);
-            //if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
+            if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
             
             Vector3 lookOffset = Vector3.zero;
             lookOffset.y = _cRData.CurrentZoomValue * _followCharacterSettings.LookYModifier;
