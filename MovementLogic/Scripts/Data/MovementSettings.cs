@@ -11,6 +11,7 @@ namespace Spacats.CharacterController
         public float OnGroundThreshold = 0.5f;
         public float Gravity = -9.8f;
         public float MoveSpeed = 1f;
+        public float SmoothSpeedChange = 1f;
         public Rigidbody Rigidbody;
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Spacats.CharacterController
 {
+    /// <summary>
+    /// Works at fixed update
+    /// </summary>
     public class CharacterMovementController : MonoBehaviour
     {
         [SerializeField] private MovementRuntimeData _runtimeData;
@@ -89,14 +92,17 @@ namespace Spacats.CharacterController
             //     _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-1f;
             //     //_runtimeData.RuntimeVelocity = Vector3.zero;
             // }
-            
-            _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
+
+            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
+                _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
         }
         
         private void ProcessInAir()
         {
             _runtimeData.RuntimeVelocity.y = _settings.Gravity;
-            _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
+            //_settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
+            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
+                _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
         }
     }
 }
