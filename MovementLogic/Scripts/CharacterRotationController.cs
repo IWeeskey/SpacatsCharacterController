@@ -23,21 +23,21 @@ namespace Spacats.CharacterController
         [SerializeField] public bool _prevAtRight = false;
         [SerializeField] public bool _prevAtLeft = false;
         
-        public bool TryRotate(Vector3 moveDirection, Vector3 moveDirectionInverted, Vector3 forwardVector, MoveDirections direction, MoveDirections directionInverted)
+        public bool TryRotate(CharacterInputRuntimeData iData)
         {
             if (PauseController.IsPaused) return _movingBack;
-            if (moveDirection.magnitude<0.1f) return _movingBack;
+            if (iData.MoveDirectionV.magnitude<0.1f) return _movingBack;
             _movingBack = false;
             if (DontLookBack && _framesToFixAngleLeft<=0)
             {
-                _moveDirection = moveDirection;
+                _moveDirection = iData.MoveDirectionV;
 
-                if (directionInverted != direction)
+                if (iData.MoveDirectionsLockBack != iData.MoveDirection)
                 {
-                    _moveDirection = moveDirectionInverted;
+                    _moveDirection = iData.MoveDirectionInvertedV;
                 }
 
-                _angle = Vector3.SignedAngle(forwardVector, _moveDirection, Vector3.up);
+                _angle = Vector3.SignedAngle(iData.ForwardVector, _moveDirection, Vector3.up);
                 if (_angle >= _angleMinMax.x && _angle <= _angleMinMax.y)
                 {
                     //ok
@@ -45,7 +45,7 @@ namespace Spacats.CharacterController
                 //out of _angleMinMax
                 else 
                 {
-                    _moveDirection = forwardVector;
+                    _moveDirection = iData.ForwardVector;
                     _movingBack = true;
                 }
                 
@@ -68,7 +68,7 @@ namespace Spacats.CharacterController
 
             if (_framesToFixAngleLeft > 0)
             {
-                _moveDirection = forwardVector;
+                _moveDirection = iData.ForwardVector;
                 _framesToFixAngleLeft--;
             }
 

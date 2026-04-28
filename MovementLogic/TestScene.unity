@@ -1025,7 +1025,6 @@ GameObject:
   - component: {fileID: 708025395}
   - component: {fileID: 708025398}
   - component: {fileID: 708025397}
-  - component: {fileID: 708025396}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1043,32 +1042,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1459151357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &708025396
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708025394}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &708025397
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1198,6 +1176,8 @@ MonoBehaviour:
     CurrentRotation: {x: 0, y: 0, z: 0, w: 0}
     TargetEulers: {x: 0, y: 0, z: 0}
     MoveDirection: {x: 0, y: 0, z: 0}
+    MoveDirectionLockBack: {x: 0, y: 0, z: 0}
+  _playerSummary: {fileID: 1099430530}
 --- !u!1 &724561811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1099430525}
   - component: {fileID: 1099430528}
+  - component: {fileID: 1099430530}
   - component: {fileID: 1099430524}
   - component: {fileID: 1099430526}
   - component: {fileID: 1099430527}
@@ -1726,10 +1707,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.PlayerCharacterController
   _characterCamera: {fileID: 722898541}
   _pRData:
-    MoveDirection: {x: 0, y: 0, z: 0}
+    MoveDirectionV: {x: 0, y: 0, z: 0}
+    MoveDirectionInvertedV: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
-    TargetEulers: {x: 0, y: 0, z: 0}
     MovingBack: 0
+    MoveDirection: 0
+    MoveDirectionsLockBack: 0
   _movementController: {fileID: 1099430527}
   _rotationController: {fileID: 1099430529}
 --- !u!114 &1099430529
@@ -1745,6 +1728,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterRotationController
   DontLookBack: 1
+  FramesToFixAngle: 2
+  _framesToFixAngleLeft: 0
   _movingBack: 0
   _angle: 0
   _fixedAngle: 0
@@ -1752,7 +1737,32 @@ MonoBehaviour:
   _moveDirection: {x: 0, y: 0, z: 0}
   _moveDirectionF: {x: 0, y: 0, z: 0}
   _angleMinMax: {x: -91, y: 91}
+  _angleBorderGap: 2
   _rotateParent: {fileID: 1465926509}
+  _prevAtRight: 0
+  _prevAtLeft: 0
+--- !u!114 &1099430530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099430523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a95969aa49265498e2e8fa33e8c6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterSummaryController
+  IsPlayer: 0
+  _movementController: {fileID: 1099430527}
+  _rotationController: {fileID: 1099430529}
+  _inputData:
+    MoveDirectionV: {x: 0, y: 0, z: 0}
+    MoveDirectionInvertedV: {x: 0, y: 0, z: 0}
+    ForwardVector: {x: 0, y: 0, z: 0}
+    MovingBack: 0
+    MoveDirection: 0
+    MoveDirectionsLockBack: 0
 --- !u!1 &1107693512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,6 +3047,8 @@ MonoBehaviour:
   ExecuteOrder: 0
   PersistsAtScenes: []
   _characterInput:
+    MoveDirection: 0
+    MoveDirectionsLockBack: 0
     Movement: {x: 0, y: 0}
     LookDelta: {x: 0, y: 0}
     ZoomDelta: 0

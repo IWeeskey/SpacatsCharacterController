@@ -1,4 +1,5 @@
 using System;
+using Spacats.CharacterController;
 using Spacats.Input;
 using Spacats.Utils;
 using UnityEngine;
@@ -19,19 +20,23 @@ namespace Spacats.CharacterCamera
         [SerializeField] private FollowCharacterSettings  _followCharacterSettings;
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
-        public Vector3 GetMoveDirection => _cRData.MoveDirection;
-        public Vector3 GetMoveDirectionInverted => _cRData.MoveDirectionLockBack;
-        public Vector3 GetForwardVector => transform.forward;
-       
-        
-        public Action OnInputProcessed;
-        public Action OnBeforeFollow;
+        // public Vector3 GetMoveDirection => _cRData.MoveDirection;
+        // public Vector3 GetMoveDirectionInverted => _cRData.MoveDirectionLockBack;
+        // public Vector3 GetForwardVector => transform.forward;
+        //public Action OnInputProcessed;
+        //public Action OnBeforeFollow;
         
         private Vector3 _followVelocityRef = new Vector3(0,0,0);
+        
+        private CharacterInputRuntimeData _playerInput = new CharacterInputRuntimeData();
+        [SerializeField] private CharacterSummaryController _playerSummary;
         private void Awake()
         {
             GetInput();
             _cRData.Reset(_followCharacterSettings);
+            _playerInput.Reset();
+            _playerSummary.IsPlayer = true;
+            _playerSummary.SetInputData(_playerInput);
             DoFollowCharacterInstant();
             Application.targetFrameRate = ApplicationFrameRate;
         }
@@ -48,7 +53,7 @@ namespace Spacats.CharacterCamera
 
         void LateUpdate()
         {
-            OnBeforeFollow?.Invoke();
+            //OnBeforeFollow?.Invoke();
             DoFollowCharacter();
         }
 
@@ -75,7 +80,18 @@ namespace Spacats.CharacterCamera
                 _cRData.MoveDirectionLockBack = - selfPosition + dirPosition;
             }
 
-            OnInputProcessed?.Invoke();
+
+            ApplyToPlayerInput();
+            //OnInputProcessed?.Invoke();
+        }
+
+        private void ApplyToPlayerInput()
+        {
+            _playerInput.MoveDirectionV = _cRData.MoveDirection;
+            _playerInput.MoveDirectionInvertedV = _cRData.MoveDirectionLockBack;
+            _playerInput.ForwardVector = transform.forward;
+            _playerInput.MoveDirection = _characterInput.MoveDirection;
+            _playerInput.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;
         }
 
         private void DoFollowCharacter()
