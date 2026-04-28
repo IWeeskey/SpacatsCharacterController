@@ -7,22 +7,29 @@ namespace Spacats.CharacterController
     [Serializable]
     public class CharacterInputRuntimeData
     {
-        public Vector3 MoveDirectionV;
-        public Vector3 MoveDirectionInvertedV;
+        /// <summary>
+        /// Direction in which character moves in global 
+        /// </summary>
+        public Vector3 MoveDirectionVector;
+        /// <summary>
+        /// Where character looks
+        /// </summary>
         public Vector3 ForwardVector;
-        public bool MovingBack;
         
         public MoveDirections MoveDirection;
         public MoveDirections MoveDirectionsLockBack;
         
         public void Reset()
         {
-            MoveDirectionV =  Vector3.zero;
-            MoveDirectionInvertedV =  Vector3.zero;
+            MoveDirectionVector =  Vector3.zero;
             ForwardVector = Vector3.zero;
-            MovingBack = false;
             MoveDirection = MoveDirections.Idle;
             MoveDirectionsLockBack = MoveDirections.Idle;
+        }
+
+        public bool IsMovingBack()
+        {
+            return MoveDirection== MoveDirections.Backward || MoveDirection == MoveDirections.BackwardLeft || MoveDirection == MoveDirections.BackwardRight;
         }
     }
 }

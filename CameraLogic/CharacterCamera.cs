@@ -168,8 +168,8 @@ namespace Spacats.CharacterCamera
 
         private void ApplyToPlayerInput()
         {
-            _playerInput.MoveDirectionV = _cRData.MoveDirection;
-            _playerInput.MoveDirectionInvertedV = _cRData.MoveDirectionLockBack;
+            _playerInput.MoveDirectionVector = _cRData.MoveDirection;
+            //_playerInput.MoveDirectionInvertedV = _cRData.MoveDirectionLockBack;
             _playerInput.ForwardVector = transform.forward;
             _playerInput.MoveDirection = _characterInput.MoveDirection;
             _playerInput.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;

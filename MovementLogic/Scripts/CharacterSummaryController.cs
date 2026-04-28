@@ -9,6 +9,11 @@ namespace Spacats.CharacterController
         [SerializeField] private CharacterRotationController _rotationController;
         [SerializeField] private CharacterInputRuntimeData _inputData;
 
+        public Vector3 GetSelfForwardVector()
+        {
+            return _rotationController.GetForwardVector();
+        }
+
         public void SetInputData(CharacterInputRuntimeData  inputData)
         {
             _inputData = inputData;
@@ -16,17 +21,13 @@ namespace Spacats.CharacterController
 
         void FixedUpdate()
         {
-            if (IsPlayer) _movementController.TryMove(_inputData.MoveDirectionV);
+            _movementController.TryMove(_inputData.MoveDirectionVector);
         }
 
         void Update()
         {
-            if (IsPlayer)
-            {
-                _inputData.ForwardVector.y = 0f;
-                _inputData.MovingBack = _rotationController.TryRotate(_inputData);
-            }
-            
+            _inputData.ForwardVector.y = 0f;
+            _rotationController.TryRotate(_inputData);
         }
     }
 }

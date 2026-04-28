@@ -9,7 +9,7 @@ namespace Spacats.CharacterController
         public bool DontLookBack = false;
         public int FramesToFixAngle = 2;//NEED TO BE CHANGED TO TIME INSTEAD OF FRAMES
         [SerializeField] private int _framesToFixAngleLeft = 0;
-        [SerializeField] private bool _movingBack = false;
+        //[SerializeField] private bool _movingBack = false;
         [SerializeField] private float _angle;
         [SerializeField] private float _fixedAngle;
         [SerializeField] private float _rotationSpeed = 1f;
@@ -20,23 +20,28 @@ namespace Spacats.CharacterController
         [SerializeField] private float _angleBorderGap = 2f;
         
         [SerializeField] public Transform _rotateParent;
-        [SerializeField] public bool _prevAtRight = false;
+        [SerializeField] public bool _prevAtRight = false; 
         [SerializeField] public bool _prevAtLeft = false;
-        
-        public bool TryRotate(CharacterInputRuntimeData iData)
+
+        public Vector3 GetForwardVector()
         {
-            if (PauseController.IsPaused) return _movingBack;
-            if (iData.MoveDirectionV.magnitude<0.1f) return _movingBack;
-            _movingBack = false;
+            if (_rotateParent == null) return Vector3.zero;
+            return _rotateParent.forward;
+        }
+
+        public void TryRotate(CharacterInputRuntimeData iData)
+        {
+            if (PauseController.IsPaused) return;
+            if (iData.MoveDirection == MoveDirections.Idle) return;
+            //_movingBack = false;
+            _moveDirection = iData.MoveDirectionVector;
+            if (iData.MoveDirectionsLockBack != iData.MoveDirection)
+            {
+                _moveDirection *= -1f;
+            }
+            
             if (DontLookBack && _framesToFixAngleLeft<=0)
             {
-                _moveDirection = iData.MoveDirectionV;
-
-                if (iData.MoveDirectionsLockBack != iData.MoveDirection)
-                {
-                    _moveDirection = iData.MoveDirectionInvertedV;
-                }
-
                 _angle = Vector3.SignedAngle(iData.ForwardVector, _moveDirection, Vector3.up);
                 if (_angle >= _angleMinMax.x && _angle <= _angleMinMax.y)
                 {
@@ -46,7 +51,7 @@ namespace Spacats.CharacterController
                 else 
                 {
                     _moveDirection = iData.ForwardVector;
-                    _movingBack = true;
+                    //_movingBack = true;
                 }
 
                 bool curLeft = IsAngleAtLeftBorder(_angle);
@@ -75,7 +80,6 @@ namespace Spacats.CharacterController
             Quaternion targetQuat = _rotateParent.rotation;
             
             _rotateParent.rotation = Quaternion.Lerp(startQuat, targetQuat, _rotationSpeed*Time.deltaTime);
-            return _movingBack;
         }
 
         private bool IsAngleAtLeftBorder(float angle)
