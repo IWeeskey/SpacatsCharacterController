@@ -13,14 +13,11 @@ namespace Spacats.CharacterController
         
         public float SmoothSpeedChange = 1f;
         public Rigidbody Rigidbody;
-        
-        public float ForwardSpeed = 1f;
-        public float BackwardSpeed = 1f;
-        
-        public float SitSpeed = 1f;
-        public float SwimSpeed = 1f;
-        
-        public float SprintMultiplier = 1f;
-        public float WalkMultiplier = 0.5f;
+
+        [Tooltip("X - forward; Y - Backward")]public Vector2 WalkSpeed = new Vector2(2,1);
+        [Tooltip("X - forward; Y - Backward")]public Vector2 RunSpeed = new Vector2(6,3);
+        [Tooltip("X - forward; Y - Backward")]public Vector2 SprintSpeed = new Vector2(12,6);
+        [Tooltip("X - forward; Y - Backward")]public Vector2 CrouchSpeed = new Vector2(2,1);
+        [Tooltip("X - forward; Y - Backward")]public Vector2 SwimSpeed = new Vector2(6,3);
     }
 }

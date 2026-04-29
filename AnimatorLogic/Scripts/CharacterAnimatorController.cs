@@ -1,4 +1,5 @@
 using System;
+using Spacats.Utils;
 using UnityEngine;
 
 namespace Spacats.CharacterController
@@ -47,6 +48,7 @@ namespace Spacats.CharacterController
 
         public void SyncData()
         {
+            if (PauseController.IsPaused) return;
             _animator.SetFloat("MoveSpeed", 1f);
 
             if (_mtoaData.MainAnimationType == MainAnimationTypes.CrouchBackward ||

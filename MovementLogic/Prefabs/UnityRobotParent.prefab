@@ -141,12 +141,11 @@ MonoBehaviour:
     Gravity: -9.8
     SmoothSpeedChange: 14
     Rigidbody: {fileID: 1883684095469231926}
-    ForwardSpeed: 6
-    BackwardSpeed: 3
-    SitSpeed: 3
-    SwimSpeed: 5
-    SprintMultiplier: 1.5
-    WalkMultiplier: 0.35
+    WalkSpeed: {x: 2, y: 1.35}
+    RunSpeed: {x: 6, y: 3}
+    SprintSpeed: {x: 8, y: 4}
+    CrouchSpeed: {x: 2, y: 1.5}
+    SwimSpeed: {x: 6, y: 3}
 --- !u!114 &6120876049125363948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterAnimatorController
   _animator: {fileID: 7467949517953031467}
   _stateTracker: {fileID: 860163429542104770}
+  _speedChangeSpeed: 4
+  _locomotionChangeSpeed: 4
 --- !u!1 &2793820282740881835
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,6 +954,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 860163429542104770}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7679891862036392797}
   m_SourcePrefab: {fileID: 100100000, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
 --- !u!4 &3549769242525960017 stripped
 Transform:
@@ -978,6 +982,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.AnimatorStateTracker
   MainState: 0
   SubState: 0
+--- !u!114 &7679891862036392797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4181734078496529899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee6a124719c27a7449dbf794d2fd65ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacatsutils::Spacats.Utils.AnimatorPause
 --- !u!95 &7467949517953031467 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}

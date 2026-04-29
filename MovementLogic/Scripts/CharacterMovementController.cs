@@ -114,16 +114,16 @@ namespace Spacats.CharacterController
 
         private float ProcessOnGroundSpeed()
         {
-            float speed = _settings.ForwardSpeed;
+            float speed = _settings.RunSpeed.x;
             _mtoaData.MainAnimationType = MainAnimationTypes.RunForward;
             
             if (_inputData.MoveType == MoveInputTypes.Sprint)
             {
-                speed = _settings.ForwardSpeed*_settings.SprintMultiplier;
+                speed = _settings.SprintSpeed.x;
                 _mtoaData.MainAnimationType = MainAnimationTypes.SprintForward;
                 if (_inputData.IsMovingBack())
                 {
-                    speed = _settings.BackwardSpeed*_settings.SprintMultiplier;
+                    speed = _settings.SprintSpeed.y;
                     _mtoaData.MainAnimationType = MainAnimationTypes.SprintBackward;
                 }
                 
@@ -132,10 +132,11 @@ namespace Spacats.CharacterController
             
             if (_inputData.MoveType == MoveInputTypes.Crouch)
             {
-                speed = _settings.SitSpeed;
+                speed = _settings.CrouchSpeed.x;
                 _mtoaData.MainAnimationType = MainAnimationTypes.CrouchForward;
                 if (_inputData.IsMovingBack())
                 {
+                    speed = _settings.CrouchSpeed.y;
                     _mtoaData.MainAnimationType = MainAnimationTypes.CrouchBackward;
                 }
                 
@@ -144,11 +145,11 @@ namespace Spacats.CharacterController
             
             if (_inputData.MoveType == MoveInputTypes.Walk)
             {
-                speed = _settings.ForwardSpeed*_settings.WalkMultiplier;
+                speed = _settings.WalkSpeed.x;
                 _mtoaData.MainAnimationType = MainAnimationTypes.WalkForward;
                 if (_inputData.IsMovingBack())
                 {
-                    speed = _settings.BackwardSpeed*_settings.WalkMultiplier;
+                    speed = _settings.WalkSpeed.y;
                     _mtoaData.MainAnimationType = MainAnimationTypes.WalkBackward;
                 }
                 
@@ -157,7 +158,7 @@ namespace Spacats.CharacterController
             
             if (_inputData.IsMovingBack())
             {
-                speed = _settings.BackwardSpeed;
+                speed = _settings.RunSpeed.y;
                 _mtoaData.MainAnimationType = MainAnimationTypes.RunBackward;
             }
             
