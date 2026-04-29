@@ -21,5 +21,6 @@ namespace Spacats.CharacterController
         public float SwimSpeed = 1f;
         
         public float SprintMultiplier = 1f;
+        public float WalkMultiplier = 0.5f;
     }
 }

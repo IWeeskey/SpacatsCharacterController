@@ -123,10 +123,22 @@ namespace Spacats.Input
         {
             switch (context.phase)
             {
-                case InputActionPhase.Started:_characterInput.Sitting = true; break;
-                case InputActionPhase.Canceled:_characterInput.Sitting = false; break;
+                case InputActionPhase.Started:_characterInput.Crouching = true; break;
+                case InputActionPhase.Canceled:_characterInput.Crouching = false; break;
             }
+            RefreshMoveType();
         }
+        
+        public void OnWalk(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:_characterInput.Walking = true; break;
+                case InputActionPhase.Canceled:_characterInput.Walking = false; break;
+            }
+            RefreshMoveType();
+        }
+        
         public void OnJump(InputAction.CallbackContext context)
         {
             switch (context.phase)
@@ -134,6 +146,7 @@ namespace Spacats.Input
                 case InputActionPhase.Started:_characterInput.Jumping = true; break;
                 case InputActionPhase.Canceled:_characterInput.Jumping = false; break;
             }
+            
         }
         
         public void OnSprint(InputAction.CallbackContext context)
@@ -143,6 +156,8 @@ namespace Spacats.Input
                 case InputActionPhase.Started:_characterInput.Sprinting = true; break;
                 case InputActionPhase.Canceled:_characterInput.Sprinting = false; break;
             }
+
+            RefreshMoveType();
         }
         
         public void OnLookDelta(InputAction.CallbackContext context)
@@ -160,6 +175,31 @@ namespace Spacats.Input
             Vector2 value = context.ReadValue<Vector2>();
             value.y *= _sensitivityData.CharacterZoomSensitivity();
             _characterInput.ZoomDelta = value.y;
+        }
+
+        private void RefreshMoveType()
+        {
+            _characterInput.MoveType = MoveTypes.Idle;
+            if (_characterInput.MoveDirection!= MoveDirections.Idle)  _characterInput.MoveType = MoveTypes.Run;
+
+            if (_characterInput.Sprinting)
+            {
+                _characterInput.MoveType = MoveTypes.Sprint;
+                return;
+            }
+            
+            if (_characterInput.Crouching)
+            {
+                _characterInput.MoveType = MoveTypes.Crouch;
+                return;
+            }
+            
+            if (_characterInput.Walking)
+            {
+                _characterInput.MoveType = MoveTypes.Walk;
+                return;
+            }
+            
         }
 
         #endregion

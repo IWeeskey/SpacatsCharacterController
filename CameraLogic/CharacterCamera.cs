@@ -144,7 +144,7 @@ namespace Spacats.CharacterCamera
                 case MoveDirections.BackwardRight: direction =  (forwardDir*-1f+rightDir)/2f; break;
             }
 
-            if (_characterInput.Sitting)
+            if (_characterInput.Crouching)
             {
                 direction += _lookTransform.up*-1f;
                 direction /= 2f;
@@ -196,9 +196,8 @@ namespace Spacats.CharacterCamera
             _playerInput.MoveDirection = _characterInput.MoveDirection;
             _playerInput.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;
 
-            _playerInput.Sitting = _characterInput.Sitting;
+            _playerInput.MoveType = _characterInput.MoveType;
             _playerInput.Jumping = _characterInput.Jumping;
-            _playerInput.Sprinting = _characterInput.Sprinting;
         }
 
         private void DoFollowCharacter()

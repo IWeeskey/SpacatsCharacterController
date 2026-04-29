@@ -1,4 +1,5 @@
 using System;
+using Spacats.Input;
 using Spacats.Utils;
 using UnityEngine;
 
@@ -91,8 +92,9 @@ namespace Spacats.CharacterController
         {
             float speed = _settings.ForwardSpeed;
             if (_inputData.IsMovingBack()) speed = _settings.BackwardSpeed;
-            if (_inputData.Sitting) speed = _settings.SitSpeed;
-            if (_inputData.Sprinting) speed *= _settings.SprintMultiplier;
+            if (_inputData.MoveType == MoveTypes.Crouch) speed = _settings.SitSpeed;
+            if (_inputData.MoveType == MoveTypes.Sprint) speed *= _settings.SprintMultiplier;
+            if (_inputData.MoveType == MoveTypes.Walk) speed *= _settings.WalkMultiplier;
             
             _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * speed;
             _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-0.5f;

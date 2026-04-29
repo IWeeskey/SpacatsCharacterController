@@ -2920,36 +2920,32 @@ MonoBehaviour:
   - _inputData:
       MoveDirectionVector: {x: 0, y: 0, z: 0}
       ForwardVector: {x: 0, y: 0, z: 0}
-      Sitting: 0
       Jumping: 0
-      Sprinting: 0
+      MoveType: 0
       MoveDirection: 0
       MoveDirectionsLockBack: 0
     _thisCharacterSummary: {fileID: 1350445988}
   - _inputData:
       MoveDirectionVector: {x: 0, y: 0, z: 0}
       ForwardVector: {x: 0, y: 0, z: 0}
-      Sitting: 0
       Jumping: 0
-      Sprinting: 0
+      MoveType: 0
       MoveDirection: 0
       MoveDirectionsLockBack: 0
     _thisCharacterSummary: {fileID: 49164188}
   - _inputData:
       MoveDirectionVector: {x: 0, y: 0, z: 0}
       ForwardVector: {x: 0, y: 0, z: 0}
-      Sitting: 0
       Jumping: 0
-      Sprinting: 0
+      MoveType: 0
       MoveDirection: 0
       MoveDirectionsLockBack: 0
     _thisCharacterSummary: {fileID: 1851369548}
   - _inputData:
       MoveDirectionVector: {x: 0, y: 0, z: 0}
       ForwardVector: {x: 0, y: 0, z: 0}
-      Sitting: 0
       Jumping: 0
-      Sprinting: 0
+      MoveType: 0
       MoveDirection: 0
       MoveDirectionsLockBack: 0
     _thisCharacterSummary: {fileID: 123769433}
@@ -3202,11 +3198,13 @@ MonoBehaviour:
   ExecuteOrder: 0
   PersistsAtScenes: []
   _characterInput:
+    MoveType: 0
     MoveDirection: 0
     MoveDirectionsLockBack: 0
-    Sitting: 0
     Jumping: 0
     Sprinting: 0
+    Walking: 0
+    Crouching: 0
     Movement: {x: 0, y: 0}
     LookDelta: {x: 0, y: 0}
     ZoomDelta: 0
@@ -3364,6 +3362,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9235168d-1642-4164-9c01-ba607b7ba323
     m_ActionName: 'PlayerControls/Sprint[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1685632524}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnWalk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9795720f-a4cb-4bf7-b031-82ad3ee5330a
+    m_ActionName: 'PlayerControls/Walk[/Keyboard/leftAlt]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -4150,7 +4164,7 @@ Transform:
   m_GameObject: {fileID: 1961501032}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -12.9, y: 1.81, z: 15.92}
+  m_LocalPosition: {x: -15.54, y: 1.81, z: 15.92}
   m_LocalScale: {x: 10, y: 4, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4550,10 +4564,6 @@ PrefabInstance:
     - target: {fileID: 5372882852638904008, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799113070330462477, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: FixedFollowOffset.y
-      value: 1.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

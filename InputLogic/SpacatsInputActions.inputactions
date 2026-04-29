@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sit",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "e39699ee-5624-4e8c-9531-87afb42f4bbb",
                     "expectedControlType": "",
@@ -64,6 +64,15 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "9235168d-1642-4164-9c01-ba607b7ba323",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Walk",
+                    "type": "Button",
+                    "id": "9795720f-a4cb-4bf7-b031-82ad3ee5330a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -188,7 +197,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sit",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -211,6 +220,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "367a70fe-c600-49fd-a80e-87f641f133c7",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
