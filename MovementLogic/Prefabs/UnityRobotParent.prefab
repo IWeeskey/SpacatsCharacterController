@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6799113070330462477}
   - component: {fileID: 5429509578184482499}
   - component: {fileID: 6120876049125363948}
+  - component: {fileID: 7490805505962543923}
   m_Layer: 0
   m_Name: UnityRobotParent
   m_TagString: Untagged
@@ -53,14 +54,20 @@ MonoBehaviour:
   IsPlayer: 0
   _movementController: {fileID: 5429509578184482499}
   _rotationController: {fileID: 6120876049125363948}
+  _animatorController: {fileID: 7490805505962543923}
   _inputData:
     MoveDirectionVector: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
-    Sitting: 0
     Jumping: 0
-    Sprinting: 0
+    MoveType: 0
     MoveDirection: 0
     MoveDirectionsLockBack: 0
+  _atomData:
+    MainAnimationType: 0
+    UpperBodyAnimationType: 0
+  _mtoaData:
+    MainAnimationType: 0
+    UpperBodyAnimationType: 0
 --- !u!54 &1883684095469231926
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,13 +139,14 @@ MonoBehaviour:
       m_Bits: 16
     OnGroundThreshold: 0.4
     Gravity: -9.8
-    SmoothSpeedChange: 6
+    SmoothSpeedChange: 14
     Rigidbody: {fileID: 1883684095469231926}
-    ForwardSpeed: 10
-    BackwardSpeed: 5
+    ForwardSpeed: 6
+    BackwardSpeed: 3
     SitSpeed: 3
     SwimSpeed: 5
-    SprintMultiplier: 2
+    SprintMultiplier: 1.5
+    WalkMultiplier: 0.35
 --- !u!114 &6120876049125363948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +172,20 @@ MonoBehaviour:
   _rotateParent: {fileID: 8751129288367008405}
   _prevAtRight: 0
   _prevAtLeft: 0
+--- !u!114 &7490805505962543923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151694256189569261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80db69554dc99dc419df5e0967504511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterAnimatorController
+  _animator: {fileID: 7467949517953031467}
+  _stateTracker: {fileID: 860163429542104770}
 --- !u!1 &2793820282740881835
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,13 +938,48 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
       objectReference: {fileID: 2100000, guid: fa11c7d73ca2e5b488cd167e37c3635a, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5d1484c0df2024b4c96365a5acb4ce45, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 860163429542104770}
   m_SourcePrefab: {fileID: 100100000, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
 --- !u!4 &3549769242525960017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4181734078496529899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &860163429542104770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4181734078496529899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66782a3f6e42484380de1c86fed9b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.AnimatorStateTracker
+  MainState: 0
+  SubState: 0
+--- !u!95 &7467949517953031467 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
   m_PrefabInstance: {fileID: 3947942927612993722}
   m_PrefabAsset: {fileID: 0}

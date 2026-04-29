@@ -1348,7 +1348,7 @@ MonoBehaviour:
     MinMaxRot: {x: -50, y: 70}
     FixedLookAtOffset: {x: 0.5, y: 0, z: 5}
     PositionFollowSpeed: 50
-    RotationFollowSpeed: 10
+    RotationFollowSpeed: 25
     ZoomSpeed: 10
     LookYModifier: 0
     LookZModifier: -1
@@ -1792,30 +1792,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1029357185 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4181734078496529899, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-  m_PrefabInstance: {fileID: 5540405203230024356}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1029357187 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7467949517953031467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-  m_PrefabInstance: {fileID: 5540405203230024356}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1029357188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029357185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66782a3f6e42484380de1c86fed9b84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.AnimatorStateTracker
-  MainState: 0
-  SubState: 0
 --- !u!1 &1092883127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4511,7 +4487,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2640014618256181543, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
   m_PrefabInstance: {fileID: 5540405203230024356}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5187245222077696500}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9a95969aa49265498e2e8fa33e8c6ea, type: 3}
@@ -4522,17 +4498,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5372882852638904008, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
   m_PrefabInstance: {fileID: 5540405203230024356}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5187245222077696500 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2151694256189569261, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-  m_PrefabInstance: {fileID: 5540405203230024356}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5486461943312089944 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6799113070330462477, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
   m_PrefabInstance: {fileID: 5540405203230024356}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5187245222077696500}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cf102605f5b18f4a90ad3098b330d9a, type: 3}
@@ -4550,10 +4521,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnityRobotParent
       objectReference: {fileID: 0}
-    - target: {fileID: 2640014618256181543, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: _animatorController
-      value: 
-      objectReference: {fileID: 8467643838481057010}
     - target: {fileID: 3073328150029576634, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: _lookAtTarget
       value: 
@@ -4598,39 +4565,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7467949517953031467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 5d1484c0df2024b4c96365a5acb4ce45, type: 2}
-    - target: {fileID: 7467949517953031467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2151694256189569261, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8467643838481057010}
-    - targetCorrespondingSourceObject: {fileID: 4181734078496529899, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1029357188}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
---- !u!114 &8467643838481057010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5187245222077696500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80db69554dc99dc419df5e0967504511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterAnimatorController
-  _animator: {fileID: 1029357187}
-  _stateTracker: {fileID: 1029357188}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

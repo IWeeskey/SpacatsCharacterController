@@ -102,8 +102,14 @@ namespace Spacats.CharacterController
 
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
                 _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
+
+            if (_inputData.MoveDirection == MoveDirections.Idle)
+            {
+                _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
+                
+                if (_inputData.MoveType == MoveInputTypes.Crouch)   _mtoaData.MainAnimationType = MainAnimationTypes.CrouchIdle;
+            }
             
-            if (_inputData.MoveDirection == MoveDirections.Idle) _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
         }
 
         private float ProcessOnGroundSpeed()

@@ -19,14 +19,17 @@ namespace Spacats.CharacterController
         SprintForward = 5,
         SprintBackward = 6,
         
-        CrouchForward = 7,
-        CrouchBackward = 8,
+        CrouchIdle = 7,
+        CrouchForward = 8,
+        CrouchBackward = 9,
         
-        SwimForward = 9,
-        SwimBackward = 10,
+        SwimIdle = 10,
+        SwimForward = 11,
+        SwimBackward = 12,
         
-        ClimbForward = 11,
-        ClimbBackward = 12,
+        ClimbIdle = 13,
+        ClimbForward = 14,
+        ClimbBackward = 15,
         
     }
 }

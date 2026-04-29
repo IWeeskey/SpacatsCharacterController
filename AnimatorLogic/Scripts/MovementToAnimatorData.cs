@@ -6,6 +6,7 @@ namespace Spacats.CharacterController
     [Serializable]
     public class MovementToAnimatorData
     {
+        
         public MainAnimationTypes MainAnimationType;
         public UpperBodyAnimationTypes UpperBodyAnimationType;
         public void Reset()
