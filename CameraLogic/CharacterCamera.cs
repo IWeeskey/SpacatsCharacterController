@@ -52,6 +52,28 @@ namespace Spacats.CharacterCamera
             DoFollowCharacterInstant();
         }
 
+        private float GetFixedDeltaTime()
+        {
+            return Time.fixedUnscaledDeltaTime;
+            if (Time.timeScale <= 0f) return 0f;
+            return Time.fixedDeltaTime / Time.timeScale;
+        }
+        
+        private float GetDeltaTime()
+        {
+            return Time.unscaledDeltaTime;
+            if (Time.timeScale <= 0f) return 0f;
+            return Time.deltaTime / Time.timeScale;
+        }
+        
+        private float GetSmoothDampSpeed()
+        {
+            if (Time.timeScale <= 0f) return 0f;
+            if (_followCharacterSettings.PositionFollowSpeed <= 0f) return 0f;
+            float actualFollowSpeed = _followCharacterSettings.PositionFollowSpeed / Time.timeScale;
+            return 1f / actualFollowSpeed;
+        }
+
         private void GetInput()
         {
             _characterInput = InputController.Instance.CharacterInput;
@@ -134,11 +156,12 @@ namespace Spacats.CharacterCamera
             }
             float speed = _logicPauseSettings.MoveSpeed;
             if (_characterInput.Sprinting) speed *= _logicPauseSettings.SprintMultiplier;
-            _pauseFollowHandler.SetVelocity(direction*Time.fixedDeltaTime*speed);
+            _pauseFollowHandler.SetVelocity(direction*GetFixedDeltaTime()*speed);
         }
 
         private void ApplyInput()
         {
+            
             if (!_currentInLogicPause) _cRData.TargetZoomValue -= _characterInput.ZoomDelta;
             else _cRData.TargetZoomValue = _followCharacterSettings.MinMaxZoom.x;
             _cRData.TargetZoomValue = Mathf.Clamp(_cRData.TargetZoomValue, _followCharacterSettings.MinMaxZoom.x, _followCharacterSettings.MinMaxZoom.y);
@@ -169,10 +192,13 @@ namespace Spacats.CharacterCamera
         private void ApplyToPlayerInput()
         {
             _playerInput.MoveDirectionVector = _cRData.MoveDirection;
-            //_playerInput.MoveDirectionInvertedV = _cRData.MoveDirectionLockBack;
             _playerInput.ForwardVector = transform.forward;
             _playerInput.MoveDirection = _characterInput.MoveDirection;
             _playerInput.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;
+
+            _playerInput.Sitting = _characterInput.Sitting;
+            _playerInput.Jumping = _characterInput.Jumping;
+            _playerInput.Sprinting = _characterInput.Sprinting;
         }
 
         private void DoFollowCharacter()
@@ -195,8 +221,7 @@ namespace Spacats.CharacterCamera
            
             //Vector3 selfPosition = transform.position;
             _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
-            //transform.position = Vector3.Lerp(selfPosition, targetPosition, Time.deltaTime*_followCharacterSettings.PositionFollowSpeed);
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocityRef, 1f/_followCharacterSettings.PositionFollowSpeed);
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocityRef, GetSmoothDampSpeed());
             
             if (!_currentInLogicPause) _pauseFollowTarget.transform.position = _lookTransform.position;
         }
@@ -205,7 +230,7 @@ namespace Spacats.CharacterCamera
         {
             if (_currentFollowTarget==null) return;
             if (_lookTransform==null) return;
-            _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, _cRData.TargetZoomValue, Time.deltaTime*_followCharacterSettings.ZoomSpeed);
+            _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, _cRData.TargetZoomValue, GetDeltaTime() *_followCharacterSettings.ZoomSpeed);
             if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
             
             Vector3 lookOffset = Vector3.zero;
@@ -220,7 +245,7 @@ namespace Spacats.CharacterCamera
             gameObject.transform.localEulerAngles = _cRData.TargetEulers;
             Quaternion targetQuat = gameObject.transform.rotation;
 
-            gameObject.transform.rotation = Quaternion.Lerp(startQuat, targetQuat,Time.deltaTime * _followCharacterSettings.RotationFollowSpeed);
+            gameObject.transform.rotation = Quaternion.Lerp(startQuat, targetQuat,GetDeltaTime() * _followCharacterSettings.RotationFollowSpeed);
         }
 
         private void DoFollowCharacterInstant()

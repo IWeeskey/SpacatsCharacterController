@@ -16,6 +16,10 @@ namespace Spacats.CharacterController
         /// </summary>
         public Vector3 ForwardVector;
         
+        public bool Sitting;
+        public bool Jumping;
+        public bool Sprinting;
+        
         public MoveDirections MoveDirection;
         public MoveDirections MoveDirectionsLockBack;
         
@@ -25,6 +29,10 @@ namespace Spacats.CharacterController
             ForwardVector = Vector3.zero;
             MoveDirection = MoveDirections.Idle;
             MoveDirectionsLockBack = MoveDirections.Idle;
+
+            Sitting = false;
+            Jumping = false;
+            Sprinting = false;
         }
 
         public bool IsMovingBack()

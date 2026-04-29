@@ -12,8 +12,13 @@ namespace Spacats.CharacterController
         [SerializeField] private MovementRuntimeData _runtimeData;
         [SerializeField] private MovementSettings _settings;
         private CharacterInputRuntimeData _inputData;
-        
-        public void TryMove(Vector3 moveDirection)
+
+        public void Init(CharacterInputRuntimeData inputData)
+        {
+            _inputData = inputData;
+        }
+
+        public void TryMove()
         {
             _runtimeData.RigidBodyVelocity = _settings.Rigidbody.linearVelocity;
             _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
@@ -27,7 +32,7 @@ namespace Spacats.CharacterController
                 return;
             }
 
-            _runtimeData.MoveDirection = moveDirection;
+            _runtimeData.MoveDirection = _inputData.MoveDirectionVector;
             
             if (_runtimeData.WasPaused)
             {
@@ -84,7 +89,12 @@ namespace Spacats.CharacterController
 
         private void ProcessOnGround()
         {
-            _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * _settings.ForwardSpeed;
+            float speed = _settings.ForwardSpeed;
+            if (_inputData.IsMovingBack()) speed = _settings.BackwardSpeed;
+            if (_inputData.Sitting) speed = _settings.SitSpeed;
+            if (_inputData.Sprinting) speed *= _settings.SprintMultiplier;
+            
+            _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * speed;
             _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-0.5f;
 
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,

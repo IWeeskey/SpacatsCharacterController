@@ -17,17 +17,19 @@ namespace Spacats.CharacterController
         public void SetInputData(CharacterInputRuntimeData  inputData)
         {
             _inputData = inputData;
+            _movementController.Init(inputData);
+            _rotationController.Init(inputData);
         }
 
         void FixedUpdate()
         {
-            _movementController.TryMove(_inputData.MoveDirectionVector);
+            _movementController.TryMove();
         }
 
         void Update()
         {
             _inputData.ForwardVector.y = 0f;
-            _rotationController.TryRotate(_inputData);
+            _rotationController.TryRotate();
         }
     }
 }

@@ -499,6 +499,9 @@ MonoBehaviour:
   _inputData:
     MoveDirectionVector: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
+    Sitting: 0
+    Jumping: 0
+    Sprinting: 0
     MoveDirection: 0
     MoveDirectionsLockBack: 0
 --- !u!54 &4493083010578392908
@@ -575,10 +578,10 @@ MonoBehaviour:
     SmoothSpeedChange: 6
     Rigidbody: {fileID: 4493083010578392908}
     ForwardSpeed: 10
-    BackwardSpeed: 10
-    SitSpeed: 10
-    SwimSpeed: 10
-    SprintMultiplier: 10
+    BackwardSpeed: 5
+    SitSpeed: 3
+    SwimSpeed: 5
+    SprintMultiplier: 2
 --- !u!114 &8800348329698275228
 MonoBehaviour:
   m_ObjectHideFlags: 0

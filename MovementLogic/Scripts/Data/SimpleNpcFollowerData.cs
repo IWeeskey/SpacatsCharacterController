@@ -72,6 +72,7 @@ namespace Spacats.CharacterController
         
         private void MoveToTarget(bool sprint = false)
         {
+            _inputData.Sprinting = sprint;
             _inputData.MoveDirection = MoveDirections.Forward;
             _inputData.MoveDirectionsLockBack = MoveDirections.Forward;
             _inputData.ForwardVector = _thisCharacterSummary.GetSelfForwardVector();

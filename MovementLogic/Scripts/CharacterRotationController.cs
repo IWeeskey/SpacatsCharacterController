@@ -22,6 +22,11 @@ namespace Spacats.CharacterController
         [SerializeField] public Transform _rotateParent;
         [SerializeField] public bool _prevAtRight = false; 
         [SerializeField] public bool _prevAtLeft = false;
+        private CharacterInputRuntimeData _inputData;
+        public void Init(CharacterInputRuntimeData inputData)
+        {
+            _inputData = inputData;
+        }
 
         public Vector3 GetForwardVector()
         {
@@ -29,20 +34,20 @@ namespace Spacats.CharacterController
             return _rotateParent.forward;
         }
 
-        public void TryRotate(CharacterInputRuntimeData iData)
+        public void TryRotate()
         {
             if (PauseController.IsPaused) return;
-            if (iData.MoveDirection == MoveDirections.Idle) return;
+            if (_inputData.MoveDirection == MoveDirections.Idle) return;
             //_movingBack = false;
-            _moveDirection = iData.MoveDirectionVector;
-            if (iData.MoveDirectionsLockBack != iData.MoveDirection)
+            _moveDirection = _inputData.MoveDirectionVector;
+            if (_inputData.MoveDirectionsLockBack != _inputData.MoveDirection)
             {
                 _moveDirection *= -1f;
             }
             
             if (DontLookBack && _framesToFixAngleLeft<=0)
             {
-                _angle = Vector3.SignedAngle(iData.ForwardVector, _moveDirection, Vector3.up);
+                _angle = Vector3.SignedAngle(_inputData.ForwardVector, _moveDirection, Vector3.up);
                 if (_angle >= _angleMinMax.x && _angle <= _angleMinMax.y)
                 {
                     //ok
@@ -50,7 +55,7 @@ namespace Spacats.CharacterController
                 //out of _angleMinMax
                 else 
                 {
-                    _moveDirection = iData.ForwardVector;
+                    _moveDirection = _inputData.ForwardVector;
                     //_movingBack = true;
                 }
 
@@ -71,7 +76,7 @@ namespace Spacats.CharacterController
 
             if (_framesToFixAngleLeft > 0)
             {
-                _moveDirection = iData.ForwardVector;
+                _moveDirection = _inputData.ForwardVector;
                 _framesToFixAngleLeft--;
             }
 
