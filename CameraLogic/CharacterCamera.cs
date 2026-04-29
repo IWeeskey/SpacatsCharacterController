@@ -21,17 +21,22 @@ namespace Spacats.CharacterCamera
         [SerializeField] private Transform _lookAtTransform;
         [SerializeField] private Transform _moveDirectionTransform;
         //[SerializeField] private Transform _moveRotationTransform;
-        [SerializeField] private FollowCharacterSettings  _followCharacterSettings;
+        [SerializeField] private FollowCharacterSettings _followCharacterSettings;
 
         [SerializeField] private FollowCharacterRuntimeData  _cRData;
         
         [SerializeField] private LogicPauseSettings _logicPauseSettings;
         [SerializeField] private LogicPauseRuntimeData _logicPauseRData;
+        
+        [SerializeField] private CharacterCameraBackCollisionChecker _backCollisionChecker;
 
         private bool _prevInLogicPause = false;
         private bool _currentInLogicPause = false;
+        private float _currentFollowPositionSpeed = 0f;
+        private float _targetFollowPositionSpeed = 0f;
         
         private Vector3 _followVelocityRef = new Vector3(0,0,0);
+        private float _backDistance = 999f;
         
         private CharacterInputRuntimeData _playerInput = new CharacterInputRuntimeData();
 
@@ -42,6 +47,7 @@ namespace Spacats.CharacterCamera
             _playerInput.Reset();
             _playerSummary.IsPlayer = true;
             _playerSummary.SetInputData(_playerInput);
+            _currentFollowPositionSpeed = _followCharacterSettings.PositionFollowSpeed;
           
             Application.targetFrameRate = ApplicationFrameRate;
             _pauseFollowTarget.gameObject.transform.SetParent(null);
@@ -69,8 +75,11 @@ namespace Spacats.CharacterCamera
         private float GetSmoothDampSpeed()
         {
             if (Time.timeScale <= 0f) return 0f;
-            if (_followCharacterSettings.PositionFollowSpeed <= 0f) return 0f;
-            float actualFollowSpeed = _followCharacterSettings.PositionFollowSpeed / Time.timeScale;
+            if (_currentFollowPositionSpeed <= 0f) return 0f;
+
+            _currentFollowPositionSpeed = Mathf.Lerp(_currentFollowPositionSpeed, _targetFollowPositionSpeed,
+                Time.unscaledDeltaTime * _logicPauseSettings.SmoothReturnSpeed);
+            float actualFollowSpeed = _currentFollowPositionSpeed / Time.timeScale;
             return 1f / actualFollowSpeed;
         }
 
@@ -82,6 +91,7 @@ namespace Spacats.CharacterCamera
         void Update()
         {
             ApplyInput();
+
         }
 
         private void FixedUpdate()
@@ -120,6 +130,8 @@ namespace Spacats.CharacterCamera
         { 
             _cRData.TargetZoomValue = _cRData.BeforePauseZoomValue;
             _currentFollowTarget = _followTarget;
+            _currentFollowPositionSpeed = _logicPauseSettings.ReturnSpeed;
+            _targetFollowPositionSpeed = _followCharacterSettings.PositionFollowSpeed;
             _pauseFollowHandler.DisablePhysics();
         }
 
@@ -229,7 +241,17 @@ namespace Spacats.CharacterCamera
         {
             if (_currentFollowTarget==null) return;
             if (_lookTransform==null) return;
-            _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, _cRData.TargetZoomValue, GetDeltaTime() *_followCharacterSettings.ZoomSpeed);
+            _backDistance = _backCollisionChecker.GetHitDistance(_lookTransform.forward*-1f, _lookTransform.right, _lookTransform.up, transform.position);
+            float targetZoom = Mathf.Min(_cRData.TargetZoomValue, _backDistance);
+            if (_backDistance < _cRData.TargetZoomValue)
+            {
+                _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, targetZoom, GetDeltaTime() *_followCharacterSettings.ZoomSpeed*10f);
+            }
+            else
+            {
+                _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, targetZoom, GetDeltaTime() *_followCharacterSettings.ZoomSpeed);
+            }
+            
             if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
             
             Vector3 lookOffset = Vector3.zero;
@@ -262,7 +284,6 @@ namespace Spacats.CharacterCamera
             _lookTransform.localPosition = lookOffset;
 
             gameObject.transform.localEulerAngles = _cRData.TargetEulers;
-            
             
             _lookTransform.LookAt(_lookAtTransform);
         }

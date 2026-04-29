@@ -1349,7 +1349,7 @@ MonoBehaviour:
     FixedLookAtOffset: {x: 0.5, y: 0, z: 5}
     PositionFollowSpeed: 50
     RotationFollowSpeed: 25
-    ZoomSpeed: 10
+    ZoomSpeed: 5
     LookYModifier: 0
     LookZModifier: -1
     RotationYModifier: -0.1
@@ -1357,6 +1357,7 @@ MonoBehaviour:
   _cRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0
+    BackBlockedZoomValue: 0
     BeforePauseZoomValue: 0
     CurrentRotation: {x: 0, y: 0, z: 0, w: 0}
     TargetEulers: {x: 0, y: 0, z: 0}
@@ -1365,6 +1366,8 @@ MonoBehaviour:
   _logicPauseSettings:
     MoveSpeed: 1000
     SprintMultiplier: 5
+    SmoothReturnSpeed: 1
+    ReturnSpeed: 5
   _logicPauseRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0
@@ -1372,6 +1375,11 @@ MonoBehaviour:
     TargetEulers: {x: 0, y: 0, z: 0}
     MoveDirection: {x: 0, y: 0, z: 0}
     MoveDirectionLockBack: {x: 0, y: 0, z: 0}
+  _backCollisionChecker:
+    CollisionLayers:
+      serializedVersion: 2
+      m_Bits: 1
+    Distance: 0
 --- !u!1 &743638072
 GameObject:
   m_ObjectHideFlags: 0
@@ -4564,6 +4572,14 @@ PrefabInstance:
     - target: {fileID: 5372882852638904008, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5429509578184482499, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
+      propertyPath: _settings.RunSpeed.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5429509578184482499, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
+      propertyPath: _settings.OnGroundThreshold
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

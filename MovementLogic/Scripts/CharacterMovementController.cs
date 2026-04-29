@@ -68,15 +68,15 @@ namespace Spacats.CharacterController
 
         private void GetDistanceToGround()
         {
-            _runtimeData.Ray.origin = _settings.Rigidbody.position;
+            _runtimeData.Ray.origin = _settings.Rigidbody.position+Vector3.up*0.5f;
             _runtimeData.Ray.direction = Vector3.down;
             
             Physics.Raycast(_runtimeData.Ray, out _runtimeData.RHit, Mathf.Infinity, _settings.GroundLayers);
-            // if (_rHit.collider == null)
-            // {
-            //     _distanceToGround = 999f;
-            //     return;
-            // }
+            if (_runtimeData.RHit.collider == null)
+            {
+                _runtimeData.DistanceToGround = 999f;
+                return;
+            }
 
             _runtimeData.DistanceToGround = _runtimeData.RHit.distance;
         }

@@ -8,6 +8,7 @@ namespace Spacats.CharacterCamera
     {
         public float CurrentZoomValue;
         public float TargetZoomValue;
+        public float BackBlockedZoomValue;
         public float BeforePauseZoomValue;
 
         public Quaternion CurrentRotation;
@@ -21,7 +22,7 @@ namespace Spacats.CharacterCamera
             CurrentZoomValue = settings.DefaultZoom;
             BeforePauseZoomValue = CurrentZoomValue;
             TargetZoomValue = CurrentZoomValue;
-            
+            BackBlockedZoomValue = 9999f;
             TargetEulers = Vector3.zero;
         }
     }
