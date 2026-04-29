@@ -7,7 +7,11 @@ namespace Spacats.CharacterController
         public bool IsPlayer = false;
         [SerializeField] private CharacterMovementController _movementController;
         [SerializeField] private CharacterRotationController _rotationController;
+        [SerializeField] private CharacterAnimatorController _animatorController;
         [SerializeField] private CharacterInputRuntimeData _inputData;
+        
+        [SerializeField] private AnimatorToMovementData _atomData = new AnimatorToMovementData();
+        [SerializeField] private MovementToAnimatorData _mtoaData = new MovementToAnimatorData();
 
         public Vector3 GetSelfForwardVector()
         {
@@ -16,9 +20,13 @@ namespace Spacats.CharacterController
 
         public void SetInputData(CharacterInputRuntimeData  inputData)
         {
+            _atomData.Reset();
+            _mtoaData.Reset();
+            
             _inputData = inputData;
-            _movementController.Init(inputData);
+            _movementController.Init(inputData, _atomData, _mtoaData);
             _rotationController.Init(inputData);
+            _animatorController?.Init(inputData, _atomData, _mtoaData);
         }
 
         void FixedUpdate()
@@ -30,6 +38,7 @@ namespace Spacats.CharacterController
         {
             _inputData.ForwardVector.y = 0f;
             _rotationController.TryRotate();
+            _animatorController?.SyncData();
         }
     }
 }

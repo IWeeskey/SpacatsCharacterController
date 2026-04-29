@@ -6,7 +6,7 @@ namespace Spacats.Input
     [Serializable]
     public class CharacterInputData
     {
-        public MoveTypes MoveType;
+        public MoveInputTypes MoveType;
         public MoveDirections MoveDirection;
         public MoveDirections MoveDirectionsLockBack;
         public bool Jumping;

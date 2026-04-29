@@ -179,24 +179,24 @@ namespace Spacats.Input
 
         private void RefreshMoveType()
         {
-            _characterInput.MoveType = MoveTypes.Idle;
-            if (_characterInput.MoveDirection!= MoveDirections.Idle)  _characterInput.MoveType = MoveTypes.Run;
+            _characterInput.MoveType = MoveInputTypes.Idle;
+            if (_characterInput.MoveDirection!= MoveDirections.Idle)  _characterInput.MoveType = MoveInputTypes.Run;
 
             if (_characterInput.Sprinting)
             {
-                _characterInput.MoveType = MoveTypes.Sprint;
+                _characterInput.MoveType = MoveInputTypes.Sprint;
                 return;
             }
             
             if (_characterInput.Crouching)
             {
-                _characterInput.MoveType = MoveTypes.Crouch;
+                _characterInput.MoveType = MoveInputTypes.Crouch;
                 return;
             }
             
             if (_characterInput.Walking)
             {
-                _characterInput.MoveType = MoveTypes.Walk;
+                _characterInput.MoveType = MoveInputTypes.Walk;
                 return;
             }
             

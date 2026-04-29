@@ -18,7 +18,7 @@ namespace Spacats.CharacterController
         
         public bool Jumping;
         
-        public MoveTypes MoveType;
+        public MoveInputTypes MoveType;
         public MoveDirections MoveDirection;
         public MoveDirections MoveDirectionsLockBack;
         
@@ -28,7 +28,7 @@ namespace Spacats.CharacterController
             ForwardVector = Vector3.zero;
             MoveDirection = MoveDirections.Idle;
             MoveDirectionsLockBack = MoveDirections.Idle;
-            MoveType =  MoveTypes.Idle;
+            MoveType =  MoveInputTypes.Idle;
             Jumping = false;
         }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Spacats.Input
 {
-    public enum MoveTypes
+    public enum MoveInputTypes
     {
         Idle = 0,
 
@@ -10,8 +10,5 @@ namespace Spacats.Input
         Run = 2,
         Sprint = 3,
         Crouch = 4,
-        
-        Climb = 5,
-        Swim = 6,
     }
 }

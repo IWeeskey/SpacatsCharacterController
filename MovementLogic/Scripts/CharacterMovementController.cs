@@ -13,16 +13,20 @@ namespace Spacats.CharacterController
         [SerializeField] private MovementRuntimeData _runtimeData;
         [SerializeField] private MovementSettings _settings;
         private CharacterInputRuntimeData _inputData;
-
-        public void Init(CharacterInputRuntimeData inputData)
+        private AnimatorToMovementData _atomData;
+        private MovementToAnimatorData _mtoaData;
+        public void Init(CharacterInputRuntimeData inputData, AnimatorToMovementData atomData, MovementToAnimatorData mtoaData)
         {
             _inputData = inputData;
+            _atomData = atomData;
+            _mtoaData = mtoaData;
         }
 
         public void TryMove()
         {
             _runtimeData.RigidBodyVelocity = _settings.Rigidbody.linearVelocity;
             _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
+            _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
             if (PauseController.IsPaused)
             {
                 //_settings.Rigidbody.for
@@ -90,23 +94,73 @@ namespace Spacats.CharacterController
 
         private void ProcessOnGround()
         {
-            float speed = _settings.ForwardSpeed;
-            if (_inputData.IsMovingBack()) speed = _settings.BackwardSpeed;
-            if (_inputData.MoveType == MoveTypes.Crouch) speed = _settings.SitSpeed;
-            if (_inputData.MoveType == MoveTypes.Sprint) speed *= _settings.SprintMultiplier;
-            if (_inputData.MoveType == MoveTypes.Walk) speed *= _settings.WalkMultiplier;
+            
+            float speed = ProcessOnGroundSpeed();
             
             _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * speed;
             _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-0.5f;
 
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
                 _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
+            
+            if (_inputData.MoveDirection == MoveDirections.Idle) _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
         }
-        
+
+        private float ProcessOnGroundSpeed()
+        {
+            float speed = _settings.ForwardSpeed;
+            _mtoaData.MainAnimationType = MainAnimationTypes.RunForward;
+            
+            if (_inputData.MoveType == MoveInputTypes.Sprint)
+            {
+                speed = _settings.ForwardSpeed*_settings.SprintMultiplier;
+                _mtoaData.MainAnimationType = MainAnimationTypes.SprintForward;
+                if (_inputData.IsMovingBack())
+                {
+                    speed = _settings.BackwardSpeed*_settings.SprintMultiplier;
+                    _mtoaData.MainAnimationType = MainAnimationTypes.SprintBackward;
+                }
+                
+                return speed;
+            }
+            
+            if (_inputData.MoveType == MoveInputTypes.Crouch)
+            {
+                speed = _settings.SitSpeed;
+                _mtoaData.MainAnimationType = MainAnimationTypes.CrouchForward;
+                if (_inputData.IsMovingBack())
+                {
+                    _mtoaData.MainAnimationType = MainAnimationTypes.CrouchBackward;
+                }
+                
+                return speed;
+            }
+            
+            if (_inputData.MoveType == MoveInputTypes.Walk)
+            {
+                speed = _settings.ForwardSpeed*_settings.WalkMultiplier;
+                _mtoaData.MainAnimationType = MainAnimationTypes.WalkForward;
+                if (_inputData.IsMovingBack())
+                {
+                    speed = _settings.BackwardSpeed*_settings.WalkMultiplier;
+                    _mtoaData.MainAnimationType = MainAnimationTypes.WalkBackward;
+                }
+                
+                return speed;
+            }
+            
+            if (_inputData.IsMovingBack())
+            {
+                speed = _settings.BackwardSpeed;
+                _mtoaData.MainAnimationType = MainAnimationTypes.RunBackward;
+            }
+            
+            return speed;
+        }
+
         private void ProcessInAir()
         {
             _runtimeData.RuntimeVelocity.y = _settings.Gravity;
-            //_settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
                 _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
         }

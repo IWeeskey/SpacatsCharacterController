@@ -56,7 +56,7 @@ namespace Spacats.CharacterController
         
         private void HandleStayAtPlace()
         {
-            _inputData.MoveType = MoveTypes.Idle;
+            _inputData.MoveType = MoveInputTypes.Idle;
             _inputData.MoveDirection = MoveDirections.Idle;
             _inputData.MoveDirectionsLockBack = MoveDirections.Idle;
             _inputData.ForwardVector = _thisCharacterSummary.GetSelfForwardVector();
@@ -65,7 +65,7 @@ namespace Spacats.CharacterController
         
         private void MoveBackFromTarget()
         {
-            _inputData.MoveType = MoveTypes.Walk;
+            _inputData.MoveType = MoveInputTypes.Walk;
             _inputData.MoveDirection = MoveDirections.Backward;
             _inputData.MoveDirectionsLockBack = MoveDirections.Forward;
             _inputData.ForwardVector = _thisCharacterSummary.GetSelfForwardVector();
@@ -74,8 +74,8 @@ namespace Spacats.CharacterController
         
         private void MoveToTarget(bool sprint = false)
         {
-            if (sprint) _inputData.MoveType = MoveTypes.Sprint;
-            else _inputData.MoveType = MoveTypes.Run;
+            if (sprint) _inputData.MoveType = MoveInputTypes.Sprint;
+            else _inputData.MoveType = MoveInputTypes.Run;
             
             _inputData.MoveDirection = MoveDirections.Forward;
             _inputData.MoveDirectionsLockBack = MoveDirections.Forward;
