@@ -4573,14 +4573,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5429509578184482499, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: _settings.RunSpeed.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5429509578184482499, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: _settings.OnGroundThreshold
-      value: 0.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

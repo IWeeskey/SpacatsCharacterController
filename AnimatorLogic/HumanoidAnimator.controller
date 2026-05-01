@@ -450,7 +450,7 @@ BlendTree:
     m_DirectBlendParameter: Gender
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: c598a33cd6ed4124395bd2fe4998b09a, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: 4d4c80a6cbe3b1747bbfcd952b69fc7e, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1422,7 +1422,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   - m_Name: Gender
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
@@ -2113,7 +2113,7 @@ BlendTree:
     m_DirectBlendParameter: Gender
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400010, guid: 72bc559d4b44eb14bb687cefb4d1c638, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: ce835dba884db494fb4140fdec63239c, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -2378,7 +2378,7 @@ BlendTree:
   m_Name: Idle
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400002, guid: 6844dcb6a866ab34fa96c67e39eab693, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: e014a204ad0a5a041841b858862b26c7, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -2386,7 +2386,7 @@ BlendTree:
     m_DirectBlendParameter: Gender
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400002, guid: 6844dcb6a866ab34fa96c67e39eab693, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: dd122b2356d70074d88d7d53cccd0779, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
