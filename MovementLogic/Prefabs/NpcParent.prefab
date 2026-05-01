@@ -496,14 +496,20 @@ MonoBehaviour:
   IsPlayer: 0
   _movementController: {fileID: 1231470032107978321}
   _rotationController: {fileID: 8800348329698275228}
+  _animatorController: {fileID: 0}
   _inputData:
     MoveDirectionVector: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
-    Sitting: 0
     Jumping: 0
-    Sprinting: 0
+    MoveType: 0
     MoveDirection: 0
     MoveDirectionsLockBack: 0
+  _atomData:
+    MainAnimationType: 0
+    UpperBodyAnimationType: 0
+  _mtoaData:
+    MainAnimationType: 0
+    UpperBodyAnimationType: 0
 --- !u!54 &4493083010578392908
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -573,15 +579,15 @@ MonoBehaviour:
     WaterLayers:
       serializedVersion: 2
       m_Bits: 16
-    OnGroundThreshold: 0.4
+    OnGroundThreshold: 0.8
     Gravity: -9.8
     SmoothSpeedChange: 6
     Rigidbody: {fileID: 4493083010578392908}
-    ForwardSpeed: 10
-    BackwardSpeed: 5
-    SitSpeed: 3
-    SwimSpeed: 5
-    SprintMultiplier: 2
+    WalkSpeed: {x: 2, y: 1}
+    RunSpeed: {x: 6, y: 3}
+    SprintSpeed: {x: 12, y: 6}
+    CrouchSpeed: {x: 2, y: 1}
+    SwimSpeed: {x: 6, y: 3}
 --- !u!114 &8800348329698275228
 MonoBehaviour:
   m_ObjectHideFlags: 0

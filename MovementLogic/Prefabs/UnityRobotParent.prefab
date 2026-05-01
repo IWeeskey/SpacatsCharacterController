@@ -137,12 +137,12 @@ MonoBehaviour:
     WaterLayers:
       serializedVersion: 2
       m_Bits: 16
-    OnGroundThreshold: 0.4
+    OnGroundThreshold: 0.8
     Gravity: -9.8
     SmoothSpeedChange: 14
     Rigidbody: {fileID: 1883684095469231926}
     WalkSpeed: {x: 2, y: 1.35}
-    RunSpeed: {x: 6, y: 3}
+    RunSpeed: {x: 5, y: 3}
     SprintSpeed: {x: 8, y: 4}
     CrouchSpeed: {x: 2, y: 1.5}
     SwimSpeed: {x: 6, y: 3}
