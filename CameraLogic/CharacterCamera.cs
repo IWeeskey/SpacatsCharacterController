@@ -203,13 +203,14 @@ namespace Spacats.CharacterCamera
 
         private void ApplyToPlayerInput()
         {
-            _playerInput.MoveDirectionVector = _cRData.MoveDirection;
+            _playerInput.MoveDirectionVector = _cRData.MoveDirection.normalized;
             _playerInput.ForwardVector = transform.forward;
             _playerInput.MoveDirection = _characterInput.MoveDirection;
             _playerInput.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;
 
             _playerInput.MoveType = _characterInput.MoveType;
             _playerInput.Jumping = _characterInput.Jumping;
+            _playerInput.LookAtPoint = _lookAtTransform.position;
         }
 
         private void DoFollowCharacter()

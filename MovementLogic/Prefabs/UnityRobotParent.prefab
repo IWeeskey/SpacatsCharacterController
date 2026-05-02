@@ -55,9 +55,11 @@ MonoBehaviour:
   _movementController: {fileID: 5429509578184482499}
   _rotationController: {fileID: 6120876049125363948}
   _animatorController: {fileID: 7490805505962543923}
+  _lookAtController: {fileID: 7574745831674954467}
   _inputData:
     MoveDirectionVector: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
+    LookAtPoint: {x: 0, y: 0, z: 0}
     Jumping: 0
     MoveType: 0
     MoveDirection: 0
@@ -957,7 +959,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7679891862036392797}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7574745831674954467}
   m_SourcePrefab: {fileID: 100100000, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+--- !u!4 &2533726678154295743 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7646984823093700347, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3549769242525960017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
@@ -994,6 +1004,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee6a124719c27a7449dbf794d2fd65ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spacatsutils::Spacats.Utils.AnimatorPause
+--- !u!114 &7574745831674954467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4181734078496529899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fd735df73863b458b57c90b40d18f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.CharacterLookAtController
+  DoLogic: 1
+  _animator: {fileID: 7467949517953031467}
+  _lookAtSpeed: 20
+  _bonesParent: {fileID: 2533726678154295743}
+  _bones:
+  - {fileID: 4798673145717818881}
+  _weights:
+  - 1
+  - 0.25
+  - 1
+  - 0
+  - 0.35
+  _locks:
+  - {x: 0, y: 0, z: 0}
+  _offsets:
+  - {x: 0, y: 0, z: 0}
+  _offsetsLocal:
+  - {x: 0, y: 0, z: 0}
+--- !u!4 &4798673145717818881 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8381663870071400123, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &7467949517953031467 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}

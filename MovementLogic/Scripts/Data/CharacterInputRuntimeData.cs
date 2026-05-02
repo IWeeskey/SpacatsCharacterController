@@ -16,6 +16,11 @@ namespace Spacats.CharacterController
         /// </summary>
         public Vector3 ForwardVector;
         
+        /// <summary>
+        /// A point where character looks
+        /// </summary>
+        public Vector3 LookAtPoint;
+        
         public bool Jumping;
         
         public MoveInputTypes MoveType;

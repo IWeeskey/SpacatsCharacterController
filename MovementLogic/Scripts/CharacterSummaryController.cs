@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Spacats.CharacterController
@@ -8,6 +9,7 @@ namespace Spacats.CharacterController
         [SerializeField] private CharacterMovementController _movementController;
         [SerializeField] private CharacterRotationController _rotationController;
         [SerializeField] private CharacterAnimatorController _animatorController;
+        [SerializeField] private CharacterLookAtController _lookAtController;
         [SerializeField] private CharacterInputRuntimeData _inputData;
         
         [SerializeField] private AnimatorToMovementData _atomData = new AnimatorToMovementData();
@@ -27,11 +29,13 @@ namespace Spacats.CharacterController
             _movementController.Init(inputData, _atomData, _mtoaData);
             _rotationController.Init(inputData);
             _animatorController?.Init(inputData, _atomData, _mtoaData);
+            _lookAtController?.Init(inputData);
         }
 
         void FixedUpdate()
         {
             _movementController.TryMove();
+            _lookAtController?.ProcessFixedUpdate();
         }
 
         void Update()
@@ -39,6 +43,12 @@ namespace Spacats.CharacterController
             _inputData.ForwardVector.y = 0f;
             _rotationController.TryRotate();
             _animatorController?.SyncData();
+            _lookAtController?.ProcessUpdate();
+        }
+
+        private void LateUpdate()
+        {
+            _lookAtController?.ProcessLateUpdate();
         }
     }
 }
