@@ -31,14 +31,16 @@ namespace Spacats.CharacterController
                 newGO.name = _bones[i].name;
                 newGO.transform.SetParent(gameObject.transform);
                 _boneRefs.Add( newGO.transform);
+                
+                
             }
         }
 
         private void OnAnimatorIK(int layerIndex)
         {
             if (!DoLogic) return;
-            // _animator.SetLookAtPosition(_inputData.LookAtPoint);
-            // _animator.SetLookAtWeight(_weights[0], _weights[1], _weights[2], _weights[3], _weights[4]);
+            _animator.SetLookAtPosition(_inputData.LookAtPoint);
+            _animator.SetLookAtWeight(_weights[0], _weights[1], _weights[2], _weights[3], _weights[4]);
 
             for (int i = 0; i < _bones.Count; i++)
             {
@@ -80,7 +82,7 @@ namespace Spacats.CharacterController
         public void LateUpdate()
         {
             //_animator.Update(0);
-            //return;
+            return;
             for (int i = 0; i < _bones.Count; i++)
             {
                 Transform bone = _bones[i];

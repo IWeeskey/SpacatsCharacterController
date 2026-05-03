@@ -1017,7 +1017,7 @@ MonoBehaviour:
   _animator: {fileID: 7467949517953031467}
   _weights:
   - 1
-  - 0.25
+  - 0.5
   - 1
   - 0
   - 0.35

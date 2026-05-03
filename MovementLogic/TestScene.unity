@@ -4612,29 +4612,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5429509578184482499, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: _settings.RunSpeed.x
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5429509578184482499, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: _settings.SprintSpeed.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7467949517953031467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7574745831674954467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: Speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7574745831674954467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: _bonesWeights.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7574745831674954467, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: '_bonesWeights.Array.data[0]'
-      value: 1
+      propertyPath: '_weights.Array.data[1]'
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
