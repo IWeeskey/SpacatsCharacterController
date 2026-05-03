@@ -91,7 +91,7 @@ namespace Spacats.CharacterCamera
         void Update()
         {
             ApplyInput();
-
+            Application.targetFrameRate = ApplicationFrameRate;
         }
 
         private void FixedUpdate()

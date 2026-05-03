@@ -13,6 +13,7 @@ namespace Spacats.CharacterController
         [SerializeField] private Animator _animator;
         [SerializeField] private List<float> _weights = new List<float>();
         [SerializeField] private List<Transform> _bones = new List<Transform>();
+        private List<Transform> _boneRefs = new List<Transform>();
         [SerializeField] private List<float> _bonesWeights = new List<float>();
         
         [SerializeField] private List<Quaternion> _bonesQuats = new List<Quaternion>();
@@ -26,6 +27,10 @@ namespace Spacats.CharacterController
             for (int i = 0; i < _bones.Count; i++)
             {
                 _bonesQuats.Add(_bones[i].rotation);
+                GameObject newGO = new GameObject();
+                newGO.name = _bones[i].name;
+                newGO.transform.SetParent(gameObject.transform);
+                _boneRefs.Add( newGO.transform);
             }
         }
 
@@ -38,6 +43,8 @@ namespace Spacats.CharacterController
             for (int i = 0; i < _bones.Count; i++)
             {
                 Transform bone = _bones[i];
+                
+                
                 //_bonesQuats[i] = bone.rotation;
                 //bone.LookAt(_inputData.LookAtPoint);
             }
@@ -49,8 +56,11 @@ namespace Spacats.CharacterController
             for (int i = 0; i < _bones.Count; i++)
             {
                 Transform bone = _bones[i];
-                //_bonesQuats[i] = bone.rotation;
+                _bonesQuats[i] = bone.rotation;
                 //bone.LookAt(_inputData.LookAtPoint);
+                // Transform refBone = _boneRefs[i];
+                // refBone.position = bone.position;
+                // refBone.LookAt(_inputData.LookAtPoint);
             }
         }
 
@@ -74,12 +84,23 @@ namespace Spacats.CharacterController
             for (int i = 0; i < _bones.Count; i++)
             {
                 Transform bone = _bones[i];
-                Quaternion beforeQuat = _bonesQuats[i];
-                beforeQuat = bone.rotation;
-                //bone.LookAt(_inputData.LookAtPoint);
-                Quaternion targetQuat = bone.rotation;
                 
-                bone.rotation = Quaternion.Slerp(beforeQuat, targetQuat, Time.deltaTime * Speed);
+                /*Transform refBone = _boneRefs[i];
+                refBone.position = bone.position;
+                refBone.LookAt(_inputData.LookAtPoint);*/
+                
+                Transform refBone = _boneRefs[i];
+                refBone.position = bone.position;
+                refBone.LookAt(_inputData.LookAtPoint);
+                
+                Quaternion targetQuat = refBone.rotation;
+                
+                Quaternion beforeQuat = _bonesQuats[i];
+                //beforeQuat = bone.rotation;
+                bone.LookAt(_inputData.LookAtPoint);
+                targetQuat = bone.rotation;
+                
+                bone.rotation = Quaternion.Lerp(beforeQuat, targetQuat, Time.deltaTime * Speed);
             }
         }
     }
