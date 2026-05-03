@@ -42,10 +42,12 @@ namespace Spacats.CharacterController
             _inputData.ForwardVector.y = 0f;
             _rotationController.TryRotate();
             _animatorController?.SyncData();
+            //_lookAtController?.ProcessLateUpdate();
         }
 
         private void LateUpdate()
         {
+            //_lookAtController?.ProcessLateUpdate();
         }
     }
 }

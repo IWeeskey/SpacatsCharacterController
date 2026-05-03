@@ -173,7 +173,8 @@ namespace Spacats.CharacterCamera
 
         private void ApplyInput()
         {
-            
+            Quaternion rotationBefore = gameObject.transform.rotation;
+            gameObject.transform.eulerAngles = new Vector3(0, gameObject.transform.eulerAngles.y, 0f);
             if (!_currentInLogicPause) _cRData.TargetZoomValue -= _characterInput.ZoomDelta;
             else _cRData.TargetZoomValue = _followCharacterSettings.MinMaxZoom.x;
             _cRData.TargetZoomValue = Mathf.Clamp(_cRData.TargetZoomValue, _followCharacterSettings.MinMaxZoom.x, _followCharacterSettings.MinMaxZoom.y);
@@ -188,6 +189,8 @@ namespace Spacats.CharacterCamera
             dirPosition.y = selfPosition.y;
             _cRData.MoveDirection = - selfPosition + dirPosition;
             _cRData.MoveDirectionLockBack = _cRData.MoveDirection;
+
+            gameObject.transform.rotation = rotationBefore;
             if (_characterInput.MoveDirection == MoveDirections.BackwardLeft || _characterInput.MoveDirection == MoveDirections.BackwardRight)
             {
                 _moveDirectionTransform.localPosition = new Vector3(inputDirection.x*-1f, 0, inputDirection.y*-1f);
@@ -211,6 +214,8 @@ namespace Spacats.CharacterCamera
             _playerInput.MoveType = _characterInput.MoveType;
             _playerInput.Jumping = _characterInput.Jumping;
             _playerInput.LookAtPoint = _lookAtTransform.position;
+
+            _playerInput.Attacking = _characterInput.IsAttacking;
         }
 
         private void DoFollowCharacter()
