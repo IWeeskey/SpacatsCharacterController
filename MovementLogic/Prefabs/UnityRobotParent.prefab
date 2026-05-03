@@ -1013,7 +1013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.CharacterLookAtController
   DoLogic: 1
-  Speed: 5
+  _stopRotateSpeed: 4
+  _maxAngle: {x: -105, y: 105}
   _animator: {fileID: 7467949517953031467}
   _weights:
   - 1
@@ -1021,16 +1022,6 @@ MonoBehaviour:
   - 1
   - 0
   - 0.35
-  _bones:
-  - {fileID: 4798673145717818881}
-  _bonesWeights:
-  - 1
-  _bonesQuats: []
---- !u!4 &4798673145717818881 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8381663870071400123, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
-  m_PrefabInstance: {fileID: 3947942927612993722}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &7467949517953031467 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
