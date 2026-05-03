@@ -35,7 +35,6 @@ namespace Spacats.CharacterController
         void FixedUpdate()
         {
             _movementController.TryMove();
-            _lookAtController?.ProcessFixedUpdate();
         }
 
         void Update()
@@ -43,12 +42,10 @@ namespace Spacats.CharacterController
             _inputData.ForwardVector.y = 0f;
             _rotationController.TryRotate();
             _animatorController?.SyncData();
-            _lookAtController?.ProcessUpdate();
         }
 
         private void LateUpdate()
         {
-            _lookAtController?.ProcessLateUpdate();
         }
     }
 }
