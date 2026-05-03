@@ -66,6 +66,8 @@ namespace Spacats.CharacterController
             _currentTypeSpeed = Mathf.Lerp(_currentTypeSpeed,  _targetTypeSpeed, Time.deltaTime * _speedChangeSpeed);
             _animator.SetFloat("SpeedType", _currentTypeSpeed);
             _animator.SetFloat("LocoType", _currentLocoType);
+
+            ApplyAttack();
         }
 
         private void ApplyIsCrouching()
@@ -87,6 +89,11 @@ namespace Spacats.CharacterController
             else if (_mtoaData.MainAnimationType == MainAnimationTypes.WalkForward) _targetTypeSpeed = 1f;
             else if (_mtoaData.MainAnimationType == MainAnimationTypes.RunForward) _targetTypeSpeed = 2f;
             else if (_mtoaData.MainAnimationType == MainAnimationTypes.SprintForward) _targetTypeSpeed = 3f;
+        }
+
+        private void ApplyAttack()
+        {
+            _animator.SetBool("Attack", _inputData.Attacking);
         }
     }
 }
