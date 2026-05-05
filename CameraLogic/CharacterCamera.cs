@@ -122,18 +122,28 @@ namespace Spacats.CharacterCamera
         }
 
         private void OnLogicPauseEnter()
-        { 
+        {
+            _cRData.BeforePauseZoomValue = _cRData.TargetZoomValue;
             _currentFollowTarget = _pauseFollowTarget;
             _pauseFollowHandler.EnablePhysics();
+            _cRData.TargetZoomValue = 0;
+            _cRData.CurrentZoomValue = 0;
+            ApplyZoomValue();
+            
+            transform.position = _pauseFollowTarget.GetFollowPosition();
         }
         
         private void OnLogicPauseExit()
         { 
             _cRData.TargetZoomValue = _cRData.BeforePauseZoomValue;
+            _cRData.CurrentZoomValue = _cRData.TargetZoomValue;
             _currentFollowTarget = _followTarget;
             _currentFollowPositionSpeed = _logicPauseSettings.ReturnSpeed;
             _targetFollowPositionSpeed = _followCharacterSettings.PositionFollowSpeed;
             _pauseFollowHandler.DisablePhysics();
+            ApplyZoomValue();
+            //transform.position = _currentFollowTarget.GetFollowPosition();
+            transform.position = transform.position+ transform.forward*_cRData.CurrentZoomValue;
         }
 
         private void MoveLogicPause()
@@ -177,7 +187,7 @@ namespace Spacats.CharacterCamera
             Quaternion rotationBefore = gameObject.transform.rotation;
             gameObject.transform.eulerAngles = new Vector3(0, gameObject.transform.eulerAngles.y, 0f);
             if (!_currentInLogicPause) _cRData.TargetZoomValue -= _characterInput.ZoomDelta;
-            else _cRData.TargetZoomValue = _followCharacterSettings.MinMaxZoom.x;
+            else _cRData.TargetZoomValue = 0;
             _cRData.TargetZoomValue = Mathf.Clamp(_cRData.TargetZoomValue, _followCharacterSettings.MinMaxZoom.x, _followCharacterSettings.MinMaxZoom.y);
 
             _cRData.TargetEulers.y += _characterInput.LookDelta.x*_followCharacterSettings.RotationXModifier;//horizontal
@@ -239,7 +249,6 @@ namespace Spacats.CharacterCamera
             
             Vector3 targetPosition = _currentFollowTarget.GetFollowPosition();
            
-            //Vector3 selfPosition = transform.position;
             _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocityRef, GetSmoothDampSpeed());
             
@@ -250,6 +259,8 @@ namespace Spacats.CharacterCamera
         {
             if (_currentFollowTarget==null) return;
             if (_lookTransform==null) return;
+            if (_currentInLogicPause) return;
+            
             _backDistance = _backCollisionChecker.GetHitDistance(_lookTransform.forward*-1f, _lookTransform.right, _lookTransform.up, transform.position);
             float targetZoom = Mathf.Min(_cRData.TargetZoomValue, _backDistance);
             if (_backDistance < _cRData.TargetZoomValue)
@@ -261,13 +272,20 @@ namespace Spacats.CharacterCamera
                 _cRData.CurrentZoomValue = Mathf.Lerp(_cRData.CurrentZoomValue, targetZoom, GetDeltaTime() *_followCharacterSettings.ZoomSpeed);
             }
             
-            if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
-            
+            //if (!_currentInLogicPause) _cRData.BeforePauseZoomValue = _cRData.CurrentZoomValue;
+
+            ApplyZoomValue();
+        }
+
+        private void ApplyZoomValue()
+        {
             Vector3 lookOffset = Vector3.zero;
             lookOffset.y = _cRData.CurrentZoomValue * _followCharacterSettings.LookYModifier;
             lookOffset.z = _cRData.CurrentZoomValue * _followCharacterSettings.LookZModifier;
             _lookTransform.localPosition = lookOffset;
         }
+
+
 
         private void DoFollowCharacter_rotation()
         {

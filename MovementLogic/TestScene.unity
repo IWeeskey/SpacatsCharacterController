@@ -1350,7 +1350,7 @@ MonoBehaviour:
     FixedLookAtOffset: {x: 0, y: 0, z: 5}
     PositionFollowSpeed: 50
     RotationFollowSpeed: 100
-    ZoomSpeed: 5
+    ZoomSpeed: 10
     LookYModifier: 0
     LookZModifier: -1
     RotationYModifier: -0.1
@@ -1365,10 +1365,10 @@ MonoBehaviour:
     MoveDirection: {x: 0, y: 0, z: 0}
     MoveDirectionLockBack: {x: 0, y: 0, z: 0}
   _logicPauseSettings:
-    MoveSpeed: 1000
+    MoveSpeed: 750
     SprintMultiplier: 5
     SmoothReturnSpeed: 1
-    ReturnSpeed: 5
+    ReturnSpeed: 1
   _logicPauseRData:
     CurrentZoomValue: 0
     TargetZoomValue: 0
@@ -2798,7 +2798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459151357}
   m_Layer: 0
-  m_Name: LookAtParent
+  m_Name: LookAtTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4539,7 +4539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2109381373}
   m_Layer: 0
-  m_Name: LookParent
+  m_Name: LookTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
