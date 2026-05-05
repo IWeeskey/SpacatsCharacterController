@@ -9,100 +9,104 @@ namespace Spacats.CharacterController
     public class CharacterLookAtController : MonoBehaviour
     {
         public bool DoLogic = true;
-        [SerializeField] private float _stopRotateSpeed;
-        [SerializeField] private Vector2 _maxAngleHor;
-        [SerializeField] private Vector2 _maxDistVer;
-        [SerializeField] private Vector3 _eyeRefPosition;
-        private float _currentRotateMultiplier;
-        private float _targetRotateMultiplier;
-        private float _angleHor;
-        [SerializeField] private float _distVer;
-        [SerializeField] private Animator _animator;
-        [SerializeField] private List<float> _weights = new List<float>();
-        private Vector3 _currentLookAtPosition;
+        public float LookAtSpeed = 1f;
+        //public Transform LookAtVisualizer;
+        [SerializeField] private List<LookAtBoneSettings> _bonesData = new List<LookAtBoneSettings>();
         
         private CharacterInputRuntimeData _inputData;
 
-        public Transform tmpTest;
-        
+        private float _dynamicWeight = 1f;
         private bool _prevInLogicPause = false;
         private bool _currentInLogicPause = false;
+        private Vector3 _currentTargetPoint;
+        private Vector3 _tmpRoHead = new Vector3();
         
         public void Init(CharacterInputRuntimeData inputData)
         {
             _inputData = inputData;
+            
+            foreach (LookAtBoneSettings s in _bonesData)
+            {
+                GameObject tmp = new GameObject();
+                tmp.transform.parent = s.TransformLink;
+                tmp.transform.localPosition = Vector3.zero;
+                tmp.name = "Rotate_" + s.TransformLink.name;
+
+                tmp.transform.parent = gameObject.transform;
+                s.HelperTransform = tmp.transform;
+                s.RotationBefore = s.TransformLink.rotation;
+                s.RotationAfter = s.TransformLink.rotation;
+            }
         }
 
-        private void OnAnimatorIK(int layerIndex)
+        public void ProcessFixedUpdate()
         {
             if (!DoLogic) return;
-            
-            _currentInLogicPause = PauseController.IsPaused;
-            if (_currentInLogicPause && !_prevInLogicPause)
-            {
-                OnLogicPauseEnter();
-            }
-            
-            if (!_currentInLogicPause && _prevInLogicPause)
-            {
-                OnLogicPauseExit();
-            }
-           
-            _prevInLogicPause = PauseController.IsPaused;
-           
-            if (!_currentInLogicPause)
-            {
-                RefreshRotateMultiplier();
-                _currentRotateMultiplier = Mathf.Lerp(_currentRotateMultiplier, _targetRotateMultiplier, Time.deltaTime * _stopRotateSpeed);
-                _currentLookAtPosition = _inputData.LookAtPoint;
-            }
-            
-            float finalWeight = _weights[0] * _currentRotateMultiplier;
-            if (finalWeight<0) return;
-            
-            _animator.SetLookAtPosition(_currentLookAtPosition);
-            _animator.SetLookAtWeight(finalWeight, _weights[1], _weights[2], _weights[3], _weights[4]);
+            LookBodyDirection_BeforeAnimator();
         }
 
-        private void RefreshRotateMultiplier()
+        public void ProcessLateUpdate()
         {
-            Vector3 selfPos = gameObject.transform.position;
-            Vector3 targetPointVer = _inputData.LookAtPoint;
-            targetPointVer.x = selfPos.x;
-            targetPointVer.z = selfPos.z;
-            _distVer = selfPos.y - targetPointVer.y;
-            _inputData.LookAtPoint.y = Mathf.Clamp(_inputData.LookAtPoint.y, 
-                selfPos.y + _eyeRefPosition.y + _maxDistVer.x, 
-                selfPos.y + _eyeRefPosition.y + _maxDistVer.y);
-            
-            
-            Vector3 direction = (-selfPos +_inputData.LookAtPoint).normalized;
-            //Vector3 targetPointVer = _inputData.LookAtPoint;
-            //targetPointVer.x = selfPos.x;
-            //targetPointVer.z = selfPos.z;
-            
-            //tmpTest.gameObject.transform.position = targetPointVer;
-            
-            //Vector3 directionHor = (-selfPos +targetPointVer).normalized;
-            //Vector3 directionInv = (gameObject.transform.position -_inputData.LookAtPoint).normalized;
-            _angleHor = Vector3.SignedAngle(transform.forward, direction, transform.up);
-           
-            _targetRotateMultiplier = 1f;
-            if (_angleHor > 0 && _angleHor > _maxAngleHor.y) _targetRotateMultiplier = 0f;
-            if (_angleHor < 0 && _angleHor < _maxAngleHor.x) _targetRotateMultiplier = 0f;
-            //
-            // if (_angleVer > 0 && _angleVer > _maxAngleVer.y) _targetRotateMultiplier = 0f;
-            // if (_angleVer < 0 && _angleVer < _maxAngleVer.x) _targetRotateMultiplier = 0f;
-            
+            if (!DoLogic) return;
+            if (!PauseController.IsPaused) FixLookAtPoint();
+            LookBodyDirection_AfterAnimator();
+        }
 
+        private void FixLookAtPoint()
+        {
+            _dynamicWeight = 1f;
+            Vector3 startGlobalPoint = _inputData.LookAtPoint;
+            Vector3 startLocalPoint = gameObject.transform.InverseTransformPoint(startGlobalPoint);
+
+            if (startLocalPoint.z < -3f)
+            {
+                _dynamicWeight = 0f;
+            }
+            if (startLocalPoint.z<0) startLocalPoint.z = 0;
+            Vector3 worldPoint = gameObject.transform.TransformPoint(startLocalPoint);
+            _currentTargetPoint = worldPoint;
+            
+        }
+
+
+        void ApplyChestTargetRotations()
+        {
+            for (int i = 0; i <= _bonesData.Count - 1; i++)
+            {
+                LookAtBoneSettings boneInfo = _bonesData[i];
+                boneInfo.HelperTransform.position = boneInfo.TransformLink.position;
+                boneInfo.HelperTransform.LookAt(_currentTargetPoint);
+                boneInfo.HelperTransform.eulerAngles = boneInfo.HelperTransform.eulerAngles + boneInfo.GlobalOffset;
+
+                boneInfo.HelperTransform.localEulerAngles = boneInfo.HelperTransform.localEulerAngles + boneInfo.LocalOffset;
+                _tmpRoHead = boneInfo.HelperTransform.localEulerAngles;
+                // _tmpRoHead.x = boneInfo.HelperTransform.localEulerAngles.z;
+                // _tmpRoHead.z = boneInfo.HelperTransform.localEulerAngles.x * -1f;
+
+                boneInfo.HelperTransform.localEulerAngles = _tmpRoHead;
+            }
         }
         
-        private void OnLogicPauseEnter()
-        { 
+        public void LookBodyDirection_BeforeAnimator()
+        {
+            for (int i = 0; i <= _bonesData.Count - 1; i++)
+            {
+                LookAtBoneSettings boneInfo = _bonesData[i];
+                boneInfo.RotationBefore = boneInfo.TransformLink.rotation;
+            }
         }
-        
-        private void OnLogicPauseExit()
-        { 
+
+        public void LookBodyDirection_AfterAnimator()
+        {
+            ApplyChestTargetRotations();
+            for (int i = 0; i <= _bonesData.Count - 1; i++)
+            {
+                LookAtBoneSettings boneInfo = _bonesData[i];
+                boneInfo.RotationAfter = boneInfo.TransformLink.rotation;
+                boneInfo.RotationAfter = Quaternion.Lerp(boneInfo.RotationAfter, boneInfo.HelperTransform.rotation, boneInfo.MaxLerpWeight*_dynamicWeight);
+                boneInfo.TransformLink.rotation = Quaternion.Lerp(boneInfo.RotationBefore, boneInfo.RotationAfter, Time.deltaTime * LookAtSpeed);
+            }
+
         }
 
     }

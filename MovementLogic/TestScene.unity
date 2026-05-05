@@ -1349,7 +1349,7 @@ MonoBehaviour:
     MinMaxRot: {x: -50, y: 70}
     FixedLookAtOffset: {x: 0, y: 0, z: 5}
     PositionFollowSpeed: 50
-    RotationFollowSpeed: 25
+    RotationFollowSpeed: 100
     ZoomSpeed: 5
     LookYModifier: 0
     LookZModifier: -1

@@ -731,7 +731,7 @@ Transform:
   m_GameObject: {fileID: 4680240810222715644}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.563, z: 0}
+  m_LocalPosition: {x: 0.008, y: 1.563, z: 0.15}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1239,6 +1239,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7574745831674954467}
   m_SourcePrefab: {fileID: 100100000, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+--- !u!4 &386637797863520069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5506648713524176897, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3541290283572613245 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8652301172574506809, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3549769242525960017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
@@ -1288,19 +1298,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterController.CharacterLookAtController
   DoLogic: 1
-  _stopRotateSpeed: 4
-  _maxAngleHor: {x: -105, y: 105}
-  _maxDistVer: {x: -0.5, y: 0}
-  _eyeRefPosition: {x: 0, y: 1.5, z: 0}
-  _distVer: 0
-  _animator: {fileID: 7467949517953031467}
-  _weights:
-  - 1
-  - 0.5
-  - 1
-  - 0
-  - 0.35
-  tmpTest: {fileID: 840537844845293020}
+  LookAtSpeed: 17
+  _bonesData:
+  - TransformLink: {fileID: 4798673145717818881}
+    MaxLerpWeight: 0.1
+    LocalOffset: {x: 0, y: 0, z: 0}
+    GlobalOffset: {x: 0, y: 0, z: 0}
+    RotationBefore: {x: 0, y: 0, z: 0, w: 0}
+    RotationAfter: {x: 0, y: 0, z: 0, w: 0}
+    HelperTransform: {fileID: 0}
+  - TransformLink: {fileID: 386637797863520069}
+    MaxLerpWeight: 0.2
+    LocalOffset: {x: 0, y: 0, z: 0}
+    GlobalOffset: {x: 0, y: 0, z: 0}
+    RotationBefore: {x: 0, y: 0, z: 0, w: 0}
+    RotationAfter: {x: 0, y: 0, z: 0, w: 0}
+    HelperTransform: {fileID: 0}
+  - TransformLink: {fileID: 8486836964436729417}
+    MaxLerpWeight: 0.25
+    LocalOffset: {x: 0, y: 0, z: 0}
+    GlobalOffset: {x: 0, y: 0, z: 0}
+    RotationBefore: {x: 0, y: 0, z: 0, w: 0}
+    RotationAfter: {x: 0, y: 0, z: 0, w: 0}
+    HelperTransform: {fileID: 0}
+  - TransformLink: {fileID: 3541290283572613245}
+    MaxLerpWeight: 0.35
+    LocalOffset: {x: 0, y: 0, z: 0}
+    GlobalOffset: {x: 0, y: 0, z: 0}
+    RotationBefore: {x: 0, y: 0, z: 0, w: 0}
+    RotationAfter: {x: 0, y: 0, z: 0, w: 0}
+    HelperTransform: {fileID: 0}
+  - TransformLink: {fileID: 8287025283046324664}
+    MaxLerpWeight: 1
+    LocalOffset: {x: 0, y: 0, z: 0}
+    GlobalOffset: {x: 0, y: 0, z: 0}
+    RotationBefore: {x: 0, y: 0, z: 0, w: 0}
+    RotationAfter: {x: 0, y: 0, z: 0, w: 0}
+    HelperTransform: {fileID: 0}
+--- !u!4 &4798673145717818881 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8381663870071400123, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6293710186252170238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2189267025489947836, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
@@ -1309,5 +1348,15 @@ Transform:
 --- !u!95 &7467949517953031467 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8287025283046324664 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4194957117132941054, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
+  m_PrefabInstance: {fileID: 3947942927612993722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8486836964436729417 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4391391794520867085, guid: 3c78789e1c8a42d4cb4d1cb5fb9c6c2a, type: 3}
   m_PrefabInstance: {fileID: 3947942927612993722}
   m_PrefabAsset: {fileID: 0}
