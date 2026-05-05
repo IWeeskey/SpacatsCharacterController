@@ -19,6 +19,7 @@ namespace Spacats.CharacterCamera
         private CameraFollowTarget _currentFollowTarget;
         [SerializeField] private Transform _lookTransform;
         [SerializeField] private Transform _lookAtTransform;
+        //[SerializeField] private Transform _moveDirectionCorrectorTransform;
         [SerializeField] private Transform _moveDirectionTransform;
         //[SerializeField] private Transform _moveRotationTransform;
         [SerializeField] private FollowCharacterSettings _followCharacterSettings;
@@ -183,6 +184,8 @@ namespace Spacats.CharacterCamera
             _cRData.TargetEulers.x += _characterInput.LookDelta.y*_followCharacterSettings.RotationYModifier;//vertical
             _cRData.TargetEulers.x = Mathf.Clamp(_cRData.TargetEulers.x, _followCharacterSettings.MinMaxRot.x, _followCharacterSettings.MinMaxRot.y);
             Vector3 inputDirection = MoveDirectionsHelper.DirectionVectors[(int)_characterInput.MoveDirection];
+            //_moveDirectionCorrectorTransform.LookAt(_lookAtTransform);
+            //_moveDirectionCorrectorTransform.localEulerAngles = new Vector3(0, _moveDirectionCorrectorTransform.localEulerAngles.y, 0f);
             _moveDirectionTransform.localPosition = new Vector3(inputDirection.x, 0, inputDirection.y);
             Vector3 dirPosition = _moveDirectionTransform.position;
             Vector3 selfPosition = gameObject.transform.position;
