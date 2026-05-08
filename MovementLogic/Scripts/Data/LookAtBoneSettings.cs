@@ -10,8 +10,8 @@ namespace Spacats.CharacterController
         public float MaxLerpWeight;
         public Vector3 LocalOffset;
         public Vector3 GlobalOffset;
-        public Quaternion RotationBefore;
-        public Quaternion RotationAfter;
+        [HideInInspector] public Quaternion RotationBefore;
+        [HideInInspector] public Quaternion RotationAfter;
 
         [HideInInspector] public Transform HelperTransform;
     }
