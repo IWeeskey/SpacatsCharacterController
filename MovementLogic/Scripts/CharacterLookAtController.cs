@@ -41,6 +41,13 @@ namespace Spacats.CharacterController
 
         public void ProcessFixedUpdate()
         {
+            return;
+            if (!DoLogic) return;
+            LookBodyDirection_BeforeAnimator();
+        }
+        
+        public void ProcessUpdate()
+        {
             if (!DoLogic) return;
             LookBodyDirection_BeforeAnimator();
         }
@@ -95,6 +102,11 @@ namespace Spacats.CharacterController
                 boneInfo.RotationBefore = boneInfo.TransformLink.rotation;
             }
         }
+
+        // private void Update()
+        // {
+        //     LookBodyDirection_BeforeAnimator();
+        // }
 
         public void LookBodyDirection_AfterAnimator()
         {
