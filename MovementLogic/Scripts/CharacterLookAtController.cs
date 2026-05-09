@@ -39,12 +39,12 @@ namespace Spacats.CharacterController
             }
         }
 
-        public void ProcessFixedUpdate()
-        {
-            return;
-            if (!DoLogic) return;
-            LookBodyDirection_BeforeAnimator();
-        }
+        // public void ProcessFixedUpdate()
+        // {
+        //     return;
+        //     if (!DoLogic) return;
+        //     LookBodyDirection_BeforeAnimator();
+        // }
         
         public void ProcessUpdate()
         {

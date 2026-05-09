@@ -35,7 +35,7 @@ namespace Spacats.CharacterController
         void FixedUpdate()
         {
             _movementController.TryMove();
-            _lookAtController?.ProcessFixedUpdate();
+            //_lookAtController?.ProcessFixedUpdate();
         }
 
         void Update()
