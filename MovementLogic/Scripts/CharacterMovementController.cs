@@ -20,7 +20,6 @@ namespace Spacats.CharacterController
             _inputData = inputData;
             _atomData = atomData;
             _mtoaData = mtoaData;
-            Debug.Log(gameObject.name + " initialized "  + _mtoaData);
             Debug.Log(_mtoaData);
         }
 
@@ -28,7 +27,6 @@ namespace Spacats.CharacterController
         {
             _runtimeData.RigidBodyVelocity = _settings.Rigidbody.linearVelocity;
             _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
-            //Debug.Log(_mtoaData);
             _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
             if (PauseController.IsPaused)
             {
