@@ -8,7 +8,7 @@ namespace Spacats.CharacterController
     public class SimpleNpcFollowerData
     {
         [SerializeField] private CharacterInputRuntimeData _inputData;
-        [SerializeField]  private CharacterSummaryController _thisCharacterSummary;
+        [SerializeField] private CharacterSummaryController _thisCharacterSummary;
         private Vector3 _targetPosition;
         private Vector3 _selfPosition;
         private Vector3 _directionToTarget;
@@ -25,7 +25,7 @@ namespace Spacats.CharacterController
             _thisCharacterSummary.SetInputData(_inputData);
         }
         
-        public void Follow(Transform target)
+        public void Follow(Transform target, Vector3 lookAtPosition)
         {
             _targetPosition = target.position;
             _selfPosition = _thisCharacterSummary.transform.position;
@@ -33,6 +33,8 @@ namespace Spacats.CharacterController
             _directionToTarget.y = 0;
             _distanceToTarget = Vector3.Distance(_targetPosition, _selfPosition);
 
+            _inputData.LookAtPoint =  lookAtPosition;
+            
             if (_distanceToTarget >= _minMaxDistance.x && _distanceToTarget <= _minMaxDistance.y)
             {
                 //good, stay at place

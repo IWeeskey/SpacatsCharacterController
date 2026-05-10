@@ -22,6 +22,7 @@ namespace Spacats.CharacterController
 
         public void SetInputData(CharacterInputRuntimeData  inputData)
         {
+            Debug.Log("SSSSSS " + gameObject);
             _atomData.Reset();
             _mtoaData.Reset();
             

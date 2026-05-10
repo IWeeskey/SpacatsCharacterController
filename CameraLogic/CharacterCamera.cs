@@ -39,7 +39,7 @@ namespace Spacats.CharacterCamera
         private Vector3 _followVelocityRef = new Vector3(0,0,0);
         private float _backDistance = 999f;
         
-        private CharacterInputRuntimeData _playerInput = new CharacterInputRuntimeData();
+        [SerializeField] private CharacterInputRuntimeData _playerInput = new CharacterInputRuntimeData();
 
         private void Awake()
         {
