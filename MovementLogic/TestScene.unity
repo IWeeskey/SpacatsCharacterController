@@ -3013,8 +3013,8 @@ MonoBehaviour:
     _thisCharacterSummary: {fileID: 1103498470}
   _transformToFollow: {fileID: 1630752277532100021}
   _lookAtTarget: {fileID: 5486461943312089944}
-  _minMaxDistance: {x: 5, y: 10}
-  _sprintThreshold: 20
+  _minMaxDistance: {x: 3, y: 7}
+  _sprintThreshold: 12
 --- !u!1 &1580347846
 GameObject:
   m_ObjectHideFlags: 0
@@ -4593,6 +4593,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5372882852638904008, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010378639322518457, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
