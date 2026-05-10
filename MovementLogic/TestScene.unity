@@ -1893,6 +1893,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7335581081396220391, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7217349717495187255, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1925,6 +1929,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaMan
       objectReference: {fileID: 0}
+    - target: {fileID: 1416757948120296260, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244286357999662658, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2752722672093601864, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1938,6 +1950,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4440443460199491103, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5439875087117707574, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1957,9 +1973,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7489160205132215449, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8084258883790400681, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104438858385220940, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261349082803350871, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8821623529969584324, guid: e6146b569f0c8c046a70ba60397c00ca, type: 3}
       propertyPath: m_IsActive
