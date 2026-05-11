@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: spacats_charactercontroller_package::Spacats.CharacterCamera.CameraFollowTarget
   Scale: 1
   FixedFollowOffset: {x: 0, y: 0, z: 0}
+  FixedFlyFollowOffset: {x: 0, y: 0, z: 0}
 --- !u!54 &7141059653262078067
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -588,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571465fd9e20b9143a0dcefd3f56e212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterCamera
-  ApplicationFrameRate: 60
+  ApplicationFrameRate: 120
   _playerSummary: {fileID: 0}
   _pauseFollowHandler: {fileID: 4069392901037082914}
   _followTarget: {fileID: 0}
@@ -601,7 +602,7 @@ MonoBehaviour:
     MinMaxZoom: {x: 0.1, y: 20}
     MinMaxRot: {x: -50, y: 70}
     FixedLookAtOffset: {x: 0, y: 0, z: 5}
-    PositionFollowSpeed: 50
+    PositionFollowSpeed: 10000
     RotationFollowSpeed: 100
     ZoomSpeed: 10
     LookYModifier: 0
@@ -616,6 +617,7 @@ MonoBehaviour:
     CurrentRotation: {x: 0, y: 0, z: 0, w: 0}
     TargetEulers: {x: 0, y: 0, z: 0}
     MoveDirection: {x: 0, y: 0, z: 0}
+    FlyDirection: {x: 0, y: 0, z: 0}
     MoveDirectionLockBack: {x: 0, y: 0, z: 0}
   _logicPauseSettings:
     MoveSpeed: 750
@@ -636,8 +638,10 @@ MonoBehaviour:
     Distance: 0
   _playerInput:
     MoveDirectionVector: {x: 0, y: 0, z: 0}
+    FlyDirectionVector: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
     LookAtPoint: {x: 0, y: 0, z: 0}
+    Flying: 0
     Jumping: 0
     Attacking: 0
     MoveType: 0

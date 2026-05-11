@@ -3648,14 +3648,6 @@ PrefabInstance:
       propertyPath: _playerSummary
       value: 
       objectReference: {fileID: 614843944502947022}
-    - target: {fileID: 4211555198564885060, guid: 7cd666ddcb3843c49b516daabdd103f5, type: 3}
-      propertyPath: _flyDirectionTransform
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4820371950158694171, guid: 7cd666ddcb3843c49b516daabdd103f5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5664844187723343013, guid: 7cd666ddcb3843c49b516daabdd103f5, type: 3}
       propertyPath: m_Name
       value: CharacterCameraParent
