@@ -13,6 +13,7 @@ namespace Spacats.Input
         public bool Sprinting;
         public bool Walking;
         public bool Crouching;
+        public bool Flying;
         public Vector2 Movement;
         public Vector2 LookDelta;
         public float ZoomDelta;
@@ -29,6 +30,7 @@ namespace Spacats.Input
             Sprinting = false;
             Walking = false;
             Crouching = false;
+            Flying = false;
         }
         
     }

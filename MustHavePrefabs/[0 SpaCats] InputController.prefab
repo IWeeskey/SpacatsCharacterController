@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714179700494341855}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -142,22 +142,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6438057266707781005}
         m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
-        m_MethodName: OnJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 23ef54c6-ce2a-423a-8e52-7613fd308197
-    m_ActionName: 'PlayerControls/Jump[/Keyboard/space]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6438057266707781005}
-        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
         m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
@@ -186,6 +170,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9795720f-a4cb-4bf7-b031-82ad3ee5330a
     m_ActionName: 'PlayerControls/Walk[/Keyboard/leftAlt]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6438057266707781005}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 82ac7da5-03cf-4090-a832-33bb4a1f447f
+    m_ActionName: 'PlayerControls/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6438057266707781005}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnFly
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0a5082be-095f-41c3-8d7a-28c1ea0b3871
+    m_ActionName: 'PlayerControls/Fly[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -217,6 +233,7 @@ MonoBehaviour:
     Sprinting: 0
     Walking: 0
     Crouching: 0
+    Flying: 0
     Movement: {x: 0, y: 0}
     LookDelta: {x: 0, y: 0}
     ZoomDelta: 0

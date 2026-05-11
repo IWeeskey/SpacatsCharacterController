@@ -34,18 +34,23 @@ namespace Spacats.CharacterController
             return _rotateParent.forward;
         }
 
+        private bool IsFlying()
+        {
+            return _inputData.Flying;
+        }
+
         public void TryRotate()
         {
             if (PauseController.IsPaused) return;
             if (_inputData.MoveDirection == MoveDirections.Idle) return;
             //_movingBack = false;
             _moveDirection = _inputData.MoveDirectionVector;
-            if (_inputData.MoveDirectionsLockBack != _inputData.MoveDirection)
+            if (_inputData.MoveDirectionsLockBack != _inputData.MoveDirection && !IsFlying())
             {
                 _moveDirection *= -1f;
             }
             
-            if (DontLookBack && _framesToFixAngleLeft<=0)
+            if (DontLookBack && _framesToFixAngleLeft<=0 && !IsFlying())
             {
                 _angle = Vector3.SignedAngle(_inputData.ForwardVector, _moveDirection, Vector3.up);
                 if (_angle >= _angleMinMax.x && _angle <= _angleMinMax.y)

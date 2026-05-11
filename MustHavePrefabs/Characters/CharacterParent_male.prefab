@@ -60,6 +60,7 @@ MonoBehaviour:
     MoveDirectionVector: {x: 0, y: 0, z: 0}
     ForwardVector: {x: 0, y: 0, z: 0}
     LookAtPoint: {x: 0, y: 0, z: 0}
+    Flying: 0
     Jumping: 0
     Attacking: 0
     MoveType: 0
@@ -133,7 +134,11 @@ MonoBehaviour:
     RigidBodySpeed: 0
     MoveDirection: {x: 0, y: 0, z: 0}
     WasPaused: 0
+    CurrentFlying: 0
+    PreviousFlying: 0
+    LocalPositionOfRotateParent: {x: 0, y: 0, z: 0}
   _settings:
+    RotateParent: {fileID: 8751129288367008405}
     GroundLayers:
       serializedVersion: 2
       m_Bits: 1
@@ -149,6 +154,9 @@ MonoBehaviour:
     SprintSpeed: {x: 7, y: 4}
     CrouchSpeed: {x: 2, y: 1.5}
     SwimSpeed: {x: 6, y: 3}
+    FlySpeed: {x: 10, y: 10}
+    FlyOffsetY: 0.5
+    FlyOffsetSpeed: 10
 --- !u!114 &6120876049125363948
 MonoBehaviour:
   m_ObjectHideFlags: 0

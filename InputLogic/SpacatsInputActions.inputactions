@@ -54,7 +54,16 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "23ef54c6-ce2a-423a-8e52-7613fd308197",
+                    "id": "82ac7da5-03cf-4090-a832-33bb4a1f447f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fly",
+                    "type": "Button",
+                    "id": "0a5082be-095f-41c3-8d7a-28c1ea0b3871",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -203,12 +212,23 @@
                 },
                 {
                     "name": "",
-                    "id": "3e73546a-f60f-45bc-bf59-32a7c5d328e6",
+                    "id": "94d45274-9c4b-446b-9d47-bf2afd58724d",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15587f1c-3a6f-4bde-b843-4e9af7a4a202",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fly",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

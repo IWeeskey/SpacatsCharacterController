@@ -31,5 +31,9 @@ namespace Spacats.CharacterController
         ClimbForward = 14,
         ClimbBackward = 15,
         
+        FlyIdle = 14,
+        FlyForward = 15,
+        FlyBackward = 16,
+        
     }
 }

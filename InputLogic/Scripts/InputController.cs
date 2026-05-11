@@ -149,6 +149,15 @@ namespace Spacats.Input
             
         }
         
+        public void OnFly(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:_characterInput.Flying = !_characterInput.Flying; break;
+            }
+            
+        }
+        
         public void OnSprint(InputAction.CallbackContext context)
         {
             switch (context.phase)

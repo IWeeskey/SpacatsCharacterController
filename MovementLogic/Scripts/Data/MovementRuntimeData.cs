@@ -18,5 +18,9 @@ namespace Spacats.CharacterController
         
         public RaycastHit RHit = new RaycastHit();
         public Ray Ray = new Ray();
+
+        public bool CurrentFlying;
+        public bool PreviousFlying;
+        public Vector3 LocalPositionOfRotateParent;
     }
 }

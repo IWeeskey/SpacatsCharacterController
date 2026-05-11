@@ -52,12 +52,16 @@ namespace Spacats.CharacterController
             if (PauseController.IsPaused) return;
             _animator.SetFloat("Gender", Gender);
             _animator.SetFloat("MoveSpeed", 1f);
-
+            _animator.SetBool("Flying", false);
             if (_mtoaData.MainAnimationType == MainAnimationTypes.CrouchBackward ||
                 _mtoaData.MainAnimationType == MainAnimationTypes.CrouchForward
                 ||  _mtoaData.MainAnimationType == MainAnimationTypes.CrouchIdle)
             {
                 ApplyIsCrouching();
+            }
+            else if (_mtoaData.MainAnimationType == MainAnimationTypes.FlyIdle)
+            {
+                ApplyFlying();
             }
             else
             {
@@ -91,6 +95,13 @@ namespace Spacats.CharacterController
             else if (_mtoaData.MainAnimationType == MainAnimationTypes.WalkForward) _targetTypeSpeed = 1f;
             else if (_mtoaData.MainAnimationType == MainAnimationTypes.RunForward) _targetTypeSpeed = 2f;
             else if (_mtoaData.MainAnimationType == MainAnimationTypes.SprintForward) _targetTypeSpeed = 3f;
+        }
+        
+        private void ApplyFlying()
+        {
+            _targetLocoType = 0f;
+            _targetTypeSpeed = 0f;
+            _animator.SetBool("Flying", true);
         }
 
         private void ApplyAttack()

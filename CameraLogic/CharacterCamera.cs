@@ -226,6 +226,7 @@ namespace Spacats.CharacterCamera
 
             _playerInput.MoveType = _characterInput.MoveType;
             _playerInput.Jumping = _characterInput.Jumping;
+            _playerInput.Flying = _characterInput.Flying;
             _playerInput.LookAtPoint = _lookAtTransform.position;
 
             _playerInput.Attacking = _characterInput.IsAttacking;

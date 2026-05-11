@@ -21,6 +21,7 @@ namespace Spacats.CharacterController
         /// </summary>
         public Vector3 LookAtPoint;
         
+        public bool Flying;
         public bool Jumping;
         public bool Attacking;
         
@@ -37,6 +38,7 @@ namespace Spacats.CharacterController
             MoveType =  MoveInputTypes.Idle;
             Jumping = false;
             Attacking = false;
+            Flying = false;
         }
 
         public bool IsMovingBack()
