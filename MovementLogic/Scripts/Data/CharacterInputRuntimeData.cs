@@ -11,6 +11,12 @@ namespace Spacats.CharacterController
         /// Direction in which character moves in global 
         /// </summary>
         public Vector3 MoveDirectionVector;
+        
+        /// <summary>
+        /// Direction in which character fly in global 
+        /// </summary>
+        public Vector3 FlyDirectionVector;
+        
         /// <summary>
         /// Where character looks
         /// </summary>

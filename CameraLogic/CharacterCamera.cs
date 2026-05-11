@@ -202,8 +202,10 @@ namespace Spacats.CharacterCamera
             dirPosition.y = selfPosition.y;
             _cRData.MoveDirection = - selfPosition + dirPosition;
             _cRData.MoveDirectionLockBack = _cRData.MoveDirection;
-
             gameObject.transform.rotation = rotationBefore;
+
+            _cRData.FlyDirection = _moveDirectionTransform.position - selfPosition;
+            
             if (_characterInput.MoveDirection == MoveDirections.BackwardLeft || _characterInput.MoveDirection == MoveDirections.BackwardRight)
             {
                 _moveDirectionTransform.localPosition = new Vector3(inputDirection.x*-1f, 0, inputDirection.y*-1f);
@@ -212,6 +214,8 @@ namespace Spacats.CharacterCamera
                 _cRData.MoveDirectionLockBack = - selfPosition + dirPosition;
             }
 
+            
+            
 
             ApplyToPlayerInput();
             //OnInputProcessed?.Invoke();
@@ -223,6 +227,7 @@ namespace Spacats.CharacterCamera
             _playerInput.ForwardVector = transform.forward;
             _playerInput.MoveDirection = _characterInput.MoveDirection;
             _playerInput.MoveDirectionsLockBack =  _characterInput.MoveDirectionsLockBack;
+            _playerInput.FlyDirectionVector = _cRData.FlyDirection.normalized;
 
             _playerInput.MoveType = _characterInput.MoveType;
             _playerInput.Jumping = _characterInput.Jumping;

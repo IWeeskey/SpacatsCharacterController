@@ -15,6 +15,7 @@ namespace Spacats.CharacterCamera
         public Vector3 TargetEulers;
         
         public Vector3 MoveDirection;
+        public Vector3 FlyDirection;
         public Vector3 MoveDirectionLockBack;
         
         public void Reset(FollowCharacterSettings settings)

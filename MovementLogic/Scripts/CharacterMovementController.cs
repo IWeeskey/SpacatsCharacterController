@@ -191,12 +191,12 @@ namespace Spacats.CharacterController
         
         private void ProcessFlying()
         {
-            float speed = _settings.FlySpeed.x;
-            _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * speed;
-            _runtimeData.RuntimeVelocity.y = 0;
+            float speed = _settings.FlySpeed;
+            _runtimeData.RuntimeVelocity = _inputData.FlyDirectionVector * speed;
+            
+            //_runtimeData.RuntimeVelocity.y = 0;
 
-            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
-                _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
+            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity, _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
 
             _mtoaData.MainAnimationType = MainAnimationTypes.FlyIdle;
             

@@ -21,7 +21,7 @@ namespace Spacats.CharacterController
         [Tooltip("X - forward; Y - Backward")]public Vector2 CrouchSpeed = new Vector2(2,1);
         [Tooltip("X - forward; Y - Backward")]public Vector2 SwimSpeed = new Vector2(6,3);
         
-        public Vector2 FlySpeed = new Vector2(10,10);
+        public float FlySpeed = 40;
         public float FlyOffsetY = 1f;
         public float FlyOffsetSpeed = 10f;
     }

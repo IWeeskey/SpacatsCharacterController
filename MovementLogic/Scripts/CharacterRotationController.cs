@@ -86,7 +86,16 @@ namespace Spacats.CharacterController
             }
 
             Quaternion startQuat = _rotateParent.rotation;
-            _rotateParent.LookAt(_moveDirection*10f + _rotateParent.position);
+
+            if (IsFlying())
+            {
+                _rotateParent.LookAt(_inputData.FlyDirectionVector*10f + _rotateParent.position);
+            }
+            else
+            {
+                _rotateParent.LookAt(_moveDirection*10f + _rotateParent.position);
+            }
+            
             Quaternion targetQuat = _rotateParent.rotation;
             
             _rotateParent.rotation = Quaternion.Lerp(startQuat, targetQuat, _rotationSpeed*Time.deltaTime);
