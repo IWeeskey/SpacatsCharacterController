@@ -438,6 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: spacats_charactercontroller_package::CameraFollowTarget
   Scale: 1
   FixedFollowOffset: {x: 0, y: 1.6, z: 0}
+  FixedFlyFollowOffset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5071057031356436550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,15 +474,16 @@ MonoBehaviour:
     OnGroundThreshold: 0.8
     Gravity: -9.8
     SmoothSpeedChange: 14
+    SmoothSpeedChangeFlying: 1
     Rigidbody: {fileID: 58623796080211797}
     WalkSpeed: {x: 2, y: 1.35}
     RunSpeed: {x: 4.5, y: 3}
     SprintSpeed: {x: 7, y: 4}
     CrouchSpeed: {x: 2, y: 1.5}
     SwimSpeed: {x: 6, y: 3}
-    FlySpeed: {x: 20, y: 20}
+    FlySpeed: 100
     FlyOffsetY: 0.5
-    FlyOffsetSpeed: 10
+    FlyOffsetSpeed: 2
 --- !u!114 &3605601082852559574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +502,7 @@ MonoBehaviour:
   _angle: 0
   _fixedAngle: 0
   _rotationSpeed: 10
+  _rotationFlySpeed: 6
   _moveDirection: {x: 0, y: 0, z: 0}
   _moveDirectionF: {x: 0, y: 0, z: 0}
   _angleMinMax: {x: -91, y: 91}

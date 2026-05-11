@@ -13,6 +13,7 @@ namespace Spacats.CharacterController
         public float Gravity = -9.8f;
         
         public float SmoothSpeedChange = 1f;
+        public float SmoothSpeedChangeFlying = 5f;
         public Rigidbody Rigidbody;
 
         [Tooltip("X - forward; Y - Backward")]public Vector2 WalkSpeed = new Vector2(2,1);

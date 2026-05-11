@@ -13,7 +13,7 @@ namespace Spacats.CharacterController
         [SerializeField] private float _angle;
         [SerializeField] private float _fixedAngle;
         [SerializeField] private float _rotationSpeed = 1f;
-
+        [SerializeField] private float _rotationFlySpeed = 1f;
         [SerializeField] private Vector3 _moveDirection;
         [SerializeField] private Vector3 _moveDirectionF;
         [SerializeField] private Vector2 _angleMinMax = new Vector2(-91, 92);
@@ -23,9 +23,11 @@ namespace Spacats.CharacterController
         [SerializeField] public bool _prevAtRight = false; 
         [SerializeField] public bool _prevAtLeft = false;
         private CharacterInputRuntimeData _inputData;
+        private int _needToFixRotationAfterFlying = 0;
         public void Init(CharacterInputRuntimeData inputData)
         {
             _inputData = inputData;
+            _needToFixRotationAfterFlying = 0;
         }
 
         public Vector3 GetForwardVector()
@@ -42,7 +44,13 @@ namespace Spacats.CharacterController
         public void TryRotate()
         {
             if (PauseController.IsPaused) return;
-            if (_inputData.MoveDirection == MoveDirections.Idle) return;
+            if (_inputData.MoveDirection == MoveDirections.Idle && IsFlying()) return;
+            else if (_inputData.MoveDirection == MoveDirections.Idle && _needToFixRotationAfterFlying>0 && !IsFlying())
+            {
+                FixRotationAfterFlying();
+                return;
+            }
+
             //_movingBack = false;
             _moveDirection = _inputData.MoveDirectionVector;
             if (_inputData.MoveDirectionsLockBack != _inputData.MoveDirection && !IsFlying())
@@ -76,8 +84,6 @@ namespace Spacats.CharacterController
                 _prevAtRight = curRight;
                 _prevAtLeft = curLeft;
             }
-            
-            
 
             if (_framesToFixAngleLeft > 0)
             {
@@ -86,19 +92,33 @@ namespace Spacats.CharacterController
             }
 
             Quaternion startQuat = _rotateParent.rotation;
-
+            float rotSpeed = _rotationSpeed;
             if (IsFlying())
             {
+              
                 _rotateParent.LookAt(_inputData.FlyDirectionVector*10f + _rotateParent.position);
+                Vector3 localEulers = _rotateParent.localEulerAngles;
+                localEulers.x += 90f;
+                _rotateParent.localEulerAngles = localEulers;
+                rotSpeed = _rotationFlySpeed;
+                _needToFixRotationAfterFlying = 100;
             }
             else
             {
+                _needToFixRotationAfterFlying = 0;
                 _rotateParent.LookAt(_moveDirection*10f + _rotateParent.position);
             }
-            
             Quaternion targetQuat = _rotateParent.rotation;
-            
+            _rotateParent.rotation = Quaternion.Lerp(startQuat, targetQuat, rotSpeed*Time.deltaTime);
+        }
+
+        private void FixRotationAfterFlying()
+        {
+            Quaternion startQuat = _rotateParent.rotation;
+            _rotateParent.LookAt(_moveDirection*10f + _rotateParent.position);
+            Quaternion targetQuat = _rotateParent.rotation;
             _rotateParent.rotation = Quaternion.Lerp(startQuat, targetQuat, _rotationSpeed*Time.deltaTime);
+            _needToFixRotationAfterFlying--;
         }
 
         private bool IsAngleAtLeftBorder(float angle)

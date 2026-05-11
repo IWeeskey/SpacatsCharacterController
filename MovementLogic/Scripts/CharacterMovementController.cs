@@ -24,7 +24,17 @@ namespace Spacats.CharacterController
             _runtimeData.PreviousFlying = false;
         }
 
-        public void TryMove()
+        public void CallUpdate()
+        {
+            if (PauseController.IsPaused)
+            {
+                return;
+            }
+            
+            DispositionRotateParent();
+        }
+
+        public void TryMoveFixedUpdate()
         {
             _runtimeData.RigidBodyVelocity = _settings.Rigidbody.linearVelocity;
             _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
@@ -60,8 +70,6 @@ namespace Spacats.CharacterController
             }
 
             _runtimeData.PreviousFlying = _runtimeData.CurrentFlying;
-
-            DispositionRotateParent();
 
             if (_runtimeData.CurrentFlying)
             {
@@ -184,6 +192,7 @@ namespace Spacats.CharacterController
 
         private void ProcessInAir()
         {
+            _runtimeData.RuntimeVelocity = _settings.Rigidbody.linearVelocity;
             _runtimeData.RuntimeVelocity.y = _settings.Gravity;
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
                 _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
@@ -193,18 +202,16 @@ namespace Spacats.CharacterController
         {
             float speed = _settings.FlySpeed;
             _runtimeData.RuntimeVelocity = _inputData.FlyDirectionVector * speed;
-            
-            //_runtimeData.RuntimeVelocity.y = 0;
-
-            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity, _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
-
+            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity, _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChangeFlying);
             _mtoaData.MainAnimationType = MainAnimationTypes.FlyIdle;
-            
+
+            _runtimeData.LocalPositionOfRotateParent = new Vector3(_runtimeData.MoveDirection.x*-2f, _settings.FlyOffsetY,
+                _runtimeData.MoveDirection.z*-2f);
         }
 
         private void DispositionRotateParent()
         {
-            _settings.RotateParent.localPosition = Vector3.Lerp( _settings.RotateParent.localPosition, _runtimeData.LocalPositionOfRotateParent, Time.fixedUnscaledDeltaTime*_settings.FlyOffsetSpeed);
+            _settings.RotateParent.localPosition = Vector3.Lerp( _settings.RotateParent.localPosition, _runtimeData.LocalPositionOfRotateParent, Time.unscaledDeltaTime*_settings.FlyOffsetSpeed);
         }
 
         private void OnFlyEnter()

@@ -142,7 +142,6 @@ namespace Spacats.CharacterCamera
             _targetFollowPositionSpeed = _followCharacterSettings.PositionFollowSpeed;
             _pauseFollowHandler.DisablePhysics();
             ApplyZoomValue();
-            //transform.position = _currentFollowTarget.GetFollowPosition();
             transform.position = transform.position+ transform.forward*_cRData.CurrentZoomValue;
         }
 
@@ -253,7 +252,7 @@ namespace Spacats.CharacterCamera
             if (_currentFollowTarget==null) return;
             if (_lookAtTransform==null) return;
             
-            Vector3 targetPosition = _currentFollowTarget.GetFollowPosition();
+            Vector3 targetPosition = GetFollowPosition();
            
             _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocityRef, GetSmoothDampSpeed());
@@ -306,7 +305,7 @@ namespace Spacats.CharacterCamera
         {
             if (_followTarget==null) return;
             if (_lookAtTransform==null) return;
-            Vector3 targetPosition = _followTarget.GetFollowPosition();
+            Vector3 targetPosition = GetFollowPosition();
             transform.position = targetPosition;
             _lookAtTransform.localPosition = _followCharacterSettings.FixedLookAtOffset;
             
@@ -319,6 +318,12 @@ namespace Spacats.CharacterCamera
             gameObject.transform.localEulerAngles = _cRData.TargetEulers;
             
             _lookTransform.LookAt(_lookAtTransform);
+        }
+
+        private Vector3 GetFollowPosition()
+        {
+            if (_playerInput.Flying) return _currentFollowTarget.GetFlyFollowPosition();
+            return _currentFollowTarget.GetFollowPosition();
         }
     }
 }

@@ -39,6 +39,11 @@ namespace Spacats.CharacterController
             }
         }
 
+        private bool IsFlying()
+        {
+            return _inputData.Flying;
+        }
+
         // public void ProcessFixedUpdate()
         // {
         //     return;
@@ -110,6 +115,7 @@ namespace Spacats.CharacterController
 
         public void LookBodyDirection_AfterAnimator()
         {
+            //if (IsFlying()) return;
             ApplyChestTargetRotations();
             for (int i = 0; i <= _bonesData.Count - 1; i++)
             {

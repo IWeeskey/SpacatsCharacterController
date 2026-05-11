@@ -6,10 +6,19 @@ namespace Spacats.CharacterCamera
     {
         public float Scale = 1f;
         public Vector3 FixedFollowOffset = Vector3.zero;
+        public Vector3 FixedFlyFollowOffset = Vector3.zero;
         //public Vector3 FixedFollowOffset = Vector3.zero;
         
         
         public Vector3 GetFollowPosition()
+        {
+            Vector3 startPosition = gameObject.transform.position;
+            Vector3 offsetPosition = FixedFollowOffset * Scale;
+            
+            return startPosition + offsetPosition;
+        }
+        
+        public Vector3 GetFlyFollowPosition()
         {
             Vector3 startPosition = gameObject.transform.position;
             Vector3 offsetPosition = FixedFollowOffset * Scale;
