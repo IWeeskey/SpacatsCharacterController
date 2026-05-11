@@ -6,6 +6,7 @@ namespace Spacats.CharacterController
 {
     public class CharacterAnimatorController : MonoBehaviour
     {
+        public float Gender;
         [SerializeField] private Animator _animator;
         [SerializeField] private AnimatorStateTracker _stateTracker;
         
@@ -49,6 +50,7 @@ namespace Spacats.CharacterController
         public void SyncData()
         {
             if (PauseController.IsPaused) return;
+            _animator.SetFloat("Gender", Gender);
             _animator.SetFloat("MoveSpeed", 1f);
 
             if (_mtoaData.MainAnimationType == MainAnimationTypes.CrouchBackward ||

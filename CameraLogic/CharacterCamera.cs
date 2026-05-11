@@ -62,15 +62,15 @@ namespace Spacats.CharacterCamera
         private float GetFixedDeltaTime()
         {
             return Time.fixedUnscaledDeltaTime;
-            if (Time.timeScale <= 0f) return 0f;
-            return Time.fixedDeltaTime / Time.timeScale;
+            // if (Time.timeScale <= 0f) return 0f;
+            // return Time.fixedDeltaTime / Time.timeScale;
         }
         
         private float GetDeltaTime()
         {
             return Time.unscaledDeltaTime;
-            if (Time.timeScale <= 0f) return 0f;
-            return Time.deltaTime / Time.timeScale;
+            // if (Time.timeScale <= 0f) return 0f;
+            // return Time.deltaTime / Time.timeScale;
         }
         
         private float GetSmoothDampSpeed()

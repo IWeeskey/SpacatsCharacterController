@@ -102,7 +102,7 @@ namespace Spacats.CharacterController
             _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-0.5f;
 
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
-                _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
+                _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
 
             if (_inputData.MoveDirection == MoveDirections.Idle)
             {
@@ -110,7 +110,6 @@ namespace Spacats.CharacterController
                 
                 if (_inputData.MoveType == MoveInputTypes.Crouch)   _mtoaData.MainAnimationType = MainAnimationTypes.CrouchIdle;
             }
-            
         }
 
         private float ProcessOnGroundSpeed()
@@ -170,7 +169,7 @@ namespace Spacats.CharacterController
         {
             _runtimeData.RuntimeVelocity.y = _settings.Gravity;
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
-                _runtimeData.RuntimeVelocity, Time.fixedDeltaTime * _settings.SmoothSpeedChange);
+                _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Spacats.CharacterController
         [SerializeField] private AnimatorToMovementData _atomData = new AnimatorToMovementData();
         [SerializeField] private MovementToAnimatorData _mtoaData = new MovementToAnimatorData();
 
+        private bool _initialized = false;
+
         public Vector3 GetSelfForwardVector()
         {
             return _rotationController.GetForwardVector();
@@ -30,16 +32,19 @@ namespace Spacats.CharacterController
             _rotationController.Init(inputData);
             _animatorController?.Init(inputData, _atomData, _mtoaData);
             _lookAtController?.Init(inputData);
+            _initialized = true;
         }
 
         void FixedUpdate()
         {
+            if (!_initialized) return;
             _movementController.TryMove();
             //_lookAtController?.ProcessFixedUpdate();
         }
 
         void Update()
-        {
+        { 
+            if (!_initialized) return;
             _inputData.ForwardVector.y = 0f;
             _rotationController.TryRotate();
             _animatorController?.SyncData();
@@ -48,6 +53,7 @@ namespace Spacats.CharacterController
 
         private void LateUpdate()
         {
+            if (!_initialized) return;
             _lookAtController?.ProcessLateUpdate();
         }
     }
