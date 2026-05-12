@@ -1,6 +1,6 @@
 {
   "name": "com.spacats.charactercontroller",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "displayName": "Spacats CharacterController",
   "description": "Spacats CharacterController is a Unity package made for animating humanoid like characters",
   "unity": "6000.3",
