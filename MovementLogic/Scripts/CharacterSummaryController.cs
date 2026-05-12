@@ -39,7 +39,7 @@ namespace Spacats.CharacterController
         {
             if (!_initialized) return;
             _movementController.TryMoveFixedUpdate();
-            _movementController.CallUpdate();
+            
             //_lookAtController?.ProcessFixedUpdate();
         }
 
@@ -50,12 +50,14 @@ namespace Spacats.CharacterController
             _rotationController.TryRotate();
             _animatorController?.SyncData();
             _lookAtController?.ProcessUpdate();
+            //_movementController.CallUpdate();
         }
 
         private void LateUpdate()
         {
             if (!_initialized) return;
             _lookAtController?.ProcessLateUpdate();
+            _movementController.CallUpdate();
         }
     }
 }
