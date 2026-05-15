@@ -24,6 +24,7 @@ namespace Spacats.CharacterController
         
         public float FlySpeed = 40;
         public float FlyOffsetY = 1f;
+        public bool ApplyFlyOffset = false;
         public float FlyOffsetSpeed = 10f;
     }
 }

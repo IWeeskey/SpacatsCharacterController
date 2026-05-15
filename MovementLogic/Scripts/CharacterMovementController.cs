@@ -205,8 +205,16 @@ namespace Spacats.CharacterController
             _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity, _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChangeFlying);
             _mtoaData.MainAnimationType = MainAnimationTypes.FlyIdle;
 
-            _runtimeData.LocalPositionOfRotateParent = new Vector3(_runtimeData.MoveDirection.x*-2f, _settings.FlyOffsetY,
-                _runtimeData.MoveDirection.z*-2f);
+            if (_settings.ApplyFlyOffset)
+            {
+                _runtimeData.LocalPositionOfRotateParent = new Vector3(_runtimeData.MoveDirection.x*-2f, _settings.FlyOffsetY, _runtimeData.MoveDirection.z*-2f);
+            }
+            else
+            {
+                _runtimeData.LocalPositionOfRotateParent = new Vector3(0, _settings.FlyOffsetY,0);
+            }
+
+          
         }
 
         private void DispositionRotateParent()
