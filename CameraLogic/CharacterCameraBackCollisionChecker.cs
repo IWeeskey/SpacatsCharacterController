@@ -28,14 +28,15 @@ namespace Spacats.CharacterCamera
                 _vectors.Add(Vector3.zero);
             }
 
-            float gap = 0.3f;
-            _vectors[0] = backwardVector*1000f;//backward
-            _vectors[1] = Vector3.Lerp(backwardVector, rightVector, gap);//right
-            _vectors[2] = Vector3.Lerp(backwardVector, rightVector*-1, gap);//left
-            _vectors[3] = Vector3.Lerp(backwardVector, upVector, gap);//up
-            _vectors[4] = Vector3.Lerp(backwardVector, upVector*-1, gap);//down
+            float gap = 0.15f;
+            float multiplier = 1000f;
+            _vectors[0] = backwardVector*multiplier;//backward
+            _vectors[1] = Vector3.Lerp(backwardVector, rightVector, gap)*multiplier;//right
+            _vectors[2] = Vector3.Lerp(backwardVector, rightVector*-1, gap)*multiplier;//left
+            _vectors[3] = Vector3.Lerp(backwardVector, upVector, gap)*multiplier;//up
+            _vectors[4] = Vector3.Lerp(backwardVector, upVector*-1, gap)*multiplier;//down
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Vector3 endPoint = _vectors[i];
                 //Ray.direction = direction;
@@ -49,8 +50,15 @@ namespace Spacats.CharacterCamera
                     float localDist = Vector3.Distance(Ray.origin, RHit.point);
                     if (localDist < Distance) Distance = localDist;
                     Debug.DrawLine(Ray.origin, RHit.point, Color.crimson);
+                   
                 }
-               //  Physics.Raycast(Ray, out RHit, Mathf.Infinity, CollisionLayers);
+                else
+                {
+                    Debug.DrawLine(Ray.origin, endPoint, Color.cornflowerBlue);
+                }
+
+                
+                //  Physics.Raycast(Ray, out RHit, Mathf.Infinity, CollisionLayers);
                //  if (RHit.collider == null)
                //  {
                //      continue;
