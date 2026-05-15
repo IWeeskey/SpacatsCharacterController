@@ -39,36 +39,17 @@ namespace Spacats.CharacterCamera
             for (int i = 0; i < 5; i++)
             {
                 Vector3 endPoint = _vectors[i];
-                //Ray.direction = direction;
                 
                 if (Physics.Linecast(Ray.origin, endPoint , out RHit, CollisionLayers))
                 {
-                    // Calculate the distance from the original estimated position to the collision location, 
-                    // subtracting out a safety "offset" distance from the object we hit.  The offset will help 
-                    // keep the camera from being right on top of the surface we hit, which usually shows up as 
-                    // the surface geometry getting partially clipped by the camera's front clipping plane. 
                     float localDist = Vector3.Distance(Ray.origin, RHit.point);
                     if (localDist < Distance) Distance = localDist;
                     Debug.DrawLine(Ray.origin, RHit.point, Color.crimson);
-                   
                 }
                 else
                 {
                     Debug.DrawLine(Ray.origin, endPoint, Color.cornflowerBlue);
                 }
-
-                
-                //  Physics.Raycast(Ray, out RHit, Mathf.Infinity, CollisionLayers);
-               //  if (RHit.collider == null)
-               //  {
-               //      continue;
-               //  }
-               //
-               //  Vector3 collisionPoint = RHit.point;
-               //  float localDist = RHit.distance;
-               //  //localDist += backwardVector * 2.5f;
-               //  if (RHit.distance < Distance) Distance = RHit.distance;
-               // Debug.DrawLine(Ray.origin, RHit.point);
             }
 
             return Distance-1f;

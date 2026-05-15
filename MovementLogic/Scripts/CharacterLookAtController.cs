@@ -16,8 +16,8 @@ namespace Spacats.CharacterController
         private CharacterInputRuntimeData _inputData;
 
         private float _dynamicWeight = 1f;
-        private bool _prevInLogicPause = false;
-        private bool _currentInLogicPause = false;
+        //private bool _prevInLogicPause = false;
+        //private bool _currentInLogicPause = false;
         private Vector3 _currentTargetPoint;
         private Vector3 _tmpRoHead = new Vector3();
         
