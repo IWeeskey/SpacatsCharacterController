@@ -7,6 +7,7 @@ namespace Spacats.CharacterCamera
     [Serializable]
     public class CharacterCameraBackCollisionChecker
     {
+        public bool AdvancedCheck = false;
         public LayerMask CollisionLayers;
         public float Distance = 0;
         public RaycastHit RHit = new RaycastHit();
@@ -36,7 +37,8 @@ namespace Spacats.CharacterCamera
             _vectors[3] = Vector3.Lerp(backwardVector, upVector, gap)*multiplier;//up
             _vectors[4] = Vector3.Lerp(backwardVector, upVector*-1, gap)*multiplier;//down
 
-            for (int i = 0; i < 5; i++)
+            int maxChecks = AdvancedCheck?5:1;
+            for (int i = 0; i < maxChecks; i++)
             {
                 Vector3 endPoint = _vectors[i];
                 

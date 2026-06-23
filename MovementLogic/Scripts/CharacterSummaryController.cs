@@ -1,4 +1,5 @@
 using System;
+using Spacats.CharacterCamera;
 using UnityEngine;
 
 namespace Spacats.CharacterController
@@ -11,9 +12,12 @@ namespace Spacats.CharacterController
         [SerializeField] private CharacterAnimatorController _animatorController;
         [SerializeField] private CharacterLookAtController _lookAtController;
         [SerializeField] private CharacterInputRuntimeData _inputData;
-        
+        [SerializeField] private CameraFollowTarget _followTarget;        
+
         [SerializeField] private AnimatorToMovementData _atomData = new AnimatorToMovementData();
         [SerializeField] private MovementToAnimatorData _mtoaData = new MovementToAnimatorData();
+        
+        public CameraFollowTarget FollowTarget => _followTarget;
 
         private bool _initialized = false;
 

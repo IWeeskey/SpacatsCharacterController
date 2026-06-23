@@ -13,7 +13,7 @@ namespace Spacats.CharacterCamera
         private CharacterInputData _characterInput;
         [SerializeField] private CharacterSummaryController _playerSummary;
         [SerializeField] private LogicPauseFollowTarget _pauseFollowHandler;
-        [SerializeField] private CameraFollowTarget _followTarget;
+        //[SerializeField] private CameraFollowTarget _followTarget;
         [SerializeField] private CameraFollowTarget _pauseFollowTarget;
         
         private CameraFollowTarget _currentFollowTarget;
@@ -54,7 +54,7 @@ namespace Spacats.CharacterCamera
             _pauseFollowTarget.gameObject.transform.SetParent(null);
             _prevInLogicPause = false;
             _currentInLogicPause = false;
-            _currentFollowTarget =  _followTarget;
+            _currentFollowTarget =  _playerSummary.FollowTarget;
             OnLogicPauseExit();
             DoFollowCharacterInstant();
         }
@@ -137,7 +137,7 @@ namespace Spacats.CharacterCamera
         { 
             _cRData.TargetZoomValue = _cRData.BeforePauseZoomValue;
             _cRData.CurrentZoomValue = _cRData.TargetZoomValue;
-            _currentFollowTarget = _followTarget;
+            _currentFollowTarget = _playerSummary.FollowTarget;
             _currentFollowPositionSpeed = _logicPauseSettings.ReturnSpeed;
             _targetFollowPositionSpeed = _followCharacterSettings.PositionFollowSpeed;
             _pauseFollowHandler.DisablePhysics();
@@ -303,7 +303,7 @@ namespace Spacats.CharacterCamera
 
         private void DoFollowCharacterInstant()
         {
-            if (_followTarget==null) return;
+            if (_playerSummary==null) return;
             if (_lookAtTransform==null) return;
             Vector3 targetPosition = GetFollowPosition();
             transform.position = targetPosition;

@@ -350,6 +350,7 @@ MonoBehaviour:
     MoveType: 0
     MoveDirection: 0
     MoveDirectionsLockBack: 0
+  _followTarget: {fileID: 2707034000656104718}
   _atomData:
     MainAnimationType: 0
     UpperBodyAnimationType: 0
@@ -396,7 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CameraFollowTarget
   Scale: 1
-  FixedFollowOffset: {x: 0, y: 1.6, z: 0}
+  FixedFollowOffset: {x: 0, y: 1.25, z: 0}
   FixedFlyFollowOffset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5071057031356436550
 MonoBehaviour:
