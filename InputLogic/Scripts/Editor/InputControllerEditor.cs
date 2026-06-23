@@ -70,6 +70,9 @@ namespace Spacats.Input
             SerializedProperty config = serializedObject.FindProperty("_config");
             EditorGUILayout.PropertyField(config);
             
+            SerializedProperty controlCursorVisibility = serializedObject.FindProperty("ControlCursorVisibility");
+            EditorGUILayout.PropertyField(controlCursorVisibility);
+            
             SerializedProperty characterInput = serializedObject.FindProperty("_characterInput");
             EditorGUILayout.PropertyField(characterInput);
             

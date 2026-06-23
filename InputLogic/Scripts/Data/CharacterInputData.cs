@@ -20,6 +20,8 @@ namespace Spacats.Input
         public ButtonPhaseEnum AttackPhase;
         public bool IsAttacking =>AttackPhase== ButtonPhaseEnum.OnDown || AttackPhase== ButtonPhaseEnum.OnHoldTriggered;
 
+        public bool CursorVisible;
+
         public void Reset()
         {
             AttackPhase = ButtonPhaseEnum.OnUp;
@@ -31,6 +33,7 @@ namespace Spacats.Input
             Walking = false;
             Crouching = false;
             Flying = false;
+            CursorVisible = true;
         }
         
     }

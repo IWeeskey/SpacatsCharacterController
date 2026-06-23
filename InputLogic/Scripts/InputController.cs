@@ -17,7 +17,7 @@ namespace Spacats.Input
         
         // private string _lastInputActions = "";
         // public string LastInputActions => _lastInputActions;
-        
+        public bool ControlCursorVisibility;
         
         [SerializeField] private CharacterInputData _characterInput;
         public CharacterInputData CharacterInput => _characterInput;
@@ -43,6 +43,12 @@ namespace Spacats.Input
         public override void COnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             base.COnSceneLoaded(scene, mode);
+
+            if (Application.isPlaying)
+            {
+                _characterInput.CursorVisible = false;
+                RefreshCursorVisibility();
+            }
         }
 
         protected override void COnDisable()
@@ -169,6 +175,23 @@ namespace Spacats.Input
             RefreshMoveType();
         }
         
+        public void OnShowHideMouse(InputAction.CallbackContext context)
+        {
+          
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:_characterInput.CursorVisible = !_characterInput.CursorVisible; break;
+            }
+
+            RefreshCursorVisibility();
+        }
+
+        private void RefreshCursorVisibility()
+        {
+            if (!ControlCursorVisibility) return;
+            Cursor.visible = _characterInput.CursorVisible;
+        }
+
         public void OnLookDelta(InputAction.CallbackContext context)
         {
             Vector2 value = context.ReadValue<Vector2>();

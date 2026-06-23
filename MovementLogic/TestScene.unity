@@ -3437,10 +3437,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8010378639322518457, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3592,6 +3588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[0 SpaCats] InputController'
       objectReference: {fileID: 0}
+    - target: {fileID: 6438057266707781005, guid: 06f7b78d4dddcae499bfa402d9a1d794, type: 3}
+      propertyPath: ControlCursorVisibility
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7622242755623651686, guid: 06f7b78d4dddcae499bfa402d9a1d794, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3660,10 +3660,6 @@ PrefabInstance:
       propertyPath: _lookAtTarget
       value: 
       objectReference: {fileID: 1459151357}
-    - target: {fileID: 5071057031356436550, guid: 5820847c252be284da30af87aa4b53af, type: 3}
-      propertyPath: _settings.SmoothSpeedChange
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 7596122060800548141, guid: 5820847c252be284da30af87aa4b53af, type: 3}
       propertyPath: m_Name
       value: CharacterParent_female

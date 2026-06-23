@@ -202,6 +202,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0a5082be-095f-41c3-8d7a-28c1ea0b3871
     m_ActionName: 'PlayerControls/Fly[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6438057266707781005}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnShowHideMouse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b6034f29-f549-407a-817d-c80bbc870b67
+    m_ActionName: 'PlayerControls/ShowHideMouse[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -225,6 +241,7 @@ MonoBehaviour:
   ShowCLogs: 0
   ExecuteOrder: 0
   PersistsAtScenes: []
+  ControlCursorVisibility: 0
   _characterInput:
     MoveType: 0
     MoveDirection: 0
@@ -238,4 +255,5 @@ MonoBehaviour:
     LookDelta: {x: 0, y: 0}
     ZoomDelta: 0
     AttackPhase: 2
+    CursorVisible: 1
   _config: {fileID: 11400000, guid: e794f4c5547259f488e010ad91b5800f, type: 2}
