@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5372882852638904008}
   - component: {fileID: 2640014618256181543}
-  - component: {fileID: 1883684095469231926}
   - component: {fileID: 6799113070330462477}
   - component: {fileID: 5429509578184482499}
   - component: {fileID: 6120876049125363948}
   - component: {fileID: 7490805505962543923}
+  - component: {fileID: 5692859377194407937}
   m_Layer: 6
   m_Name: CharacterParent_male
   m_TagString: Untagged
@@ -73,33 +73,6 @@ MonoBehaviour:
   _mtoaData:
     MainAnimationType: 0
     UpperBodyAnimationType: 0
---- !u!54 &1883684095469231926
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2151694256189569261}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &6799113070330462477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +108,9 @@ MonoBehaviour:
     RigidBodyVelocity: {x: 0, y: 0, z: 0}
     RigidBodySpeed: 0
     MoveDirection: {x: 0, y: 0, z: 0}
+    HorizontalVelocity: {x: 0, y: 0, z: 0}
+    VerticalVelocity: 0
+    Grounded: 0
     WasPaused: 0
     CurrentFlying: 0
     PreviousFlying: 0
@@ -147,11 +123,13 @@ MonoBehaviour:
     WaterLayers:
       serializedVersion: 2
       m_Bits: 16
-    OnGroundThreshold: 0.8
-    Gravity: -9.8
+    Gravity: -15
     SmoothSpeedChange: 14
     SmoothSpeedChangeFlying: 1
-    Rigidbody: {fileID: 1883684095469231926}
+    Controller: {fileID: 5692859377194407937}
+    GroundedOffset: 0.15
+    GroundedRadius: 0.4
+    TerminalVelocity: 53
     WalkSpeed: {x: 2, y: 1.35}
     RunSpeed: {x: 4.5, y: 3}
     SprintSpeed: {x: 7, y: 4}
@@ -204,6 +182,31 @@ MonoBehaviour:
   _stateTracker: {fileID: 4169558332489218871}
   _speedChangeSpeed: 4
   _locomotionChangeSpeed: 4
+--- !u!143 &5692859377194407937
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151694256189569261}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.02
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3065453715103417327
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +396,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8751129288367008405}
-  - component: {fileID: 7003494047789923176}
   m_Layer: 6
   m_Name: RotateParent
   m_TagString: Untagged
@@ -418,29 +420,6 @@ Transform:
   - {fileID: 4164343364777396675}
   m_Father: {fileID: 5372882852638904008}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &7003494047789923176
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7558387929068957717}
-  m_Material: {fileID: 13400000, guid: d6d9bbbf9af7f2c4b9119fa7dafd475f, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7834861211076860718
 GameObject:
   m_ObjectHideFlags: 0

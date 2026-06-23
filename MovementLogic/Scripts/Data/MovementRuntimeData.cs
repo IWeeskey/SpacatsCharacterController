@@ -13,6 +13,18 @@ namespace Spacats.CharacterController
         public Vector3 RigidBodyVelocity;
         public float RigidBodySpeed;
         public Vector3 MoveDirection;
+
+        /// <summary>
+        /// Smoothed horizontal velocity (XZ) applied through CharacterController.Move.
+        /// </summary>
+        public Vector3 HorizontalVelocity;
+
+        /// <summary>
+        /// Current vertical velocity (gravity / stick-to-ground), applied through CharacterController.Move.
+        /// </summary>
+        public float VerticalVelocity;
+
+        public bool Grounded;
         
         public bool WasPaused = false;
         

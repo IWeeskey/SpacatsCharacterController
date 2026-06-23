@@ -9,12 +9,19 @@ namespace Spacats.CharacterController
         public Transform RotateParent;
         public LayerMask GroundLayers;
         public LayerMask WaterLayers;
-        public float OnGroundThreshold = 0.5f;
         public float Gravity = -9.8f;
         
         public float SmoothSpeedChange = 1f;
         public float SmoothSpeedChangeFlying = 5f;
-        public Rigidbody Rigidbody;
+        public UnityEngine.CharacterController Controller;
+
+        [Header("Grounded check")]
+        [Tooltip("Vertical offset (downwards) of the grounded sphere check origin from the controller transform position.")]
+        public float GroundedOffset = 0.15f;
+        [Tooltip("Radius of the grounded sphere check. Should roughly match the controller radius.")]
+        public float GroundedRadius = 0.4f;
+        [Tooltip("Maximum fall speed (absolute value).")]
+        public float TerminalVelocity = 53f;
 
         [Tooltip("X - forward; Y - Backward")]public Vector2 WalkSpeed = new Vector2(2,1);
         [Tooltip("X - forward; Y - Backward")]public Vector2 RunSpeed = new Vector2(6,3);

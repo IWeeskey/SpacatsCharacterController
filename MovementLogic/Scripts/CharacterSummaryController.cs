@@ -42,8 +42,6 @@ namespace Spacats.CharacterController
         void FixedUpdate()
         {
             if (!_initialized) return;
-            _movementController.TryMoveFixedUpdate();
-            
             //_lookAtController?.ProcessFixedUpdate();
         }
 
@@ -51,6 +49,7 @@ namespace Spacats.CharacterController
         { 
             if (!_initialized) return;
             _inputData.ForwardVector.y = 0f;
+            _movementController.TryMove();
             _rotationController.TryRotate();
             _animatorController?.SyncData();
             _lookAtController?.ProcessUpdate();

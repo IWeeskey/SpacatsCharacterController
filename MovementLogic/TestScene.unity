@@ -3660,6 +3660,10 @@ PrefabInstance:
       propertyPath: _lookAtTarget
       value: 
       objectReference: {fileID: 1459151357}
+    - target: {fileID: 5071057031356436550, guid: 5820847c252be284da30af87aa4b53af, type: 3}
+      propertyPath: _settings.SmoothSpeedChange
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7596122060800548141, guid: 5820847c252be284da30af87aa4b53af, type: 3}
       propertyPath: m_Name
       value: CharacterParent_female

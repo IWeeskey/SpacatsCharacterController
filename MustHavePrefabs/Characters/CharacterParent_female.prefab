@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7860836849899646329}
-  - component: {fileID: 269153718060521656}
   m_Layer: 6
   m_Name: RotateParent
   m_TagString: Untagged
@@ -34,29 +33,6 @@ Transform:
   - {fileID: 2217928202851708124}
   m_Father: {fileID: 9079999112926942132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &269153718060521656
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756582576916511650}
-  m_Material: {fileID: 13400000, guid: d6d9bbbf9af7f2c4b9119fa7dafd475f, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1632351262342310877
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,11 +270,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9079999112926942132}
   - component: {fileID: 7623500515495725682}
-  - component: {fileID: 58623796080211797}
   - component: {fileID: 2707034000656104718}
   - component: {fileID: 5071057031356436550}
   - component: {fileID: 3605601082852559574}
   - component: {fileID: 2813247231859155124}
+  - component: {fileID: 6392056910121174204}
   m_Layer: 6
   m_Name: CharacterParent_female
   m_TagString: Untagged
@@ -357,33 +333,6 @@ MonoBehaviour:
   _mtoaData:
     MainAnimationType: 0
     UpperBodyAnimationType: 0
---- !u!54 &58623796080211797
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7596122060800548141}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &2707034000656104718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +368,9 @@ MonoBehaviour:
     RigidBodyVelocity: {x: 0, y: 0, z: 0}
     RigidBodySpeed: 0
     MoveDirection: {x: 0, y: 0, z: 0}
+    HorizontalVelocity: {x: 0, y: 0, z: 0}
+    VerticalVelocity: 0
+    Grounded: 0
     WasPaused: 0
     CurrentFlying: 0
     PreviousFlying: 0
@@ -431,11 +383,13 @@ MonoBehaviour:
     WaterLayers:
       serializedVersion: 2
       m_Bits: 16
-    OnGroundThreshold: 0.8
-    Gravity: -9.8
-    SmoothSpeedChange: 14
+    Gravity: -15
+    SmoothSpeedChange: 100
     SmoothSpeedChangeFlying: 1
-    Rigidbody: {fileID: 58623796080211797}
+    Controller: {fileID: 6392056910121174204}
+    GroundedOffset: 0
+    GroundedRadius: 0.1
+    TerminalVelocity: 53
     WalkSpeed: {x: 2, y: 1.35}
     RunSpeed: {x: 4.5, y: 3}
     SprintSpeed: {x: 7, y: 4}
@@ -488,6 +442,31 @@ MonoBehaviour:
   _stateTracker: {fileID: 2095465955366461906}
   _speedChangeSpeed: 4
   _locomotionChangeSpeed: 4
+--- !u!143 &6392056910121174204
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7596122060800548141}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.02
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &1823131628155079479
 PrefabInstance:
   m_ObjectHideFlags: 0

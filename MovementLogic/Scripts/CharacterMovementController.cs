@@ -6,7 +6,9 @@ using UnityEngine;
 namespace Spacats.CharacterController
 {
     /// <summary>
-    /// Works at fixed update
+    /// Moves the character via UnityEngine.CharacterController (collide-and-slide).
+    /// Driven from Update for frame-rate smooth motion. Handles grounded locomotion,
+    /// air/gravity and collision-aware flying.
     /// </summary>
     public class CharacterMovementController : MonoBehaviour
     {
@@ -15,6 +17,10 @@ namespace Spacats.CharacterController
         private CharacterInputRuntimeData _inputData;
         private AnimatorToMovementData _atomData;
         private MovementToAnimatorData _mtoaData;
+
+        // Small constant downward velocity kept while grounded so the controller stays
+        // glued to slopes/steps when walking downhill (prevents the descent jitter).
+        private const float GroundedStickVelocity = -2f;
         public void Init(CharacterInputRuntimeData inputData, AnimatorToMovementData atomData, MovementToAnimatorData mtoaData)
         {
             _inputData = inputData;
@@ -22,6 +28,8 @@ namespace Spacats.CharacterController
             _mtoaData = mtoaData;
             _runtimeData.CurrentFlying = false;
             _runtimeData.PreviousFlying = false;
+            _runtimeData.VerticalVelocity = 0f;
+            _runtimeData.HorizontalVelocity = Vector3.zero;
         }
 
         public void CallUpdate()
@@ -34,34 +42,33 @@ namespace Spacats.CharacterController
             DispositionRotateParent();
         }
 
-        public void TryMoveFixedUpdate()
+        /// <summary>
+        /// Drives the character through UnityEngine.CharacterController (collide-and-slide).
+        /// Called every frame from Update for frame-rate smooth movement (no FixedUpdate stepping).
+        /// </summary>
+        public void TryMove()
         {
-            _runtimeData.RigidBodyVelocity = _settings.Rigidbody.linearVelocity;
-            _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
+            if (_settings.Controller == null) return;
+
             _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
+
             if (PauseController.IsPaused)
             {
-                //_settings.Rigidbody.for
-                _settings.Rigidbody.linearVelocity = Vector3.zero;
-                _settings.Rigidbody.angularVelocity = Vector3.zero;
-                //_settings.Rigidbody.isKinematic = true;
+                _runtimeData.HorizontalVelocity = Vector3.zero;
+                _runtimeData.VerticalVelocity = 0f;
                 _runtimeData.WasPaused = true;
                 return;
             }
 
-            _runtimeData.MoveDirection = _inputData.MoveDirectionVector;
-            
             if (_runtimeData.WasPaused)
             {
-                //_settings.Rigidbody.isKinematic = false;
                 _runtimeData.WasPaused = false;
-                _settings.Rigidbody.linearVelocity = _runtimeData.RuntimeVelocity;
             }
 
-            GetDistanceToGround();
-            CalculateState();
-            RefreshCurrentSpeed();
-            
+            _runtimeData.MoveDirection = _inputData.MoveDirectionVector;
+
+            UpdateGroundedState();
+
             _runtimeData.CurrentFlying = _inputData.Flying;
             if (_runtimeData.CurrentFlying != _runtimeData.PreviousFlying)
             {
@@ -74,6 +81,7 @@ namespace Spacats.CharacterController
             if (_runtimeData.CurrentFlying)
             {
                 ProcessFlying();
+                RefreshCurrentSpeed();
                 return;
             }
 
@@ -83,56 +91,56 @@ namespace Spacats.CharacterController
                 case SpaceStates.OnGround: ProcessOnGround(); break;
                 case SpaceStates.InWater: break;
             }
+
+            RefreshCurrentSpeed();
         }
 
         private void RefreshCurrentSpeed()
         {
-            Vector3 horizontalVelocity = _settings.Rigidbody.linearVelocity;
+            Vector3 horizontalVelocity = _settings.Controller.velocity;
             horizontalVelocity.y = 0f;
             _runtimeData.HorizontalSpeed = horizontalVelocity.magnitude;
+            _runtimeData.RigidBodyVelocity = _settings.Controller.velocity;
+            _runtimeData.RigidBodySpeed = _runtimeData.RigidBodyVelocity.magnitude;
         }
 
-        private void GetDistanceToGround()
+        /// <summary>
+        /// Determines whether the character is grounded using the CharacterController's own
+        /// grounded flag combined with a small sphere check for robustness on slopes/steps.
+        /// </summary>
+        private void UpdateGroundedState()
         {
-            _runtimeData.Ray.origin = _settings.Rigidbody.position+Vector3.up*0.5f;
-            _runtimeData.Ray.direction = Vector3.down;
-            
-            Physics.Raycast(_runtimeData.Ray, out _runtimeData.RHit, Mathf.Infinity, _settings.GroundLayers);
-            if (_runtimeData.RHit.collider == null)
-            {
-                _runtimeData.DistanceToGround = 999f;
-                return;
-            }
+            Vector3 position = _settings.Controller.transform.position;
+            Vector3 spherePosition = new Vector3(position.x, position.y - _settings.GroundedOffset, position.z);
+            bool grounded = _settings.Controller.isGrounded ||
+                            Physics.CheckSphere(spherePosition, _settings.GroundedRadius, _settings.GroundLayers, QueryTriggerInteraction.Ignore);
 
-            _runtimeData.DistanceToGround = _runtimeData.RHit.distance;
-        }
-
-        private void CalculateState()
-        {
-            if (_runtimeData.DistanceToGround < _settings.OnGroundThreshold)
-            {
-                _runtimeData.State = SpaceStates.OnGround;
-                return;
-            }
-            
-            _runtimeData.State = SpaceStates.InAir;
+            _runtimeData.Grounded = grounded;
+            _runtimeData.State = grounded ? SpaceStates.OnGround : SpaceStates.InAir;
         }
 
         private void ProcessOnGround()
         {
-            
             float speed = ProcessOnGroundSpeed();
-            
-            _runtimeData.RuntimeVelocity = _runtimeData.MoveDirection * speed;
-            _runtimeData.RuntimeVelocity.y = _runtimeData.DistanceToGround*-0.5f;
 
-            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
-                _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
+            // Keep the controller pinned to the ground/slope so descending stays smooth.
+            if (_runtimeData.VerticalVelocity < 0f)
+            {
+                _runtimeData.VerticalVelocity = GroundedStickVelocity;
+            }
+
+            Vector3 targetHorizontal = _runtimeData.MoveDirection * speed;
+            _runtimeData.HorizontalVelocity = Vector3.Lerp(_runtimeData.HorizontalVelocity,
+                targetHorizontal, Time.deltaTime * _settings.SmoothSpeedChange);
+
+            Vector3 motion = _runtimeData.HorizontalVelocity + Vector3.up * _runtimeData.VerticalVelocity;
+            _runtimeData.RuntimeVelocity = motion;
+            _settings.Controller.Move(motion * Time.deltaTime);
 
             if (_inputData.MoveDirection == MoveDirections.Idle)
             {
                 _mtoaData.MainAnimationType = MainAnimationTypes.Idle;
-                
+
                 if (_inputData.MoveType == MoveInputTypes.Crouch)   _mtoaData.MainAnimationType = MainAnimationTypes.CrouchIdle;
             }
         }
@@ -192,17 +200,30 @@ namespace Spacats.CharacterController
 
         private void ProcessInAir()
         {
-            _runtimeData.RuntimeVelocity = _settings.Rigidbody.linearVelocity;
-            _runtimeData.RuntimeVelocity.y = _settings.Gravity;
-            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity,
-                _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChange);
+            // Accumulate gravity (clamped to terminal velocity) for a natural fall.
+            _runtimeData.VerticalVelocity += _settings.Gravity * Time.deltaTime;
+            if (_runtimeData.VerticalVelocity < -_settings.TerminalVelocity)
+            {
+                _runtimeData.VerticalVelocity = -_settings.TerminalVelocity;
+            }
+
+            // Preserve horizontal momentum from the last grounded frame.
+            Vector3 motion = _runtimeData.HorizontalVelocity + Vector3.up * _runtimeData.VerticalVelocity;
+            _runtimeData.RuntimeVelocity = motion;
+            _settings.Controller.Move(motion * Time.deltaTime);
         }
         
         private void ProcessFlying()
         {
             float speed = _settings.FlySpeed;
-            _runtimeData.RuntimeVelocity = _inputData.FlyDirectionVector * speed;
-            _settings.Rigidbody.linearVelocity = Vector3.Lerp(_settings.Rigidbody.linearVelocity, _runtimeData.RuntimeVelocity, Time.fixedUnscaledDeltaTime * _settings.SmoothSpeedChangeFlying);
+            // Flying ignores gravity, but movement still goes through CharacterController.Move,
+            // so collisions (walls/floor/ceiling) are resolved and the character cannot clip through them.
+            _runtimeData.VerticalVelocity = 0f;
+            Vector3 targetVelocity = _inputData.FlyDirectionVector * speed;
+            _runtimeData.HorizontalVelocity = Vector3.Lerp(_runtimeData.HorizontalVelocity,
+                targetVelocity, Time.deltaTime * _settings.SmoothSpeedChangeFlying);
+            _runtimeData.RuntimeVelocity = _runtimeData.HorizontalVelocity;
+            _settings.Controller.Move(_runtimeData.HorizontalVelocity * Time.deltaTime);
             _mtoaData.MainAnimationType = MainAnimationTypes.FlyIdle;
 
             if (_settings.ApplyFlyOffset)
@@ -230,6 +251,8 @@ namespace Spacats.CharacterController
         private void OnFlyExit()
         {
             _runtimeData.LocalPositionOfRotateParent = Vector3.zero;
+            _runtimeData.VerticalVelocity = 0f;
+            _runtimeData.HorizontalVelocity.y = 0f;
         }
     }
 }
