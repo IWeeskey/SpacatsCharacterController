@@ -1,3 +1,4 @@
+using System;
 using Spacats.Utils;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,8 @@ namespace Spacats.Input
         public LogicPauseInputData LogicPauseInput => _logicPauseInput;
         private InputSensitivityData _sensitivityData;
         [SerializeField] private InputSettingsConfig _config;
-        
+
+        public static Action GButtonOnDown;
         
         #region ControllerBasics
         protected override void COnRegister()
@@ -231,7 +233,15 @@ namespace Spacats.Input
                 _characterInput.MoveType = MoveInputTypes.Walk;
                 return;
             }
-            
+        }
+        
+        
+        public void OnGButton(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started: GButtonOnDown?.Invoke(); break;
+            }
         }
 
         #endregion

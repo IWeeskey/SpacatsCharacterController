@@ -3588,10 +3588,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[0 SpaCats] InputController'
       objectReference: {fileID: 0}
-    - target: {fileID: 6438057266707781005, guid: 06f7b78d4dddcae499bfa402d9a1d794, type: 3}
-      propertyPath: ControlCursorVisibility
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7622242755623651686, guid: 06f7b78d4dddcae499bfa402d9a1d794, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

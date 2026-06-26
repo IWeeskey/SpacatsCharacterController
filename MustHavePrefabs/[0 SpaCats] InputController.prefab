@@ -218,6 +218,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b6034f29-f549-407a-817d-c80bbc870b67
     m_ActionName: 'PlayerControls/ShowHideMouse[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6438057266707781005}
+        m_TargetAssemblyTypeName: Spacats.Input.InputController, spacats_charactercontroller_package
+        m_MethodName: OnGButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 610449b4-4567-4dd1-a4d2-dd3d289cdac6
+    m_ActionName: 'PlayerControls/G_Button[/Keyboard/g]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -241,7 +257,7 @@ MonoBehaviour:
   ShowCLogs: 0
   ExecuteOrder: 0
   PersistsAtScenes: []
-  ControlCursorVisibility: 0
+  ControlCursorVisibility: 1
   _characterInput:
     MoveType: 0
     MoveDirection: 0
