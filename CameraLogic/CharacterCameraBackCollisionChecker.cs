@@ -7,6 +7,7 @@ namespace Spacats.CharacterCamera
     [Serializable]
     public class CharacterCameraBackCollisionChecker
     {
+        public float BackCheckDistance = 1000;
         public bool AdvancedCheck = false;
         public LayerMask CollisionLayers;
         public float Distance = 0;
@@ -19,7 +20,7 @@ namespace Spacats.CharacterCamera
         {
             Ray.origin = startPosition;
             Distance = 999f;
-
+            
             if (_vectors.Count < 5)
             {
                 _vectors.Add(Vector3.zero);
@@ -30,7 +31,7 @@ namespace Spacats.CharacterCamera
             }
 
             float gap = 0.15f;
-            float multiplier = 1000f;
+            float multiplier = BackCheckDistance;
             _vectors[0] = backwardVector*multiplier;//backward
             _vectors[1] = Vector3.Lerp(backwardVector, rightVector, gap)*multiplier;//right
             _vectors[2] = Vector3.Lerp(backwardVector, rightVector*-1, gap)*multiplier;//left
@@ -40,7 +41,7 @@ namespace Spacats.CharacterCamera
             int maxChecks = AdvancedCheck?5:1;
             for (int i = 0; i < maxChecks; i++)
             {
-                Vector3 endPoint = _vectors[i];
+                Vector3 endPoint = _vectors[i] + Ray.origin;
                 
                 if (Physics.Linecast(Ray.origin, endPoint , out RHit, CollisionLayers))
                 {
