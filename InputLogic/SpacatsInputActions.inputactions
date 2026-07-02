@@ -295,6 +295,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "9b713b27-cca6-491b-8477-d10b6244a16d",
+            "actions": [
+                {
+                    "name": "CaptureScreenshot",
+                    "type": "Button",
+                    "id": "40c9f3ca-bfd8-42aa-ba1c-ddf2f423fbc9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d01952be-d5a3-4b4c-b123-408a909408c2",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CaptureScreenshot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

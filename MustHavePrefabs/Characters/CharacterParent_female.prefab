@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spacats_charactercontroller_package::CharacterAnimatorController
   Gender: 1
-  _animator: {fileID: 5199270699674777254}
+  _animator: {fileID: 186228013390711331}
   _stateTracker: {fileID: 2095465955366461906}
   _speedChangeSpeed: 4
   _locomotionChangeSpeed: 4
@@ -846,6 +846,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 186228013390711331}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2095465955366461906}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
       insertIndex: -1
@@ -864,6 +867,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
   m_PrefabInstance: {fileID: 1823131628155079479}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &186228013390711331
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552749422997911142}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5d1484c0df2024b4c96365a5acb4ce45, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2095465955366461906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,11 +988,6 @@ Transform:
 --- !u!4 &4531600324222859988 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2859340401975734755, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
-  m_PrefabInstance: {fileID: 1823131628155079479}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5199270699674777254 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: df16bf5cb279c1e46b27d1ed4d96b0bb, type: 3}
   m_PrefabInstance: {fileID: 1823131628155079479}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &9012533657060057482 stripped
