@@ -119,6 +119,64 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31519369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31519371}
+  - component: {fileID: 31519370}
+  m_Layer: 0
+  m_Name: '[0 SpaCats] ScreenShotCapture'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &31519370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31519369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1da1bb74e5fcd34a9f05b3034b569cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spacatsutils::Spacats.Utils.ScreenShotCapture
+  UniqueTag: 
+  ExecuteInEditor: 0
+  ShowLogs: 0
+  ShowCLogs: 0
+  ExecuteOrder: 0
+  PersistsAtScenes: []
+  PerformLogic: 1
+  SavePath: C:/
+  NamePrefix: TestScreenShot
+  SuperSize: 1
+  EditorCaptureScreen: 0
+  _captureScreenshotAction: {fileID: -4929005032287700900, guid: f86bd8da93b4d2e46af11fc34011de43, type: 3}
+  _pauseEditorAction: {fileID: -8250185287845011274, guid: f86bd8da93b4d2e46af11fc34011de43, type: 3}
+  _pauseGameAction: {fileID: -5007711946621543134, guid: f86bd8da93b4d2e46af11fc34011de43, type: 3}
+--- !u!4 &31519371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31519369}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1774753644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &158514297
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,22 +2641,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1774753644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1717121729 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5990529465392490621, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-  m_PrefabInstance: {fileID: 1495871623197247015}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1da1bb74e5fcd34a9f05b3034b569cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: spacatsutils::Spacats.Utils.ScreenShotCapture
---- !u!4 &1717121730 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-  m_PrefabInstance: {fileID: 1495871623197247015}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1731407970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,10 +2786,10 @@ MonoBehaviour:
   ShowLogs: 0
   ShowSLogs: 0
   _controllers:
+  - {fileID: 31519370}
   - {fileID: 971848759}
   - {fileID: 1685632524}
   - {fileID: 1716141567}
-  - {fileID: 1717121729}
   - {fileID: 1832575024}
 --- !u!4 &1774753644
 Transform:
@@ -2763,10 +2805,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1832575025}
-  - {fileID: 1717121730}
   - {fileID: 1716141568}
   - {fileID: 1685632525}
   - {fileID: 971848760}
+  - {fileID: 31519371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793220285
@@ -3442,63 +3484,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
---- !u!1001 &1495871623197247015
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1774753644}
-    m_Modifications:
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622291151819290637, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5458948432785488396, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
-      propertyPath: m_Name
-      value: '[0 SpaCats] ScreenShotCapture'
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c030094df30444c4da44f7f73ee7cc31, type: 3}
 --- !u!1001 &1589926102458261012
 PrefabInstance:
   m_ObjectHideFlags: 0
