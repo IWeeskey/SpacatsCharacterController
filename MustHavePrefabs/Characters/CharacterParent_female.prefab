@@ -416,7 +416,7 @@ MonoBehaviour:
   _framesToFixAngleLeft: 0
   _angle: 0
   _fixedAngle: 0
-  _rotationSpeed: 10
+  _rotationSpeed: 5
   _rotationFlySpeed: 6
   _moveDirection: {x: 0, y: 0, z: 0}
   _moveDirectionF: {x: 0, y: 0, z: 0}
