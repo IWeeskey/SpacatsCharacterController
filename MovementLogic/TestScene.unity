@@ -3706,9 +3706,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1156930172581387309, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2151694256189569261, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: m_Name
       value: CharacterParent_male
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626379890001166385, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3073328150029576634, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: _lookAtTarget
@@ -3752,6 +3760,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5372882852638904008, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448278833543989022, guid: d07316e44cc8f37409db80aebdd838e8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
