@@ -19,6 +19,8 @@ namespace Spacats.Input
         // private string _lastInputActions = "";
         // public string LastInputActions => _lastInputActions;
         public bool ControlCursorVisibility;
+        private bool _isLocked;
+        public bool IsLocked => _isLocked;
         
         [SerializeField] private CharacterInputData _characterInput;
         public CharacterInputData CharacterInput => _characterInput;
@@ -85,9 +87,22 @@ namespace Spacats.Input
         }
         #endregion
 
+        #region Lock
+        public void Lock()
+        {
+            _isLocked = true;
+        }
+
+        public void Unlock()
+        {
+            _isLocked = false;
+        }
+        #endregion
+
         #region CharacterInput
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             _characterInput.Movement = context.ReadValue<Vector2>();
             _characterInput.Movement.Normalize();
             MoveDirections closestDirection = MoveDirections.Idle;
@@ -113,6 +128,7 @@ namespace Spacats.Input
         
         public void OnAttack(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -129,6 +145,7 @@ namespace Spacats.Input
         
         public void OnSit(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:_characterInput.Crouching = true; break;
@@ -139,6 +156,7 @@ namespace Spacats.Input
         
         public void OnWalk(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:_characterInput.Walking = true; break;
@@ -149,6 +167,7 @@ namespace Spacats.Input
         
         public void OnJump(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:_characterInput.Jumping = true; break;
@@ -159,6 +178,7 @@ namespace Spacats.Input
         
         public void OnFly(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:_characterInput.Flying = !_characterInput.Flying; break;
@@ -168,6 +188,7 @@ namespace Spacats.Input
         
         public void OnSprint(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:_characterInput.Sprinting = true; break;
@@ -179,7 +200,8 @@ namespace Spacats.Input
         
         public void OnShowHideMouse(InputAction.CallbackContext context)
         {
-          
+            if (_isLocked) return;
+
             switch (context.phase)
             {
                 case InputActionPhase.Started:_characterInput.CursorVisible = !_characterInput.CursorVisible; break;
@@ -196,6 +218,7 @@ namespace Spacats.Input
 
         public void OnLookDelta(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             Vector2 value = context.ReadValue<Vector2>();
             
             value.x *= _sensitivityData.CharacterLookSensitivityX();
@@ -206,6 +229,7 @@ namespace Spacats.Input
         
         public void OnZoomDelta(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             Vector2 value = context.ReadValue<Vector2>();
             value.y *= _sensitivityData.CharacterZoomSensitivity();
             _characterInput.ZoomDelta = value.y;
@@ -238,6 +262,7 @@ namespace Spacats.Input
         
         public void OnGButton(InputAction.CallbackContext context)
         {
+            if (_isLocked) return;
             switch (context.phase)
             {
                 case InputActionPhase.Started: GButtonOnDown?.Invoke(); break;
