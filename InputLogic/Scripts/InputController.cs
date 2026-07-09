@@ -91,6 +91,7 @@ namespace Spacats.Input
         public void Lock()
         {
             _isLocked = true;
+            _characterInput.Reset();
         }
 
         public void Unlock()

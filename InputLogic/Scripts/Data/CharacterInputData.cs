@@ -34,6 +34,9 @@ namespace Spacats.Input
             Crouching = false;
             Flying = false;
             CursorVisible = true;
+            MoveType = MoveInputTypes.Idle;
+            MoveDirection = MoveDirections.Idle;
+            MoveDirectionsLockBack = MoveDirections.Idle;
         }
         
     }
