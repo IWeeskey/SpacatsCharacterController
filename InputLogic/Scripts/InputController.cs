@@ -88,10 +88,10 @@ namespace Spacats.Input
         #endregion
 
         #region Lock
-        public void Lock()
+        public void Lock(bool resetInput = true)
         {
             _isLocked = true;
-            _characterInput.Reset();
+            if (resetInput) _characterInput.Reset();
         }
 
         public void Unlock()
